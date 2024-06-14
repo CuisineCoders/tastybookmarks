@@ -1,0 +1,18 @@
+/* src/app/list/list.component.css */
+.list-container {
+    display: flex;
+    flex-direction: column;
+
+    .list-item {
+        display: flex;
+        align-items: center;
+        padding-bottom: 10px;
+        border-bottom: 1px solid lightgray;
+        margin-bottom: 10px;
+    }
+
+    .item-image {
+        width: 50px;
+        margin-right: 10px;
+    }
+}

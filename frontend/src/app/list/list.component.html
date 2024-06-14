@@ -1,0 +1,8 @@
+<div class="list-container">
+    @for (recipe of recipes; track $index) {
+    <div class="list-item">
+        <img [src]="recipe.imageUrl" alt="{{ recipe.title }}" class="item-image">
+        <span class="item-title">{{ recipe.title }}</span>
+    </div>
+    }
+</div>
