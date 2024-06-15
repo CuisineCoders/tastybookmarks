@@ -9,7 +9,7 @@ export const addRecipe = (req: Request, res: Response): void => {
         console.log('Invalid request body:', req.body);
         res.status(400).json({ message: 'Name and ingredients are required' });
     } else {
-        const newRecipe = { id: recipes.length + 1, name, ingredients };
+        const newRecipe = { id: `${recipes.length + 1}`, name, ingredients };
         recipes.push(newRecipe);
         console.log('Recipe added:', newRecipe);
         res.status(201).json(newRecipe);
@@ -23,7 +23,7 @@ export const getAllRecipes = (_req: Request, res: Response): void => {
 
 export const getRecipeById = (req: Request, res: Response): void => {
     const { id } = req.params;
-    const recipe = recipes.find((recipe) => recipe.id === Number(id));
+    const recipe = recipes.find((recipe) => recipe.id === id);
 
     if (recipe) {
         console.log('Get recipe by ID:', recipe);
@@ -36,7 +36,7 @@ export const getRecipeById = (req: Request, res: Response): void => {
 
 export const deleteRecipe = (req: Request, res: Response): void => {
     const { id } = req.params;
-    const index = recipes.findIndex((recipe) => recipe.id === Number(id));
+    const index = recipes.findIndex((recipe) => recipe.id === id);
     
     if (index !== -1) {
         const deletedRecipe = recipes.splice(index, 1)[0];

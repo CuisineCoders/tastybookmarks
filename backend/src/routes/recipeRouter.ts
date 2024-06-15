@@ -1,16 +1,14 @@
 import { Router, json } from 'express';
 import { addRecipe, getAllRecipes, getRecipeById, deleteRecipe } from '../controllers/recipeController';
 
-const router = Router();
+export const recipeRouter = Router();
 
-router.use(json());
+recipeRouter.use(json());
 
-router.route('/')
+recipeRouter.route('/')
     .post(addRecipe)
     .get(getAllRecipes);
 
-router.route('/:id')
+recipeRouter.route('/:id')
     .get(getRecipeById)
     .delete(deleteRecipe);
-
-export default router;

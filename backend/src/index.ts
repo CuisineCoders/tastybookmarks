@@ -1,11 +1,11 @@
 import 'dotenv/config';
 import express, { Application } from 'express';
-import recipeRoutes from './routes/recipeRoutes';
+import { recipeRouter } from './routes/recipeRouter';
 
 const app: Application = express();
 const PORT = process.env.PORT || 3000;
 
-app.use('/api/recipes', recipeRoutes);
+app.use('/api/recipes', recipeRouter);
 
 app.listen(PORT, () => {
     console.log(`Server is runnung at http://localhost:${PORT}`);
