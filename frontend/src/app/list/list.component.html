@@ -1,8 +1,13 @@
 <div class="list-container">
     @for (recipe of recipes; track $index) {
-    <div class="list-item">
-        <img [src]="recipe.imageUrl" alt="{{ recipe.title }}" class="item-image">
-        <span class="item-title">{{ recipe.title }}</span>
-    </div>
+    @if ($index > 0) {
+    <mat-divider></mat-divider>
+    }
+    <mat-card class="list-item">
+        <mat-card-title-group>
+            <img mat-card-sm-image [src]="recipe.imageUrl" class="item-image">
+            <mat-card-title>{{recipe.title}}</mat-card-title>
+        </mat-card-title-group>
+    </mat-card>
     }
 </div>

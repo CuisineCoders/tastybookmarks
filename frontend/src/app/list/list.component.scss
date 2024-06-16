@@ -1,18 +1,26 @@
 /* src/app/list/list.component.css */
 .list-container {
-    display: flex;
-    flex-direction: column;
+    // display: flex;
+    // flex-direction: column;
 
     .list-item {
-        display: flex;
-        align-items: center;
-        padding-bottom: 10px;
-        border-bottom: 1px solid lightgray;
-        margin-bottom: 10px;
+        // display: flex;
+        // align-items: center;
+        padding: 10px;
+        // margin-bottom: 10px;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+        background-color: transparent;
+        // border-bottom: 1px solid lightgray;
     }
 
     .item-image {
-        width: 50px;
-        margin-right: 10px;
+        // width: 50px;
+        // margin-right: 10px;
+    }
+
+    .mat-divider {
+        // margin: 10px 0;
     }
 }
