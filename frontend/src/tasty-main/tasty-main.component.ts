@@ -2,12 +2,12 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-root',
+  selector: 'tasty-main',
   standalone: true,
   imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
+  templateUrl: './tasty-main.component.html',
+  styleUrl: './tasty-main.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent {
+export class TastyMainComponent {
 }

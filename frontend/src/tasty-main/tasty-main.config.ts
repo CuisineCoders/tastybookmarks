@@ -1,8 +1,9 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
+import { routes } from './tasty-main.routes';
 
-import { routes } from './app.routes';
 
-export const appConfig: ApplicationConfig = {
+
+export const tastyMainConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes)]
 };
