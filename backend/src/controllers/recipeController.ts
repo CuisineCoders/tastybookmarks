@@ -1,18 +1,50 @@
 import { Request, Response } from 'express';
+import { validateURL, fetchHTMLContent, extractRecipeFromHTML } from './helpers';
+import { Recipe } from '../model/recipe';
 
-const recipes: any[] = [];
+const recipes: Recipe[] = [];
 
-export const addRecipe = (req: Request, res: Response): void => {
-    const { name, ingredients } = req.body;
+export const addRecipe = async (req: Request, res: Response): Promise<void> => {
+    const { url } = req.body;
 
-    if (!name || !ingredients) {
-        console.log('Invalid request body:', req.body);
-        res.status(400).json({ message: 'Name and ingredients are required' });
-    } else {
-        const newRecipe = { id: `${recipes.length + 1}`, name, ingredients };
+    if (!url) {
+        console.log('Error: URL is required');
+        res.status(400).json({ error: 'URL is required' });
+        return;
+    }
+
+    if (!validateURL(url)) {
+        console.log('Error: Invalid URL');
+        res.status(400).json({ error: 'Invalid URL' });
+        return;
+    }
+
+    try {
+        console.log(`Fetching HTML content from URL: ${url}`);
+        const html = await fetchHTMLContent(url);
+        console.log('Successfully fetched HTML content');
+
+        const recipeData = extractRecipeFromHTML(html);
+
+        if (!recipeData) {
+            console.log('Error: No valid JSON+LD Recipe found in HTML content');
+            res.status(404).json({ error: 'No valid JSON+LD Recipe found' });
+            return;
+        }
+
+        const newRecipe: Recipe = {
+            id: `${recipes.length + 1}`,
+            name: recipeData.name,
+            ingredients: recipeData.recipeIngredient,
+            data: recipeData
+        };
         recipes.push(newRecipe);
         console.log('Recipe added:', newRecipe);
         res.status(201).json(newRecipe);
+
+    } catch (error) {
+        console.log('Error: Failed to fetch or parse the URL', error);
+        res.status(500).json({ message: 'Failed to fetch or parse the URL', error });
     }
 };
 
