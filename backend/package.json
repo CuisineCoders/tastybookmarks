@@ -10,7 +10,7 @@
     "start": "node dist/index.js",
     "build": "tsc",
     "dev": "tsx watch src/index.ts",
-    "test": "jest --detectOpenHandles"
+    "test": "jest"
   },
   "author": "CuisineCoders",
   "license": "ISC",

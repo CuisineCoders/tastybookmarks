@@ -23,8 +23,6 @@ export const extractRecipeFromHTML = (html: string): any => {
 
     for (let script of scripts) {
         try {
-            console.log(script);
-            
             const data = JSON.parse(script.textContent);
             if (data['@type'] === 'Recipe') {
                 return data;

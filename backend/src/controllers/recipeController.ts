@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { validateURL, fetchHTMLContent, extractRecipeFromHTML } from './helpers';
 import { Recipe } from '../model/recipe';
 
-const recipes: Recipe[] = [];
+let recipes: Recipe[] = [];
 
 export const addRecipe = async (req: Request, res: Response): Promise<void> => {
     const { url } = req.body;
@@ -79,3 +79,8 @@ export const deleteRecipe = (req: Request, res: Response): void => {
         res.status(404).json({ message: 'Recipe not found' });
     }
 };
+
+export const deleteAllRecipes = (req: Request, res: Response): void => {
+    recipes = [];
+    res.status(200).json({ message: 'Recipe list deleted'});
+}
