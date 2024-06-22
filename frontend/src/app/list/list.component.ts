@@ -15,10 +15,12 @@ import { RecipeItem } from '../models/recipe-item.interface';
 })
 export class ListComponent {
   recipes: RecipeItem[] = [
-    { title: 'Recipe 1', imageUrl: './dummy-image-square-300x300.jpg' },
-    { title: 'Recipe 2', imageUrl: './dummy-image-square-300x300.jpg' },
-    { title: 'Recipe 3', imageUrl: './dummy-image-square-300x300.jpg' },
-    { title: 'Recipe 3', imageUrl: './dummy-image-square-300x300.jpg' },
+    { title: 'Vegetarische Tacos', imageUrl: './dummy-image-square-300x300.jpg' },
+    { title: 'Süßkartoffel-Curry mit Kokosmilch', imageUrl: './dummy-image-square-300x300.jpg' },
+    { title: 'Schokoladenmousse mit Himbeeren', imageUrl: './dummy-image-square-300x300.jpg' },
+    { title: 'Gemüse-Tempura', imageUrl: './dummy-image-square-300x300.jpg' },
+    { title: 'Mango-Chia-Pudding', imageUrl: './dummy-image-square-300x300.jpg' },
+    { title: 'Zucchini-Fritters', imageUrl: './dummy-image-square-300x300.jpg' }
   ];
 
 }

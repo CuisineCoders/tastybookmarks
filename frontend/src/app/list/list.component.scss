@@ -1,20 +1,31 @@
-/* src/app/list/list.component.css */
+@import '../../scss/bootstrap-config';
+
 .list-container {
 
     .list-item {
-        display: flex;
-        align-items: center;
-        padding: 10px;
-        border: none;
-        border-radius: 0;
-        box-shadow: none;
-        background-color: transparent;
-        border-bottom: 1px solid lightgray;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+            background-color: $light;
+        }
+
+        @include media-breakpoint-down(sm) {
+            border-bottom: 1px solid $light-border-subtle;
+        }
     }
 
     .item-image {
-        width: 50px;
-        margin-right: 10px;
+        @include media-breakpoint-down(sm) {
+            width: 55px;
+            margin-right: 15px;
+        }
+    }
+
+    .item-title {
+        .item-title-link {
+            text-decoration: none;
+            color: initial;
+        }
     }
 
 }

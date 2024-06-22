@@ -1,8 +1,15 @@
-<div class="list-container">
+<div class="list-container row">
     @for (recipe of recipes; track $index) {
-    <div class="list-item">
-        <img [src]="recipe.imageUrl" class="item-image">
-        <span class="item-title">{{recipe.title}}</span>
+    <div
+        class="list-item col-sm-6 col-md-4 col-lg-3 d-flex position-relative flex-row flex-sm-column py-2 py-sm-3 align-items-center align-items-sm-start">
+        <div class="item-image-container">
+            <img [src]="recipe.imageUrl" class="item-image img-fluid">
+        </div>
+        <div class="item-title py-2">
+            <a href="#" class="item-title-link stretched-link">
+                {{recipe.title}}
+            </a>
+        </div>
     </div>
     }
 </div>
