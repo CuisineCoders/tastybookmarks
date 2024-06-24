@@ -1,7 +1,7 @@
-import { bootstrapApplication } from '@angular/platform-browser';
-import {TastyMainComponent} from "./tasty-main/tasty-main.component";
-import {tastyMainConfig} from "./tasty-main/tasty-main.config";
+import {bootstrapApplication} from '@angular/platform-browser';
+import {TastyComponent} from "./tasty-main/tasty.component";
+import {tastyConfig} from "./tasty-main/tasty.config";
 
 
-bootstrapApplication(TastyMainComponent, tastyMainConfig)
+bootstrapApplication(TastyComponent, tastyConfig)
   .catch((err) => console.error(err));
