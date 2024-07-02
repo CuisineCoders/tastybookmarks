@@ -3,15 +3,9 @@ import request from 'supertest';
 import { app } from '../src/app';
 
 
-beforeAll(async () => {
-    jest.spyOn(console, 'log').mockImplementation(() => {}); // Turn off console.log outputs
-    await startServer();
-});
+beforeAll(async () => await startServer());
 
-afterAll(async () => {
-    (console.log as jest.Mock).mockRestore(); // Turn on console.log outputs
-    await stopServer();
-});
+afterAll(async () => await stopServer());
 
 beforeEach(async () => {
     await request(app).delete('/api/recipes').expect(200);
