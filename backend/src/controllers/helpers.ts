@@ -1,6 +1,6 @@
 import { HTMLElement, parse } from 'node-html-parser';
 
-export const validateURL = (url: string): boolean => {
+export function validateURL(url: string): boolean {
     try {
         new URL(url);
         return true;
@@ -9,7 +9,7 @@ export const validateURL = (url: string): boolean => {
     }
 };
 
-export const fetchHTMLContent = async (url: string): Promise<string> => {
+export async function fetchHTMLContent(url: string): Promise<string> {
     const response = await fetch(url);
     if (!response.ok) {
         throw new Error(`Network response was not ok, status ${response.status}`);
@@ -17,19 +17,13 @@ export const fetchHTMLContent = async (url: string): Promise<string> => {
     return response.text();
 };
 
-export const extractRecipeFromHTML = (html: string): any => {
+export function extractRecipeFromHTML(html: string): any {
     const document: HTMLElement = parse(html);
     const scripts: HTMLElement[] = document.querySelectorAll('script[type="application/ld+json"]');
 
-    for (let script of scripts) {
-        try {
-            const data = JSON.parse(script.textContent);
-            if (data['@type'] === 'Recipe') {
-                return data;
-            }
-        } catch (error) {
-            console.error('Error parsing JSON-LD script:', error);
-        }
-    }
-    return null;
+    const jsonDataArray = scripts.map((script) => JSON.parse(script.textContent))
+        .filter((jsonData) => jsonData.hasOwnProperty('@type'))
+        .filter((jsonData) => jsonData['@type'] === 'Recipe');
+
+    return jsonDataArray.shift();
 };
