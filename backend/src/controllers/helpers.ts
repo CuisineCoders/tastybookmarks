@@ -1,13 +1,17 @@
 import { HTMLElement, parse } from 'node-html-parser';
 
-export function validateURL(url: string): boolean {
+
+export function validate(url: string): string | null {
+    if (!url) {
+        return 'URL is required';
+    }
     try {
         new URL(url);
-        return true;
     } catch {
-        return false;
+        return 'Invalid URL';
     }
-};
+    return null; // URL is valid
+}
 
 export async function fetchHTMLContent(url: string): Promise<string> {
     const response = await fetch(url);
@@ -19,7 +23,7 @@ export async function fetchHTMLContent(url: string): Promise<string> {
 
 export function extractRecipeFromHTML(html: string): any {
     const document: HTMLElement = parse(html);
-    const scripts: HTMLElement[] = document.querySelectorAll('script[type="application/ld+json"]');
+    const scripts: Array<HTMLElement> = document.querySelectorAll('script[type="application/ld+json"]');
 
     const jsonDataArray = scripts.map((script) => JSON.parse(script.textContent))
         .filter((jsonData) => jsonData.hasOwnProperty('@type'))

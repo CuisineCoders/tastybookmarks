@@ -1,19 +1,15 @@
 import { Request, Response } from 'express';
-import { validateURL, fetchHTMLContent, extractRecipeFromHTML } from './helpers';
+import { validate, fetchHTMLContent, extractRecipeFromHTML } from './helpers';
 import { Recipe } from '../model/recipe';
 
 let recipes: Recipe[] = [];
 
-export const addRecipe = async (req: Request, res: Response): Promise<void> => {
+export async function addRecipe(req: Request, res: Response): Promise<void> {
     const { url } = req.body;
 
-    if (!url) {
-        res.status(400).json({ error: 'URL is required' });
-        return;
-    }
-
-    if (!validateURL(url)) {
-        res.status(400).json({ error: 'Invalid URL' });
+    const validationError = validate(url);
+    if (validationError) {
+        res.status(400).json({ error: validationError });
         return;
     }
 
@@ -40,11 +36,11 @@ export const addRecipe = async (req: Request, res: Response): Promise<void> => {
     }
 };
 
-export const getAllRecipes = (_req: Request, res: Response): void => {
+export function getAllRecipes(_req: Request, res: Response): void {
     res.status(200).json(recipes);
 };
 
-export const getRecipeById = (req: Request, res: Response): void => {
+export function getRecipeById(req: Request, res: Response): void {
     const { id } = req.params;
     const recipe = recipes.find((recipe) => recipe.id === id);
 
@@ -55,7 +51,7 @@ export const getRecipeById = (req: Request, res: Response): void => {
     }
 };
 
-export const deleteRecipe = (req: Request, res: Response): void => {
+export function deleteRecipe(req: Request, res: Response): void {
     const { id } = req.params;
     const index = recipes.findIndex((recipe) => recipe.id === id);
 
@@ -67,7 +63,7 @@ export const deleteRecipe = (req: Request, res: Response): void => {
     }
 };
 
-export const deleteAllRecipes = (req: Request, res: Response): void => {
+export function deleteAllRecipes(_req: Request, res: Response): void {
     recipes = [];
     res.status(200).json({ message: 'Recipe list deleted' });
 }
