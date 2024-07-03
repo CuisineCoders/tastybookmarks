@@ -1,5 +1,5 @@
 import { Router, json } from 'express';
-import { addRecipe, getAllRecipes, getRecipeById, deleteRecipe } from '../controllers/recipeController';
+import { addRecipe, getAllRecipes, getRecipeById, deleteRecipe, deleteAllRecipes } from '../controllers/recipeController';
 
 export const recipeRouter = Router();
 
@@ -7,7 +7,8 @@ recipeRouter.use(json());
 
 recipeRouter.route('/')
     .post(addRecipe)
-    .get(getAllRecipes);
+    .get(getAllRecipes)
+    .delete(deleteAllRecipes);
 
 recipeRouter.route('/:id')
     .get(getRecipeById)
