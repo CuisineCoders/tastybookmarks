@@ -33,6 +33,26 @@ describe('API endpoints', () => {
 
         expect(response.body.name).toBe('Penne-Tomaten-Hackfleisch Auflauf');
     });
+    
+    it('should return error for an invalid URL', async () => {
+        const response = await request(app)
+            .post('/api/recipes')
+            .send({ url: 'invalid-url' })  // Invalid URL
+            .expect('Content-Type', /json/)
+            .expect(400);
+
+        expect(response.body.error).toBe('Invalid URL');
+    });
+
+    it('should return error if URL is missing', async () => {
+        const response = await request(app)
+            .post('/api/recipes')
+            .send()  // Sends empty body
+            .expect('Content-Type', /json/)
+            .expect(400);
+
+        expect(response.body.error).toBe('URL is required');
+    });
 
     it('should retrieve recipes', async () => {
         const response = await request(app)
