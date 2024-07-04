@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../services/api.service';
@@ -14,7 +14,7 @@ export class RecipeTesterComponent {
   recipeId: string = '';
   recipeUrl: string = '';
 
-  constructor(private apiService: ApiService) { }
+  private apiService: ApiService = inject(ApiService);
 
   getAllRecipes(): void {
     this.apiService.getAllRecipes().subscribe({

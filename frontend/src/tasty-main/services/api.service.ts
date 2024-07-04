@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -10,7 +10,7 @@ import { Recipe } from '../model/recipe.model';
 export class ApiService {
     private baseUrl = 'http://localhost:3000/api/recipes';
 
-    constructor(private http: HttpClient) { }
+    private http: HttpClient = inject(HttpClient);
 
     getAllRecipes(): Observable<Recipe[]> {
         return this.http.get<Recipe[]>(this.baseUrl);
