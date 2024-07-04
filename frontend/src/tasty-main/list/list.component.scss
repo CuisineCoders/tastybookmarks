@@ -3,25 +3,40 @@
 .list-container {
 
     .list-item {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid $light-border-subtle;
         transition: background-color 0.3s ease;
+
+        @include media-breakpoint-up(sm) {
+            flex-direction: column;
+            align-items: start;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: none;
+        }
 
         &:hover {
             background-color: $light;
-        }
-
-        @include media-breakpoint-down(sm) {
-            border-bottom: 1px solid $light-border-subtle;
         }
     }
 
     .item-image {
         @include media-breakpoint-down(sm) {
+            min-width: 55px;
             width: 55px;
             margin-right: 15px;
         }
     }
 
     .item-title {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+
         .item-title-link {
             text-decoration: none;
             color: initial;
