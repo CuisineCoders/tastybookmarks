@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ApiService } from '../services/api.service';
+import { RecipeApiService } from '../../services/recipe-api.service';
 
 @Component({
   selector: 'app-recipe-tester',
@@ -14,7 +14,7 @@ export class RecipeTesterComponent {
   recipeId: string = '';
   recipeUrl: string = '';
 
-  private apiService: ApiService = inject(ApiService);
+  private apiService: RecipeApiService = inject(RecipeApiService);
 
   getAllRecipes(): void {
     this.apiService.getAllRecipes().subscribe({

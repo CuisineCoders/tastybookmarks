@@ -2,12 +2,12 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { Recipe } from '../model/recipe.model';
+import { Recipe } from '../models/recipe.model';
 
 @Injectable({
     providedIn: 'root'
 })
-export class ApiService {
+export class RecipeApiService {
     private baseUrl = 'http://localhost:3000/api/recipes';
 
     private http: HttpClient = inject(HttpClient);
