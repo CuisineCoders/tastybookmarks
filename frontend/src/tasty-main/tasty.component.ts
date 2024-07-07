@@ -1,11 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ListComponent } from './list/list.component';
 
 @Component({
   selector: 'tasty-root',
   standalone: true,
-  imports: [RouterOutlet, ListComponent],
+  imports: [RouterOutlet],
   templateUrl: './tasty.component.html',
   styleUrl: './tasty.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
