@@ -25,7 +25,7 @@ export class RecipeTesterComponent {
 
   getRecipeById(): void {
     if (!this.recipeId) return;
-    this.apiService.getRecipeById(this.recipeId).subscribe({
+    this.apiService.getRecipe(this.recipeId).subscribe({
       next: (recipe) => console.log('Recipe by ID:', recipe),
       error: (error) => console.error('Error fetching recipe by ID:', error)
     });

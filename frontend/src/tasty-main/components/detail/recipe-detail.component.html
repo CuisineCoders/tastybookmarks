@@ -1,0 +1,34 @@
+@if (_recipe$ | async; as recipe) {
+<h1>{{recipe.name}}</h1>
+
+@if (recipe.imgUrl) {
+<img [src]="recipe.imgUrl">
+} @else {
+<img src="dummy-image-square-300x300.jpg">
+}
+
+<div class="info">
+    <div class="instructions">
+        <h3>Instructions:</h3>
+    
+        <ul>
+            @for (step of recipe.instructions; track $index) {
+            <li>{{step}}</li>
+            }
+        </ul>
+    </div>
+    
+    <div class="ingredients">
+        <h3>Ingredients:</h3>
+    
+        <ul>
+            @for (ingredient of recipe.ingredients; track $index) {
+            <li>{{ingredient.amount.value}} {{ ingredient.amount.unit }} {{ ingredient.name }}</li>
+            }
+        </ul>
+    </div>
+</div>
+
+} @else {
+Something went wrong!
+}
