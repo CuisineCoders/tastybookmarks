@@ -4,6 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { AddRecipeDialogComponent } from './components/add-recipe-dialog/add-recipe-dialog.component';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'tasty-root',
@@ -16,13 +17,10 @@ import { AddRecipeDialogComponent } from './components/add-recipe-dialog/add-rec
 export class TastyComponent {
   readonly dialog = inject(MatDialog);
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(AddRecipeDialogComponent, { width: '450px' });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        console.log('URL:', result);
-      }
-    });
+  public openDialog(): void {
+    this.dialog.open<AddRecipeDialogComponent, null, string | undefined>(AddRecipeDialogComponent, { width: '450px' })
+      .afterClosed()
+      .pipe(filter(event => event !== undefined))
+      .subscribe(result => console.log('URL:', result));
   }
 }

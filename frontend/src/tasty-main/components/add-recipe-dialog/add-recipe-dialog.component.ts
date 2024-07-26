@@ -17,8 +17,4 @@ import { MatIconModule } from '@angular/material/icon';
 export class AddRecipeDialogComponent {
   readonly dialogRef = inject(MatDialogRef<AddRecipeDialogComponent>);
   url: string | undefined;
-
-  onSend(): void {
-    this.dialogRef.close(this.url);
-  }
 }
