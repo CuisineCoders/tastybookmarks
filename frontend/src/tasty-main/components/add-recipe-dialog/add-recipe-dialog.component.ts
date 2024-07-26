@@ -7,15 +7,15 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'tasty-dialog-add-recipe',
+  selector: 'tasty-add-recipe-dialog',
   standalone: true,
   imports: [FormsModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatDialogModule, MatIconModule],
-  templateUrl: './dialog-add.component.html',
-  styleUrl: './dialog-add.component.scss',
+  templateUrl: './add-recipe-dialog.component.html',
+  styleUrl: './add-recipe-dialog.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DialogAddComponent {
-  readonly dialogRef = inject(MatDialogRef<DialogAddComponent>);
+export class AddRecipeDialogComponent {
+  readonly dialogRef = inject(MatDialogRef<AddRecipeDialogComponent>);
   url: string | undefined;
 
   onSend(): void {

@@ -3,7 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogAddComponent } from './components/dialog-add/dialog-add.component';
+import { AddRecipeDialogComponent } from './components/add-recipe-dialog/add-recipe-dialog.component';
 
 @Component({
   selector: 'tasty-root',
@@ -17,7 +17,7 @@ export class TastyComponent {
   readonly dialog = inject(MatDialog);
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(DialogAddComponent, { width: '450px' });
+    const dialogRef = this.dialog.open(AddRecipeDialogComponent, { width: '450px' });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
