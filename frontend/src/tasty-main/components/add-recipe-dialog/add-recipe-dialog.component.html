@@ -1,12 +1,11 @@
 <h1 mat-dialog-title>Rezept hinzufügen</h1>
 <div mat-dialog-content>
-    <mat-form-field class="tasty-add-recipe-dialog-input">
-        <mat-icon matPrefix>language</mat-icon>
+    <mat-form-field appearance="outline" class="tasty-add-recipe-dialog-input">
         <mat-label>URL</mat-label>
         <input matInput [(ngModel)]="url">
     </mat-form-field>
 </div>
 <div mat-dialog-actions>
-    <button mat-button mat-dialog-close>Abbrechen</button>
-    <button mat-flat-button (click)="onSend()">Hinzufügen</button>
+    <button mat-button [mat-dialog-close]="undefined">Abbrechen</button>
+    <button mat-flat-button [disabled]="!url" [mat-dialog-close]="this.url">Hinzufügen</button>
 </div>
