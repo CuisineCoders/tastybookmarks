@@ -7,20 +7,17 @@
 <img src="dummy-image-square-300x300.jpg">
 }
 
-<div class="info">
-    <div class="instructions">
+<div class="row">
+    <div class="col-md-8">
         <h3>Instructions:</h3>
-    
         <ul>
             @for (step of recipe.instructions; track $index) {
             <li>{{step}}</li>
             }
         </ul>
     </div>
-    
-    <div class="ingredients">
+    <div class="col-md-4">
         <h3>Ingredients:</h3>
-    
         <ul>
             @for (ingredient of recipe.ingredients; track $index) {
             <li>{{ingredient.amount.value}} {{ ingredient.amount.unit }} {{ ingredient.name }}</li>

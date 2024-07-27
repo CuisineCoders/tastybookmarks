@@ -12,11 +12,7 @@ export class RecipeApiService {
 
     private http: HttpClient = inject(HttpClient);
 
-    public getAllRecipeListEntries(): Observable<Array<RecipeListEntry>> {
-        return this.http.get<Array<RecipeListEntry>>(`${this.baseUrl}/listEntries`);
-    }
-
-    public getAllRecipes(): Observable<Recipe[]> {
+    public getAllRecipes(): Observable<Array<RecipeListEntry>> {
         return this.http.get<Recipe[]>(this.baseUrl);
     }
 
@@ -41,7 +37,7 @@ export class RecipeApiService {
 
 @Injectable()
 export class DummyRecipeApiService {
-    public getAllRecipeListEntries(): Observable<Array<RecipeListEntry>> {
+    public getAllRecipes(): Observable<Array<RecipeListEntry>> {
         return of([
             { id: '1', name: 'Vegetarische Tacos', },
             { id: '2', name: 'Süßkartoffel-Curry mit Kokosmilch', },
@@ -50,10 +46,6 @@ export class DummyRecipeApiService {
             { id: '5', name: 'Mango-Chia-Pudding', },
             { id: '6', name: 'Zucchini-Fritters', }
         ]);
-    }
-
-    public getAllRecipes(): Observable<Recipe[]> {
-        throw new Error('Method not implemented.');
     }
 
     public getRecipe(id: string): Observable<Recipe> {
