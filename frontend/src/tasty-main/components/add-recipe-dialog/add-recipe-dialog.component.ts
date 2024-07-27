@@ -15,6 +15,5 @@ import { MatIconModule } from '@angular/material/icon';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddRecipeDialogComponent {
-  readonly dialogRef = inject(MatDialogRef<AddRecipeDialogComponent>);
-  url: string | undefined;
+protected url: string | undefined;
 }
