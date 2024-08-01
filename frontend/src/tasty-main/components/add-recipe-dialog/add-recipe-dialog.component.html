@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>Rezept hinzufügen</h1>
+<div mat-dialog-content>
+    <mat-form-field appearance="outline" class="tasty-add-recipe-dialog-input">
+        <mat-label>URL</mat-label>
+        <input type="url" matInput [formControl]="urlFormControl">
+        @if (urlFormControl.hasError('pattern') && !urlFormControl.hasError('required')) {
+        <mat-error>Bitte gib eine gültige URL ein</mat-error>
+        }
+        @if (urlFormControl.hasError('required')) {
+        <mat-error>Gib bitte eine Rezept-Webadresse ein</mat-error>
+        }
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="undefined">Abbrechen</button>
+    <button mat-flat-button [disabled]="!urlFormControl.valid"
+        [mat-dialog-close]="urlFormControl.value">Hinzufügen</button>
+</div>
