@@ -1,3 +1,5 @@
+@import '../styles/bootstrap-config';
+
 .tasty-main-bar {
   background: #d5ebef; // TODO: It's ment to be changed when we know how the app should look.
 
@@ -5,5 +7,23 @@
     width: 45px;
     margin-right: 12px;
     border-radius: 7px;
+  }
+}
+
+.tasty-fab-container {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 10;
+  > div {
+    display: flex;
+    justify-content: flex-end;
+    > button {
+      margin-bottom: 25px;
+      margin-right: 25px;
+      @include media-breakpoint-up(sm) {
+        margin-right: 0;
+      }
+    }
   }
 }
