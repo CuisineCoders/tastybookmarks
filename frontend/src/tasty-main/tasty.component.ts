@@ -1,15 +1,16 @@
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
-import { AddRecipeDialogComponent } from './components/add-recipe-dialog/add-recipe-dialog.component';
+import { MatIconModule } from '@angular/material/icon';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { AddRecipeDialogComponent } from './components/add-recipe-dialog/add-recipe-dialog.component';
 
 @Component({
   selector: 'tasty-root',
   standalone: true,
-  imports: [RouterOutlet, MatButtonModule, MatIconModule],
+  imports: [CommonModule, RouterOutlet, RouterLink, MatButtonModule, MatIconModule],
   templateUrl: './tasty.component.html',
   styleUrl: './tasty.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
