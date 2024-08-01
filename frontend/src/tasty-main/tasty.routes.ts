@@ -6,6 +6,6 @@ import { RecipeDetailComponent } from './components/recipe-detail/recipe-detail.
 export const routes: Routes = [
     { path: 'recipes', component: RecipeListComponent },
     { path: 'recipe-tester', component: RecipeTesterComponent },
-    { path: 'recipes/:recipeName/:recipeId', component: RecipeDetailComponent },
+    { path: 'recipes/:recipeId/:recipeName', component: RecipeDetailComponent },
     { path: '', redirectTo: '/recipes', pathMatch: 'full'},
 ];

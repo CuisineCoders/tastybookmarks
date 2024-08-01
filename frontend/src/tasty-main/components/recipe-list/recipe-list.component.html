@@ -9,7 +9,7 @@
             }
         </div>
         <div class="item-title">
-            <a href="#" [routerLink]="['/recipes', recipe.name | kebabCase, recipe.id]"
+            <a href="#" [routerLink]="['/recipes', recipe.id, recipe.name | kebabCase]"
                 class="item-title-link stretched-link">
                 {{recipe.name}}
             </a>
