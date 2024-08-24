@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { validate, fetchHTMLContent, extractRecipeFromHTML } from './helpers';
+import { validate, fetchHTMLContent, extractRecipeFromHTML, parseRecipe } from './helpers';
 import { Recipe } from '../model/recipe';
 
 let recipes: Recipe[] = [];
@@ -22,12 +22,7 @@ export async function addRecipe(req: Request, res: Response): Promise<void> {
             return;
         }
 
-        const newRecipe: Recipe = {
-            id: `${recipes.length + 1}`,
-            name: recipeData.name,
-            ingredients: recipeData.recipeIngredient,
-            data: recipeData
-        };
+        const newRecipe = parseRecipe(recipeData, recipes.length, url);
         recipes.push(newRecipe);
         res.status(201).json(newRecipe);
 
