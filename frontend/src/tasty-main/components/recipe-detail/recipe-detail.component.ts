@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, input, OnInit } from '@angular/core';
 import { DummyRecipeApiService, RecipeApiService } from '../../services/recipe-api.service';
-import { Recipe } from '../../models/recipe';
+import { Recipe } from '../../model/recipe';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 
