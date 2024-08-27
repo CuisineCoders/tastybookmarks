@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
-import { validate, fetchHTMLContent, extractRecipeFromHTML, parseRecipe } from './helpers';
+import { validate, fetchHTMLContent, extractRecipeFromHTML } from './helpers';
+import { parseRecipe } from './parser';
 import { Recipe } from '../model/recipe';
 
 let recipes: Recipe[] = [];
@@ -27,7 +28,7 @@ export async function addRecipe(req: Request, res: Response): Promise<void> {
         res.status(201).json(newRecipe);
 
     } catch (error) {
-        res.status(500).json({ message: 'Failed to fetch or parse the URL', error });
+        res.status(500).json({ message: 'Failed to fetch or parse the URL', error: (error as Error).message });
     }
 };
 

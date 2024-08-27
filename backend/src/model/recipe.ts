@@ -7,10 +7,10 @@ export interface NutritionInformation {
 }
 
 export interface VideoObject {
-    name?: string;
+    name: string;
+    contentUrl: string;
     description?: string;
     thumbnailUrl?: string;
-    contentUrl?: string;
     embedUrl?: string;
     uploadDate?: string;
 }
@@ -19,16 +19,16 @@ export interface Recipe {
     id: string;
     url: string;
     name: string;
-    description: string;
-    image: string;
-    keywords: string[];
-    prepTime: string;
-    cookTime?: string | null;
-    totalTime: string;
-    recipeCategory: string;
-    recipeIngredient: string[];
-    recipeInstructions: string[];
-    recipeYield: number;
-    nutrition?: NutritionInformation | null;
-    video?: VideoObject | null;
+    ingredients: Array<string>;
+    instructions: Array<Array<string>>;
+    description?: string;
+    image?: string;
+    keywords?: Array<string>;
+    prepTime?: string;
+    cookTime?: string;
+    totalTime?: string;
+    category?: string;
+    servingSize?: number;
+    nutrition?: NutritionInformation;
+    video?: VideoObject;
 };
