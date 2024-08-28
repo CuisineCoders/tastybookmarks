@@ -7,7 +7,7 @@ export interface NutritionInformation {
 }
 
 export interface VideoObject {
-  name?: string;
+  name: string;
   description?: string;
   thumbnailUrl?: string;
   contentUrl: string;
@@ -28,7 +28,7 @@ export interface Recipe {
   category?: string;
   ingredient: Array<string>;
   instructions: Array<Array<string>>;
-  servings: number
+  servingSize: number
   nutrition?: NutritionInformation;
   video?: VideoObject;
 }

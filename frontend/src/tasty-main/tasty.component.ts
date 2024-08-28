@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { AddRecipeDialogComponent } from './components/add-recipe-dialog/add-recipe-dialog.component';
+import { AddRecipeDialogComponent } from './components';
 
 @Component({
   selector: 'tasty-root',

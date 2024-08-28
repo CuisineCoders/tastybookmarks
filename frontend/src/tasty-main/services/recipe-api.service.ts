@@ -2,7 +2,7 @@ import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 
-import {Recipe, RecipePreview} from '../model/recipe';
+import {Recipe} from '../model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +12,8 @@ export class RecipeApiService {
 
   private http: HttpClient = inject(HttpClient);
 
-  public getAllRecipes(): Observable<Array<RecipePreview>> {
-    return this.http.get<Array<RecipePreview>>(this.baseUrl);
+  public getAllRecipes(): Observable<Array<Recipe>> {
+    return this.http.get<Array<Recipe>>(this.baseUrl);
   }
 
   public getRecipe(id: string): Observable<Recipe> {
@@ -37,8 +37,8 @@ export class RecipeApiService {
 
 @Injectable()
 export class DummyRecipeApiService {
-  public getAllRecipes(): Observable<Array<RecipePreview>> {
-    return of(MockRecipes.map(({id, name, imageUrl}) => ({id, name, imageUrl})));
+  public getAllRecipes(): Observable<Array<Recipe>> {
+    return of(MockRecipes);
   }
 
   public getRecipe(id: string): Observable<Recipe> {
@@ -78,13 +78,13 @@ const MockRecipes = [
       "2 cloves garlic",
       "Salt and pepper"
     ],
-    instructions: [
+    instructions: [[
       "Cook spaghetti according to package instructions.",
       "Fry pancetta with garlic until crispy.",
       "Beat eggs and mix with Parmesan.",
       "Combine hot pasta with pancetta, remove from heat, then stir in egg mixture.",
       "Serve immediately."
-    ],
+    ]],
     servingSize: 4,
     nutrition: {
       calories: "600 kcal",
@@ -114,11 +114,14 @@ const MockRecipes = [
       "Salt and pepper"
     ],
     instructions: [
-      "Grill chicken breasts and slice them.",
-      "Chop vegetables and mix with salad greens.",
-      "Top with grilled chicken and dress with olive oil and lemon juice.",
-      "Season with salt and pepper."
-    ],
+      [
+        "Grill chicken breasts and slice them.",
+        "Chop vegetables and mix with salad greens.",
+      ],
+      [
+        "Top with grilled chicken and dress with olive oil and lemon juice.",
+        "Season with salt and pepper."
+      ]],
     servingSize: 2
   },
   {
@@ -140,13 +143,13 @@ const MockRecipes = [
       "2 cloves garlic",
       "1 teaspoon ginger"
     ],
-    instructions: [
+    instructions: [[
       "Chop vegetables into bite-sized pieces.",
       "Heat sesame oil in a pan and sauté garlic and ginger.",
       "Add vegetables and stir-fry until tender-crisp.",
       "Add soy sauce and cook for another minute.",
       "Serve hot."
-    ],
+    ]],
     servingSize: 4
   },
   {
@@ -172,13 +175,13 @@ const MockRecipes = [
       "2 teaspoons vanilla extract",
       "120ml boiling water"
     ],
-    instructions: [
+    instructions: [[
       "Preheat oven to 180°C (350°F).",
       "Mix dry ingredients in one bowl and wet ingredients in another.",
       "Combine both mixtures and add boiling water.",
       "Pour into a greased cake pan and bake for 30-35 minutes.",
       "Let cool before frosting."
-    ],
+    ]],
     servingSize: 8
   },
   {
@@ -200,12 +203,12 @@ const MockRecipes = [
       "Grated cheese",
       "Sour cream"
     ],
-    instructions: [
+    instructions: [[
       "Cook ground beef with taco seasoning.",
       "Warm taco shells according to package instructions.",
       "Fill taco shells with beef and top with lettuce, tomatoes, cheese, and sour cream.",
       "Serve immediately."
-    ],
+    ]],
     servingSize: 4
   },
   {
@@ -223,11 +226,11 @@ const MockRecipes = [
       "1/2 cup mixed berries",
       "1 tablespoon honey"
     ],
-    instructions: [
+    instructions: [[
       "Layer Greek yogurt, granola, and berries in a glass.",
       "Drizzle with honey on top.",
       "Serve immediately."
-    ],
+    ]],
     servingSize: 1
   },
   {
@@ -248,12 +251,12 @@ const MockRecipes = [
       "1 teaspoon dried basil",
       "Salt and pepper"
     ],
-    instructions: [
+    instructions: [[
       "Sauté onion and garlic in a pot.",
       "Add crushed tomatoes, broth, and basil.",
       "Simmer for 30 minutes.",
       "Blend until smooth and season with salt and pepper."
-    ],
+    ]],
     servingSize: 4
   },
   {
@@ -275,11 +278,11 @@ const MockRecipes = [
       "1 egg",
       "2 tablespoons melted butter"
     ],
-    instructions: [
+    instructions: [[
       "Mix dry ingredients in one bowl and wet ingredients in another.",
       "Combine and cook on a hot griddle or pan.",
       "Serve with your favorite toppings."
-    ],
+    ]],
     servingSize: 4
   },
   {
@@ -300,11 +303,11 @@ const MockRecipes = [
       "Salt and pepper",
       "Chopped parsley"
     ],
-    instructions: [
+    instructions: [[
       "Sauté garlic in butter and olive oil.",
       "Add shrimp and cook until pink and opaque.",
       "Season with salt and pepper, and sprinkle with parsley."
-    ],
+    ]],
     servingSize: 4
   },
   {
@@ -325,13 +328,13 @@ const MockRecipes = [
       "1 cup heavy cream",
       "Salt and pepper"
     ],
-    instructions: [
+    instructions: [[
       "Preheat oven to 180°C (350°F).",
       "Cook bacon until crispy and crumble.",
       "Whisk eggs and mix with cream, salt, and pepper.",
       "Spread bacon and cheese in pie crust, then pour egg mixture on top.",
       "Bake for 35-40 minutes or until set."
-    ],
+    ]],
     servingSize: 6
   }
 ]

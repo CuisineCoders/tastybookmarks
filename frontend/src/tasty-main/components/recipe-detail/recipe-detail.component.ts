@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, inject, input, OnInit } from '@angular/core';
-import { DummyRecipeApiService, RecipeApiService } from '../../services/recipe-api.service';
-import { Recipe } from '../../model/recipe';
-import { Observable } from 'rxjs';
-import { CommonModule } from '@angular/common';
+import {ChangeDetectionStrategy, Component, inject, input, OnInit} from '@angular/core';
+import {Recipe} from '../../model';
+import {Observable} from 'rxjs';
+import {CommonModule} from '@angular/common';
+import {DummyRecipeApiService, RecipeApiService} from "../../services";
 
 @Component({
   selector: 'tasty-recipe-detail',
