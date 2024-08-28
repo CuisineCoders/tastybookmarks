@@ -1,23 +1,19 @@
-import { NutritionInformation, VideoObject, Recipe } from '../model/recipe';
+import { Recipe } from '../model/recipe';
 
 
 export function parseRecipe(recipeData: any, recipesLength: number, url: string): Recipe {
 
-    if (!recipeData.name) {
-        throw new Error('Recipe data incomplete: name missing');
-    }
+    const requiredFields = ['name', 'recipeIngredient', 'recipeInstructions'];
 
-    if (!recipeData.recipeIngredient) {
-        throw new Error('Recipe data incomplete: ingredients missing');
-    }
+    requiredFields.forEach((field) => {
+        if (!recipeData[field]) {
+            throw new Error(`Recipe data incomplete: ${field} missing`);
+        }
+    })
 
-    if (!recipeData.recipeInstructions) {
-        throw new Error('Recipe data incomplete: instructions missing');
-    }
-
-    const nutritionObject: NutritionInformation | undefined = recipeData.nutrition && Object.keys(recipeData.nutrition).length > 0
+    const nutritionObject = recipeData.nutrition
         ? {
-            servingSize: Number(recipeData.nutrition.servingSize),
+            servingSize: Number(recipeData.nutrition.servingSize) ?? undefined,
             calories: recipeData.nutrition.calories,
             proteinContent: recipeData.nutrition.proteinContent,
             fatContent: recipeData.nutrition.fatContent,
@@ -25,7 +21,7 @@ export function parseRecipe(recipeData: any, recipesLength: number, url: string)
         }
         : undefined;
 
-    const videoObject: VideoObject | undefined = recipeData.video && recipeData.video.length > 0 && recipeData.video[0].name && recipeData.video[0].contentUrl
+    const videoObject = recipeData.video && recipeData.video.length > 0 && recipeData.video[0].name && recipeData.video[0].contentUrl
         ? {
             name: recipeData.video[0].name,
             description: recipeData.video[0].description,
@@ -36,15 +32,11 @@ export function parseRecipe(recipeData: any, recipesLength: number, url: string)
         }
         : undefined;
 
-    const ingredients: Array<string> = recipeData.recipeIngredient
-        ? recipeData.recipeIngredient.map((ingredient: string) => ingredient.trim())
-        : undefined;
+    const ingredients = recipeData.recipeIngredient.map((ingredient: string) => ingredient.trim());
 
-    const instructions: Array<Array<string>> = recipeData.recipeInstructions
-        ? recipeData.recipeInstructions
-            .split('\n\n')
-            .map((paragraph: string) => paragraph.split('\n').map((line: string) => line.trim()))
-        : undefined;
+    const instructions = recipeData.recipeInstructions
+        .split('\n\n')
+        .map((paragraph: string) => paragraph.split('\n').map((line: string) => line.trim()));
 
     const newRecipe: Recipe = {
         id: `${recipesLength + 1}`,
@@ -64,5 +56,7 @@ export function parseRecipe(recipeData: any, recipesLength: number, url: string)
         video: videoObject,
     }
 
+    console.log(newRecipe);
+    
     return newRecipe;
 }
