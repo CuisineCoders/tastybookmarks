@@ -56,7 +56,6 @@ export function parseRecipe(recipeData: any, recipesLength: number, url: string)
         video: videoObject,
     }
 
-    console.log(newRecipe);
     
     return newRecipe;
 }
