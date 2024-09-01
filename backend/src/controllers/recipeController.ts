@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { validate, fetchHTMLContent, extractRecipeFromHTML } from './helpers';
-import { parseRecipe } from './parser';
+import { parseRecipe } from '../parser';
 import { Recipe } from '../model/recipe';
 
 let recipes: Recipe[] = [];
