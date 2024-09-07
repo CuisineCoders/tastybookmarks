@@ -13,8 +13,15 @@
 
 <div class="tasty-fab-container">
     <div class="container">
-        <button mat-fab aria-label="Add icon button that opens dialog" (click)="openDialog()">
-            <mat-icon>add</mat-icon>
+      @if(displayButtons().includes('AddRecipeButton')) {
+        <button mat-fab class="tasty-primary-action" (click)="openDialog()">
+          <mat-icon>add</mat-icon>
         </button>
+      }
+      @if(displayButtons().includes('DeleteRecipeButton')){
+        <button mat-fab class="tasty-critical-action">
+          <mat-icon>delete</mat-icon>
+        </button>
+      }
     </div>
 </div>
