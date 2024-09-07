@@ -1,6 +1,10 @@
 @import '../styles/bootstrap-config';
+@import '../styles/variables';
 
 .tasty-main-bar {
+  position: sticky;
+  top: 0;
+  z-index: $tasty-main-bar-z-index;
   background: #d5ebef; // TODO: It's ment to be changed when we know how the app should look.
 
   .tasty-icon {
