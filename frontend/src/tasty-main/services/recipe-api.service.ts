@@ -50,7 +50,7 @@ export class DummyRecipeApiService {
   }
 
   public deleteRecipe(id: string): Observable<void> {
-    throw new Error('Method not implemented.');
+    return of(console.log(`Delete recipe ${id}...`));
   }
 
   public deleteAllRecipes(): Observable<void> {

@@ -20,12 +20,12 @@ import {TastyFabControl} from "../../services/fab-control.service";
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [{provide: RecipeApiService, useClass: DummyRecipeApiService}]
 })
-export class RecipeListComponent implements OnInit{
+export class RecipeListComponent implements OnInit {
   private readonly _fabControl = inject(TastyFabControl)
 
   protected _recipes$: Observable<Array<Recipe>> = inject(RecipeApiService).getAllRecipes()
 
   public ngOnInit(): void {
-    this._fabControl.displayButtons = ['AddRecipeButton']
+    this._fabControl.displayButtons = [{option: 'AddRecipeButton'}]
   }
 }
