@@ -2,12 +2,12 @@
 <div mat-dialog-content>
     <mat-form-field appearance="outline" class="tasty-add-recipe-dialog-input">
         <mat-label>URL</mat-label>
-        <input type="url" matInput [formControl]="urlFormControl">
+        <input type="url" matInput [formControl]="urlFormControl" placeholder="Füge hier eine Rezept-URL ein...">
         @if (urlFormControl.hasError('pattern') && !urlFormControl.hasError('required')) {
         <mat-error>Bitte gib eine gültige URL ein</mat-error>
         }
         @if (urlFormControl.hasError('required')) {
-        <mat-error>Gib bitte eine Rezept-Webadresse ein</mat-error>
+        <mat-error>Gib bitte eine Rezept-URL ein</mat-error>
         }
     </mat-form-field>
 </div>
