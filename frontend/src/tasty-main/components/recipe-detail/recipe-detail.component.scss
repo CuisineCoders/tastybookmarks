@@ -1,17 +1,17 @@
 :host {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  img {
+    margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .info {
     display: flex;
-    flex-direction: column;
-    gap: 8px;
-
-    img {
-        margin: 0 auto;
-        max-width: 100%;
-        height: auto;
-    }
-
-    .info {
-        display: flex;
-        flex-direction: row;
-        gap: inherit;
-    }
+    flex-direction: row;
+    gap: inherit;
+  }
 }

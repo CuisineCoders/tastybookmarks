@@ -1,5 +1,5 @@
 export interface NutritionInformation {
-  servingSize?: number
+  servingSize?: number;
   calories?: string;
   proteinContent?: string;
   fatContent?: string;
@@ -28,7 +28,7 @@ export interface Recipe {
   category?: string;
   ingredient: Array<string>;
   instructions: Array<Array<string>>;
-  servingSize: number
+  servingSize: number;
   nutrition?: NutritionInformation;
   video?: VideoObject;
 }

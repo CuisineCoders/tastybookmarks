@@ -1,21 +1,21 @@
 <div class="row">
-    <div class="col py-4">
-        <h2>Recipe API Tester</h2>
+  <div class="col py-4">
+    <h2>Recipe API Tester</h2>
 
-        <button (click)="getAllRecipes()" class="btn btn-primary">Get All Recipes</button>
-        <button (click)="deleteAllRecipes()" class="btn btn-warning">Delete All Recipes</button>
+    <button (click)="getAllRecipes()" class="btn btn-primary">Get All Recipes</button>
+    <button (click)="deleteAllRecipes()" class="btn btn-warning">Delete All Recipes</button>
 
-        <div class="form-group">
-            <label for="recipeId">Recipe ID:</label>
-            <input id="recipeId" [(ngModel)]="recipeId" name="recipeId">
-            <button (click)="getRecipeById()" class="btn btn-primary">Get Recipe by ID</button>
-            <button (click)="deleteRecipe()" class="btn btn-warning">Delete Recipe by ID</button>
-        </div>
-
-        <div class="form-group">
-            <label for="recipeUrl">Recipe URL:</label>
-            <input id="recipeUrl" [(ngModel)]="recipeUrl" name="recipeUrl">
-            <button (click)="addRecipe()" class="btn btn-primary">Add Recipe</button>
-        </div>
+    <div class="form-group">
+      <label for="recipeId">Recipe ID:</label>
+      <input [(ngModel)]="recipeId" id="recipeId" name="recipeId">
+      <button (click)="getRecipeById()" class="btn btn-primary">Get Recipe by ID</button>
+      <button (click)="deleteRecipe()" class="btn btn-warning">Delete Recipe by ID</button>
     </div>
+
+    <div class="form-group">
+      <label for="recipeUrl">Recipe URL:</label>
+      <input [(ngModel)]="recipeUrl" id="recipeUrl" name="recipeUrl">
+      <button (click)="addRecipe()" class="btn btn-primary">Add Recipe</button>
+    </div>
+  </div>
 </div>

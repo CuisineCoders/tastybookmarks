@@ -1,1 +1,1 @@
-export {KebabCasePipe} from './kebab-case.pipe'
+export { KebabCasePipe } from './kebab-case.pipe';

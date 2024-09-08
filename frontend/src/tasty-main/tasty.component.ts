@@ -13,15 +13,16 @@ import { AddRecipeDialogComponent } from './components';
   imports: [CommonModule, RouterOutlet, RouterLink, MatButtonModule, MatIconModule],
   templateUrl: './tasty.component.html',
   styleUrl: './tasty.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TastyComponent {
   readonly dialog = inject(MatDialog);
 
   public openDialog(): void {
-    this.dialog.open<AddRecipeDialogComponent, null, string | undefined>(AddRecipeDialogComponent, { width: '450px' })
+    this.dialog
+      .open<AddRecipeDialogComponent, null, string | undefined>(AddRecipeDialogComponent, { width: '450px' })
       .afterClosed()
-      .pipe(filter(event => event !== undefined))
-      .subscribe(result => console.log('URL:', result));
+      .pipe(filter((event) => event !== undefined))
+      .subscribe((result) => console.log('URL:', result));
   }
 }

@@ -19,9 +19,11 @@
   bottom: 0;
   width: 100%;
   z-index: 10;
+
   > div {
     display: flex;
     justify-content: flex-end;
+
     > button {
       margin-bottom: 25px;
       margin-right: 25px;

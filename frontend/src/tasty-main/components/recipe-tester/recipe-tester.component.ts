@@ -8,7 +8,7 @@ import { RecipeApiService } from '../../services';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './recipe-tester.component.html',
-  styleUrls: ['./recipe-tester.component.scss']
+  styleUrls: ['./recipe-tester.component.scss'],
 })
 export class RecipeTesterComponent {
   recipeId: string = '';
@@ -19,7 +19,7 @@ export class RecipeTesterComponent {
   getAllRecipes(): void {
     this.apiService.getAllRecipes().subscribe({
       next: (data) => console.log('All Recipes:', data),
-      error: (error) => console.error('Error fetching all recipes:', error)
+      error: (error) => console.error('Error fetching all recipes:', error),
     });
   }
 
@@ -27,7 +27,7 @@ export class RecipeTesterComponent {
     if (!this.recipeId) return;
     this.apiService.getRecipe(this.recipeId).subscribe({
       next: (recipe) => console.log('Recipe by ID:', recipe),
-      error: (error) => console.error('Error fetching recipe by ID:', error)
+      error: (error) => console.error('Error fetching recipe by ID:', error),
     });
   }
 
@@ -35,7 +35,7 @@ export class RecipeTesterComponent {
     if (!this.recipeUrl) return;
     this.apiService.addRecipe(this.recipeUrl).subscribe({
       next: (recipe) => console.log('Added Recipe:', recipe),
-      error: (error) => console.error('Error adding recipe:', error)
+      error: (error) => console.error('Error adding recipe:', error),
     });
   }
 
@@ -43,15 +43,14 @@ export class RecipeTesterComponent {
     if (!this.recipeId) return;
     this.apiService.deleteRecipe(this.recipeId).subscribe({
       next: () => console.log(`Deleted Recipe with ID: ${this.recipeId}`),
-      error: (error) => console.error('Error deleting recipe:', error)
+      error: (error) => console.error('Error deleting recipe:', error),
     });
   }
 
   deleteAllRecipes(): void {
     this.apiService.deleteAllRecipes().subscribe({
       next: () => console.log('Deleted all recipes'),
-      error: (error) => console.error('Error deleting all recipes:', error)
+      error: (error) => console.error('Error deleting all recipes:', error),
     });
   }
-
 }

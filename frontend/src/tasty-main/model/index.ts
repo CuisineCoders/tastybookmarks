@@ -1,1 +1,1 @@
-export {Recipe, VideoObject, NutritionInformation} from './recipe'
+export { Recipe, VideoObject, NutritionInformation } from './recipe';

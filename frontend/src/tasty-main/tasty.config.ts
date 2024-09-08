@@ -5,12 +5,11 @@ import { provideRouter, withComponentInputBinding } from '@angular/router';
 
 import { routes } from './tasty.routes';
 
-
 export const tastyConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes, withComponentInputBinding()),
     provideAnimations(),
-    provideHttpClient()
-  ]
+    provideHttpClient(),
+  ],
 };
