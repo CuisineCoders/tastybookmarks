@@ -1,7 +1,7 @@
 import { Recipe } from '../model/recipe';
 
 
-export function parseRecipe(recipeData: any, recipesLength: number, url: string): Recipe {
+export function parseRecipe(recipeData: any, url: string): Partial<Recipe> {
 
     const requiredFields = ['name', 'recipeIngredient', 'recipeInstructions'];
 
@@ -38,8 +38,7 @@ export function parseRecipe(recipeData: any, recipesLength: number, url: string)
         .split('\n\n')
         .map((paragraph: string) => paragraph.split('\n').map((line: string) => line.trim()));
 
-    const newRecipe: Recipe = {
-        id: `${recipesLength + 1}`,
+    const newRecipe: Partial<Recipe> = {
         url: url,
         name: recipeData.name,
         ingredients: ingredients,
@@ -55,7 +54,6 @@ export function parseRecipe(recipeData: any, recipesLength: number, url: string)
         nutrition: nutritionObject,
         video: videoObject,
     }
-
     
     return newRecipe;
 }
