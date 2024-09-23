@@ -6,7 +6,7 @@ import { DummyRecipeApiService, RecipeApiService } from "../../services";
 import { TastyFabControl } from "../../services/fab-control.service";
 import { MatDialog } from "@angular/material/dialog";
 import { DeleteConfirmationDialogComponent } from "../delete-confirmation-dialog/delete-confirmation-dialog.component";
-import { filter } from "rxjs/operators";
+import { filter, tap } from "rxjs/operators";
 import { Router } from "@angular/router";
 
 @Component({
@@ -37,8 +37,8 @@ export class RecipeDetailComponent implements OnInit {
                                .pipe(
                                  filter(Boolean),
                                  switchMap(() => this._recipeApiService.deleteRecipe(this.recipeId())),
-                                 switchMap(() => this._router.navigate(['recipes'])),
-                               ).subscribe((event) => event)
+                                 tap(() => this._router.navigate(['recipes'])),
+                               ).subscribe()
       }
     ]
     this._recipe$ = this._recipeApiService.getRecipe(this.recipeId());
