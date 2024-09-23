@@ -1,22 +1,20 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
-import { MatIconModule } from '@angular/material/icon';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { TastyFabControl } from './fab-control.service';
+import { AddRecipeDialogComponent } from '../../recipe/components';
 import { filter } from 'rxjs/operators';
-import { AddRecipeDialogComponent } from './components';
-import { TastyFabControl } from './services/fab-control.service';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector:        'tasty-root',
+  selector:        'tasty-fab-control',
+  templateUrl:     'fab-control.component.html',
+  styleUrl:        './fab-control.component.scss',
+  imports:         [MatButtonModule, MatIconModule],
   standalone:      true,
-  imports:         [CommonModule, RouterOutlet, RouterLink, MatButtonModule, MatIconModule],
-  templateUrl:     './tasty.component.html',
-  styleUrl:        './tasty.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TastyComponent {
+export class FabControlComponent {
   private readonly dialog = inject(MatDialog);
   protected readonly fabControl = inject(TastyFabControl);
 

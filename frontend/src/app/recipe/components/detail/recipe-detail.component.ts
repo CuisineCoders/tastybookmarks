@@ -3,7 +3,7 @@ import { Recipe } from '../../model';
 import { Observable, switchMap } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { DummyRecipeApiService, RecipeApiService } from "../../services";
-import { TastyFabControl } from "../../services/fab-control.service";
+import { TastyFabControl } from "../../../core/fab-control/fab-control.service";
 import { MatDialog } from "@angular/material/dialog";
 import { DeleteConfirmationDialogComponent } from "../delete-confirmation-dialog/delete-confirmation-dialog.component";
 import { filter, tap } from "rxjs/operators";
