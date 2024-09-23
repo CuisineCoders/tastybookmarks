@@ -6,8 +6,7 @@ export class RecipeRepository {
     private recipe = mongoose.model<Recipe>('Recipe', RecipeSchema);
 
     async addRecipe(recipeData: Partial<Recipe>): Promise<Recipe> {
-        const recipe = await this.recipe.create(recipeData);
-        return recipe.save();
+  return (await this.recipe.create(recipeData)).save();
     }
 
     async getAllRecipes(): Promise<Recipe[]> {
