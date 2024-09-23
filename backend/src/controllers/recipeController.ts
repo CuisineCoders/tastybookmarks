@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { validate, fetchHTMLContent, extractRecipeFromHTML } from './helpers';
 import { parseRecipe } from '../parser';
-import { Recipe } from '../model/recipe';
 import { RecipeRepository } from '../model/recipeRepository';
 
 const recipeRepository = new RecipeRepository()
@@ -25,7 +24,7 @@ export async function addRecipe(req: Request, res: Response): Promise<void> {
         }
 
         const newRecipeData = parseRecipe(recipeData, url);
-        const savedRecipe = await recipeRepository.addRecipe(newRecipeData)
+        const savedRecipe = await recipeRepository.addRecipe(newRecipeData);
         res.status(201).json(savedRecipe);
 
     } catch (error) {
@@ -49,11 +48,7 @@ export async function getRecipeById(req: Request, res: Response): Promise<void> 
 
     try {
         const recipe = await recipeRepository.getRecipeById(id);
-        if (recipe) {
-            res.status(200).json(recipe);
-        } else {
-            res.status(404).json({ message: 'Recipe not found' });
-        }
+        res.status(200).json(recipe);
     } catch (error) {
         res.status(500).json({ message: 'Failed to fetch recipe', error: (error as Error).message });
     }
@@ -65,11 +60,7 @@ export async function deleteRecipe(req: Request, res: Response): Promise<void> {
 
     try {
         const deletedRecipe = await recipeRepository.deleteRecipe(id);
-        if (deletedRecipe) {
-            res.status(200).json(deletedRecipe);
-        } else {
-            res.status(404).json({ message: 'Recipe not found' });
-        }
+        res.status(200).json(deletedRecipe);
     } catch (error) {
         res.status(500).json({ message: 'Failed to delete recipe', error: (error as Error).message });
     }
