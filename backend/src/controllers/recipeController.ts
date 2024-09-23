@@ -32,7 +32,6 @@ export async function addRecipe(req: Request, res: Response): Promise<void> {
     }
 }
 
-// Alle Rezepte abrufen
 export async function getAllRecipes(_req: Request, res: Response): Promise<void> {
     try {
         const recipes = await recipeRepository.getAllRecipes();
@@ -42,7 +41,6 @@ export async function getAllRecipes(_req: Request, res: Response): Promise<void>
     }
 }
 
-// Rezept nach ID abrufen
 export async function getRecipeById(req: Request, res: Response): Promise<void> {
     const { id } = req.params;
 
@@ -54,7 +52,6 @@ export async function getRecipeById(req: Request, res: Response): Promise<void> 
     }
 }
 
-// Rezept nach ID löschen
 export async function deleteRecipe(req: Request, res: Response): Promise<void> {
     const { id } = req.params;
 
@@ -66,7 +63,6 @@ export async function deleteRecipe(req: Request, res: Response): Promise<void> {
     }
 }
 
-// Alle Rezepte löschen
 export async function deleteAllRecipes(_req: Request, res: Response): Promise<void> {
     try {
         await recipeRepository.deleteAllRecipes();
