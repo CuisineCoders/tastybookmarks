@@ -6,6 +6,6 @@ export async function connectDB() {
         console.log('Successfully connected to MongoDB.');
     } catch (error) {
         console.error('Failed to connect to MongoDB: ', error);
-        process.exit(1); // Beendet den Prozess bei Verbindungsfehlern
+        process.exit(1); // TODO: Find out about while loop around connection attempt
     }
 }
