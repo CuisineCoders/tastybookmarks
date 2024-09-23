@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TastyFabControl } from './fab-control.service';
-import { AddRecipeDialogComponent } from '../../recipe/components';
 import { filter } from 'rxjs/operators';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { AddRecipeDialogComponent } from '../../recipe/components/add-dialog/add-recipe-dialog.component';
 
 @Component({
   selector:        'tasty-fab-control',

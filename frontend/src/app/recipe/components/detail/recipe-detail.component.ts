@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component, inject, input, OnInit } from '@angular/core';
-import { Recipe } from '../../model';
 import { Observable, switchMap } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { DummyRecipeApiService, RecipeApiService } from "../../services";
-import { TastyFabControl } from "../../../core/fab-control/fab-control.service";
-import { MatDialog } from "@angular/material/dialog";
-import { DeleteConfirmationDialogComponent } from "../delete-confirmation-dialog/delete-confirmation-dialog.component";
-import { filter, tap } from "rxjs/operators";
-import { Router } from "@angular/router";
+import { TastyFabControl } from '../../../core/fab-control/fab-control.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteConfirmationDialogComponent } from '../delete-confirmation-dialog/delete-confirmation-dialog.component';
+import { filter, tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { DummyRecipeApiService, RecipeApiService } from '../../services/recipe-api.service';
+import { Recipe } from '../../model/recipe';
 
 @Component({
   selector:        'tasty-recipe-detail',
