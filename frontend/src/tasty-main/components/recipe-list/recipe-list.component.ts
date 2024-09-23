@@ -26,14 +26,15 @@ import { MatIcon } from '@angular/material/icon';
 })
 export class RecipeListComponent implements OnInit {
   private readonly _fabControl = inject(TastyFabControl);
+  private readonly _recipeApiService = inject(RecipeApiService);
 
-  protected _recipes$: Observable<Array<Recipe>> = inject(RecipeApiService).getAllRecipes();
+  protected _recipes$ = this._recipeApiService.getAllRecipes();
 
   public ngOnInit(): void {
     this._fabControl.displayButtons = [{ option: 'AddRecipeButton' }];
   }
 
   protected delete(id: string): void {
-    console.log('delete ' + id);
+    this._recipeApiService.deleteRecipe(id);
   }
 }
