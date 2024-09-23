@@ -1,4 +1,5 @@
 @import '../../../styles/bootstrap-config';
+@import '../../../styles/variables';
 
 .list-container {
 
@@ -12,16 +13,34 @@
         border-bottom: 1px solid $light-border-subtle;
         transition: background-color 0.3s ease;
 
+        .mat-mdc-icon-button {
+            visibility: visible;
+            margin-left: auto;
+            z-index: 1;
+
+            .mat-icon {
+                color: $tasty-critical-color;
+            }
+        }
+
         @include media-breakpoint-up(sm) {
             flex-direction: column;
             align-items: start;
             padding-top: 1rem;
             padding-bottom: 1rem;
             border-bottom: none;
+
+            .mat-mdc-icon-button{
+                visibility: hidden;
+            }
         }
 
         &:hover {
             background-color: $light;
+
+            .mat-mdc-icon-button {
+                visibility: visible;
+            }
         }
     }
 
