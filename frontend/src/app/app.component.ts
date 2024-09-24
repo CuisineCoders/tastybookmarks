@@ -4,8 +4,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { filter, switchMap } from 'rxjs/operators';
 import { AddRecipeDialogComponent } from './components';
+import { RecipeApiService } from './services/recipe-api.service';
 
 @Component({
   selector:        'tasty-root',
@@ -13,15 +14,20 @@ import { AddRecipeDialogComponent } from './components';
   imports:         [CommonModule, RouterOutlet, RouterLink, MatButtonModule, MatIconModule],
   templateUrl:     './app.component.html',
   styleUrl:        './app.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-  readonly dialog = inject(MatDialog);
+  private readonly _dialog = inject(MatDialog);
+  private readonly _recipeApiService = inject(RecipeApiService);
 
   public openDialog(): void {
-    this.dialog.open<AddRecipeDialogComponent, null, string | undefined>(AddRecipeDialogComponent, { width: '450px' })
+    this._dialog.open<AddRecipeDialogComponent, null, string | undefined>(AddRecipeDialogComponent, { width: '450px' })
       .afterClosed()
-      .pipe(filter(event => event !== undefined))
-      .subscribe(result => console.log('URL:', result));
+      .pipe(
+        filter(event => event !== undefined),
+        switchMap((url) => this._recipeApiService.addRecipe(url),
+        ),
+      )
+      .subscribe();
   }
 }

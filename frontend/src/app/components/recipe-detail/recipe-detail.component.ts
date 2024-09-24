@@ -1,8 +1,8 @@
 import {ChangeDetectionStrategy, Component, inject, input, OnInit} from '@angular/core';
 import {Recipe} from '../../model';
-import {Observable} from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import {CommonModule} from '@angular/common';
-import {DummyRecipeApiService, RecipeApiService} from "../../services";
+import { RecipeApiService } from '../../services/recipe-api.service';
 
 @Component({
   selector: 'tasty-recipe-detail',
@@ -11,7 +11,6 @@ import {DummyRecipeApiService, RecipeApiService} from "../../services";
   templateUrl: './recipe-detail.component.html',
   styleUrl: './recipe-detail.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [{provide: RecipeApiService, useClass: DummyRecipeApiService}]
 })
 export class RecipeDetailComponent implements OnInit {
   private readonly _recipeApiService = inject(RecipeApiService);
