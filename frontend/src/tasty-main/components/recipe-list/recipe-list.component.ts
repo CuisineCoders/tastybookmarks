@@ -1,13 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Observable } from 'rxjs';
+import { filter, startWith, Subject, switchMap } from 'rxjs';
 import { DummyRecipeApiService, RecipeApiService } from '../../services';
 import { KebabCasePipe } from '../../pipes';
-import { Recipe } from '../../model';
 import { TastyFabControl } from '../../services/fab-control.service';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteConfirmationDialogComponent } from '../delete-confirmation-dialog/delete-confirmation-dialog.component';
+import { tap } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector:        'tasty-list',
@@ -27,14 +30,26 @@ import { MatIcon } from '@angular/material/icon';
 export class RecipeListComponent implements OnInit {
   private readonly _fabControl = inject(TastyFabControl);
   private readonly _recipeApiService = inject(RecipeApiService);
+  private readonly _dialog = inject(MatDialog);
 
-  protected _recipes$ = this._recipeApiService.getAllRecipes();
+  private readonly _fetchRecipes$ = new Subject<void>();
+
+  protected readonly _recipes$ = this._fetchRecipes$.asObservable()
+    .pipe(
+      takeUntilDestroyed(),
+      startWith(undefined),
+      switchMap(() => this._recipeApiService.getAllRecipes()),
+    );
 
   public ngOnInit(): void {
     this._fabControl.displayButtons = [{ option: 'AddRecipeButton' }];
   }
 
   protected delete(id: string): void {
-    this._recipeApiService.deleteRecipe(id);
+    this._dialog.open(DeleteConfirmationDialogComponent).afterClosed().pipe(
+      filter(Boolean),
+      switchMap(() => this._recipeApiService.deleteRecipe(id)),
+      tap(() => this._fetchRecipes$.next()),
+    ).subscribe();
   }
 }
