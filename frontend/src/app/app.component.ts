@@ -12,11 +12,11 @@ import { TastyFabControl } from './services/fab-control.service';
   selector:        'tasty-root',
   standalone:      true,
   imports:         [CommonModule, RouterOutlet, RouterLink, MatButtonModule, MatIconModule],
-  templateUrl:     './tasty.component.html',
-  styleUrl:        './tasty.component.scss',
+  templateUrl:     './app.component.html',
+  styleUrl:        './app.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TastyComponent {
+export class AppComponent {
   private readonly dialog = inject(MatDialog);
   protected readonly fabControl = inject(TastyFabControl);
 
