@@ -3,16 +3,16 @@ import {MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle} from
 import {MatButton} from "@angular/material/button";
 
 @Component({
-  selector: 'tasty-delete-confirmation-dialog',
+  selector:    'tasty-delete-confirmation-dialog',
   templateUrl: './delete-confirmation-dialog.component.html',
-  imports: [
+  imports:     [
     MatDialogTitle,
     MatDialogActions,
     MatDialogContent,
     MatButton,
     MatDialogClose
   ],
-  standalone: true
+  standalone:  true
 })
 export class DeleteConfirmationDialogComponent {
 }
