@@ -12,18 +12,9 @@ import { AddRecipeDialogComponent } from '../../recipe/components/add-dialog/add
   styleUrl:        './fab-control.component.scss',
   imports:         [MatButtonModule, MatIconModule],
   standalone:      true,
-<<<<<<<< HEAD:frontend/src/app/core/fab-control/fab-control.component.ts
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FabControlComponent {
-========
-  imports:         [CommonModule, RouterOutlet, RouterLink, MatButtonModule, MatIconModule],
-  templateUrl:     './app.component.html',
-  styleUrl:        './app.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-})
-export class AppComponent {
->>>>>>>> origin/jan/frontend/delete-button/detail-view:frontend/src/app/app.component.ts
   private readonly dialog = inject(MatDialog);
   protected readonly fabControl = inject(TastyFabControl);
 
