@@ -15,6 +15,6 @@ import { MatIconModule } from '@angular/material/icon';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddRecipeDialogComponent {
-  private regexUrlDetection = /^(?:http(s)?:\/\/)?[a-zA-ZäöüÄÖÜß0-9.-]+(?:\.[a-zA-ZäöüÄÖÜß0-9\.-]+)+[a-zA-ZäöüÄÖÜß0-9\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
+  private regexUrlDetection = /^(?:http(s)?:\/\/)?[a-zA-ZäöüÄÖÜß0-9.-]+(?:\.[a-zA-ZäöüÄÖÜß0-9.-]+)+[a-zA-ZäöüÄÖÜß0-9\-._~:/?#[\]@!$&'()*+,;=]+$/;
   protected urlFormControl = new FormControl('', [Validators.required, Validators.pattern(this.regexUrlDetection)]);
 }

@@ -16,7 +16,7 @@ import { AddRecipeDialogComponent } from './components';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
-  readonly dialog = inject(MatDialog);
+  private readonly dialog = inject(MatDialog);
 
   public openDialog(): void {
     this.dialog.open<AddRecipeDialogComponent, null, string | undefined>(AddRecipeDialogComponent, { width: '450px' })
