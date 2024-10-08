@@ -3,8 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Recipe } from '../model/recipe';
 
-import { Recipe } from '../model';
-
 @Injectable({
   providedIn: 'root',
 })
