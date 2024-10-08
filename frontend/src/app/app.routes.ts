@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
-import { RecipeListComponent } from './components/recipe-list/recipe-list.component';
-import { RecipeTesterComponent } from './components/recipe-tester/recipe-tester.component';
-import { RecipeDetailComponent } from './components/recipe-detail/recipe-detail.component';
+import { RecipeTesterComponent } from './recipe/components/tester/recipe-tester.component';
+import { RecipeListComponent } from './recipe/components/list/recipe-list.component';
+import { RecipeDetailComponent } from './recipe/components/detail/recipe-detail.component';
 
 export const routes: Routes = [
     { path: 'recipes', component: RecipeListComponent },
