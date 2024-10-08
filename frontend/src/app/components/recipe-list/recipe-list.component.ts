@@ -4,13 +4,13 @@ import { RouterLink } from '@angular/router';
 import { filter, startWith, Subject, switchMap } from 'rxjs';
 import { DummyRecipeApiService, RecipeApiService } from '../../services';
 import { KebabCasePipe } from '../../pipes';
-import { TastyFabControl } from '../../services/fab-control.service';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteConfirmationDialogComponent } from '../delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { tap } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import {TastyFabControl} from "../../services/fab-control.service";
 
 @Component({
   selector:        'tasty-list',
