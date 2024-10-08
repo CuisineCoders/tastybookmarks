@@ -1,5 +1,21 @@
 @import './bootstrap';
 @import './variables';
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, 'Helvetica Neue', sans-serif; }
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+.tasty-primary-action {
+  background: $tasty-primary-button-color !important;
+  color: black !important;
+}
+
+.tasty-critical-action {
+  background: $tasty-critical-button-color !important;
+  color: black !important;
+}
