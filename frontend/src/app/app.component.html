@@ -11,17 +11,4 @@
   <router-outlet></router-outlet>
 </div>
 
-<div class="tasty-fab-container">
-  <div class="container">
-    @if (addFab()) {
-      <button mat-fab class="tasty-primary-action" (click)="openDialog()">
-        <mat-icon>add</mat-icon>
-      </button>
-    }
-    @if (deleteFab()) {
-      <button mat-fab class="tasty-critical-action" (click)="deleteFab()?.clickAction!()">
-        <mat-icon>delete</mat-icon>
-      </button>
-    }
-  </div>
-</div>
+<tasty-fab-control></tasty-fab-control>

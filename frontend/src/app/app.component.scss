@@ -1,5 +1,4 @@
-@import '../styles/bootstrap-config';
-@import '../styles/variables';
+@import 'tasty-variables';
 
 .tasty-main-bar {
   position: sticky;
@@ -11,24 +10,5 @@
     width: 45px;
     margin-right: 12px;
     border-radius: 7px;
-  }
-}
-
-.tasty-fab-container {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  z-index: 10;
-  > div {
-    display: flex;
-    justify-content: flex-end;
-    > button {
-
-      margin-bottom: 25px;
-      margin-right: 25px;
-      @include media-breakpoint-up(sm) {
-        margin-right: 0;
-      }
-    }
   }
 }
