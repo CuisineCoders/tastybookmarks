@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { FabControlComponent } from './core/fab-control/fab-control.component';
+import { TastyFabControl } from './services/fab-control.service';
 
 @Component({
   selector:        'tasty-root',
