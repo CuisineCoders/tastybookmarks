@@ -2,15 +2,17 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { filter, startWith, Subject, switchMap } from 'rxjs';
-import { DummyRecipeApiService, RecipeApiService } from '../../services';
-import { KebabCasePipe } from '../../pipes';
-import { MatIconButton } from '@angular/material/button';
+import { TastyFabControl } from '../../../core/fab-control/fab-control.service';
+import { KebabCasePipe } from '../../../shared/pipes/kebab-case.pipe';
+import { DummyRecipeApiService, RecipeApiService } from '../../services/recipe-api.service';
 import { MatIcon } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
-import { DeleteConfirmationDialogComponent } from '../delete-confirmation-dialog/delete-confirmation-dialog.component';
+import {
+  DeleteConfirmationDialogComponent,
+} from '../../../shared/components/delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { tap } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import {TastyFabControl} from "../../services/fab-control.service";
+import { MatIconButton } from '@angular/material/button';
 
 @Component({
   selector:        'tasty-list',
