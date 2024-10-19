@@ -1,7 +1,6 @@
-import 'dotenv/config';
 import { app } from './app';
 
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 let server: ReturnType<typeof app.listen>;
 
 export const startServer = (): Promise<void> => {
