@@ -9,7 +9,7 @@ import { Recipe } from '../model/recipe';
 export class RecipeApiService {
   private readonly http: HttpClient = inject(HttpClient);
 
-  private readonly baseUrl = 'http://localhost:3000/api/recipes';
+  private readonly baseUrl = 'https://tastybookmarks-backend.netlify.app/api/recipes';
 
   public getAllRecipes(): Observable<Array<Recipe>> {
     return this.http.get<Array<Recipe>>(this.baseUrl);
