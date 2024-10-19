@@ -8,7 +8,7 @@ export async function connectDB(): Promise<void> {
         return;
     }
 
-    const mongoUri = process.env.NODE_ENV === 'production'
+    const mongoUri = process.env.NETLIFY === 'true'
         ? `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_HOST}/${process.env.MONGO_DB_NAME}?retryWrites=true&w=majority&appName=Cluster0`
         : `mongodb://${process.env.MONGO_HOST_LOCAL}/${process.env.MONGO_DB_NAME}`;
 
