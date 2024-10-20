@@ -16,7 +16,7 @@ export interface VideoObject {
 }
 
 export interface Recipe {
-  id: string;
+  _id: string;
   url: string;
   name: string;
   description?: string;
@@ -26,7 +26,7 @@ export interface Recipe {
   cookTime?: string;
   totalTime?: string;
   category?: string;
-  ingredient: Array<string>;
+  ingredients: Array<string>;
   instructions: Array<Array<string>>;
   servingSize: number
   nutrition?: NutritionInformation;

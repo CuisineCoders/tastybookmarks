@@ -22,7 +22,7 @@ export interface Recipe {
     ingredients: Array<string>;
     instructions: Array<Array<string>>;
     description?: string;
-    image?: string;
+    imageUrl?: string;
     keywords?: Array<string>;
     prepTime?: string;
     cookTime?: string;
