@@ -34,4 +34,5 @@ export const RecipeSchema: Schema = new Schema<Recipe>({
     servingSize:  { type: Number },
     nutrition:    { type: NutritionInformationSchema },
     video:        { type: VideoObjectSchema }
-});
+}, { timestamps: true });
+

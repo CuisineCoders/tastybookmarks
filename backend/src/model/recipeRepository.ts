@@ -10,7 +10,7 @@ export class RecipeRepository {
     }
 
     async getAllRecipes(): Promise<Recipe[]> {
-        return await this.recipe.find().exec();
+        return await this.recipe.find().sort({ createdAt: -1 }).exec();
     }
 
     async getRecipeById(id: string): Promise<Recipe | null> {

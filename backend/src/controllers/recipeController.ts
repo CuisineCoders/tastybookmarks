@@ -50,7 +50,7 @@ export async function getAllRecipes(_req: Request, res: Response): Promise<void>
     try {
         const recipes = await recipeRepository.getAllRecipes();
         console.log(`Successfully retrieved ${recipes.length} recipes`);
-        res.status(200).json(recipes.reverse());
+        res.status(200).json(recipes);
     } catch (error) {
         console.error('Error occurred while fetching recipes:', (error as Error).message);
         res.status(500).json({ message: 'Failed to fetch recipes', error: (error as Error).message });
