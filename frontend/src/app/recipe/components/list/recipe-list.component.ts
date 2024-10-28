@@ -4,7 +4,7 @@ import { RouterLink } from '@angular/router';
 import { filter, startWith, Subject, switchMap } from 'rxjs';
 import { TastyFabControl } from '../../../core/fab-control/fab-control.service';
 import { KebabCasePipe } from '../../../shared/pipes/kebab-case.pipe';
-import { DummyRecipeApiService, RecipeApiService } from '../../services/recipe-api.service';
+import { RecipeApiService } from '../../services/recipe-api.service';
 import { MatIcon } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import {
@@ -13,6 +13,7 @@ import {
 import { tap } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatIconButton } from '@angular/material/button';
+import { AddRecipeDialogComponent } from '../add-dialog/add-recipe-dialog.component';
 
 @Component({
   selector:        'tasty-list',
@@ -27,31 +28,42 @@ import { MatIconButton } from '@angular/material/button';
   templateUrl:     './recipe-list.component.html',
   styleUrl:        './recipe-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers:       [{ provide: RecipeApiService, useClass: DummyRecipeApiService }],
 })
 export class RecipeListComponent implements OnInit {
-  private readonly _fabControl = inject(TastyFabControl);
-  private readonly _recipeApiService = inject(RecipeApiService);
-  private readonly _dialog = inject(MatDialog);
+  private readonly fabControl = inject(TastyFabControl);
+  private readonly recipeApiService = inject(RecipeApiService);
+  private readonly dialog = inject(MatDialog);
 
-  private readonly _fetchRecipes$ = new Subject<void>();
-
-  protected readonly _recipes$ = this._fetchRecipes$.asObservable()
+  private readonly fetchRecipes$ = new Subject<void>();
+  protected readonly _recipes$ = this.fetchRecipes$.asObservable()
     .pipe(
       takeUntilDestroyed(),
       startWith(undefined),
-      switchMap(() => this._recipeApiService.getAllRecipes()),
+      switchMap(() => this.recipeApiService.getAllRecipes()),
     );
 
   public ngOnInit(): void {
-    this._fabControl.displayButtons = [{ option: 'AddRecipeButton' }];
+    this.fabControl.displayButtons = [
+      {
+        option:      'AddRecipeButton',
+        clickAction: () => this.dialog.open<AddRecipeDialogComponent, null, string | undefined>(
+          AddRecipeDialogComponent, { width: '450px' })
+          .afterClosed()
+          .pipe(
+            filter(event => event !== undefined),
+            switchMap(result => this.recipeApiService.addRecipe(result)),
+            tap(() => this.fetchRecipes$.next()),
+          )
+          .subscribe(),
+      },
+    ];
   }
 
   protected delete(id: string): void {
-    this._dialog.open(DeleteConfirmationDialogComponent).afterClosed().pipe(
+    this.dialog.open(DeleteConfirmationDialogComponent).afterClosed().pipe(
       filter(Boolean),
-      switchMap(() => this._recipeApiService.deleteRecipe(id)),
-      tap(() => this._fetchRecipes$.next()),
+      switchMap(() => this.recipeApiService.deleteRecipe(id)),
+      tap(() => this.fetchRecipes$.next()),
     ).subscribe();
   }
 }

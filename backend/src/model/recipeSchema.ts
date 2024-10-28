@@ -20,18 +20,19 @@ const VideoObjectSchema: Schema = new Schema<VideoObject>({
 });
 
 export const RecipeSchema: Schema = new Schema<Recipe>({
-    url: { type: String, required: true },
-    name: { type: String, required: true },
-    ingredients: { type: [String], required: true },
+    url:          { type: String, required: true },
+    name:         { type: String, required: true },
+    ingredients:  { type: [String], required: true },
     instructions: { type: [[String]], required: true },
-    description: { type: String },
-    image: { type: String },
-    keywords: { type: [String] },
-    prepTime: { type: String },
-    cookTime: { type: String },
-    totalTime: { type: String },
-    category: { type: String },
-    servingSize: { type: Number },
-    nutrition: { type: NutritionInformationSchema },
-    video: { type: VideoObjectSchema }
-});
+    description:  { type: String },
+    imageUrl:     { type: String },
+    keywords:     { type: [String] },
+    prepTime:     { type: String },
+    cookTime:     { type: String },
+    totalTime:    { type: String },
+    category:     { type: String },
+    servingSize:  { type: Number },
+    nutrition:    { type: NutritionInformationSchema },
+    video:        { type: VideoObjectSchema }
+}, { timestamps: true });
+
