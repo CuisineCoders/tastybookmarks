@@ -2,12 +2,13 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Recipe } from '../model/recipe';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RecipeApiService {
-  private baseUrl = 'http://localhost:3000/api/recipes';
+  private baseUrl = `${environment.backendURI}/api/recipes`;
 
   private http: HttpClient = inject(HttpClient);
 
