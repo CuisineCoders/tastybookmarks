@@ -1,11 +1,11 @@
 <div class="container">
   @if (addFab()) {
-    <button mat-fab class="tasty-primary-action" (click)="openDialog()">
+    <button mat-fab class="tasty-primary-action" (click)="addFab()?.clickAction()">
       <mat-icon>add</mat-icon>
     </button>
   }
   @if (deleteFab()) {
-    <button mat-fab class="tasty-critical-action" (click)="deleteFab()?.clickAction!()">
+    <button mat-fab class="tasty-critical-action" (click)="deleteFab()?.clickAction()">
       <mat-icon>delete</mat-icon>
     </button>
   }

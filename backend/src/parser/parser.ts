@@ -44,7 +44,7 @@ export function parseRecipe(recipeData: any, url: string): Partial<Recipe> {
         ingredients: ingredients,
         instructions: instructions,
         description: recipeData.description,
-        image: recipeData.image,
+        imageUrl: recipeData.image,
         keywords: recipeData.keywords ?? undefined,
         prepTime: recipeData.prepTime,
         cookTime: recipeData.cookTime,
