@@ -1,7 +1,6 @@
-import 'dotenv/config';
 import mongoose from 'mongoose';
 
-let isConnected = false; // Verfolge den Verbindungsstatus
+let isConnected = false;
 
 export async function connectDB(): Promise<void> {
     if (isConnected) {
