@@ -8,11 +8,12 @@ import { filter, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Recipe } from '../../model/recipe';
 import { RecipeApiService } from '../../services/recipe-api.service';
+import { FirstSentencePipe } from '../../../shared/pipes/first-sentence.pipe';
 
 @Component({
   selector:        'tasty-recipe-detail',
   standalone:      true,
-  imports:         [CommonModule],
+  imports:         [CommonModule, FirstSentencePipe],
   templateUrl:     './recipe-detail.component.html',
   styleUrl:        './recipe-detail.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
