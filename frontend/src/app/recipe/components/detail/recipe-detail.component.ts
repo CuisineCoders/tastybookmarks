@@ -8,6 +8,7 @@ import { filter, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Recipe } from '../../model/recipe';
 import { RecipeApiService } from '../../services/recipe-api.service';
+import { AddRecipeDialogComponent } from '../add-dialog/add-recipe-dialog.component';
 
 @Component({
   selector:        'tasty-recipe-detail',
@@ -29,6 +30,17 @@ export class RecipeDetailComponent implements OnInit {
 
   public ngOnInit(): void {
     this._fabControl.displayButtons = [
+      {
+        option:      'AddRecipeButton',
+        clickAction: () => this._dialog.open<AddRecipeDialogComponent, null, string | undefined>(
+          AddRecipeDialogComponent, { width: '450px' })
+          .afterClosed()
+          .pipe(
+            filter(event => event !== undefined),
+            switchMap(result => this._recipeApiService.addRecipe(result)),
+          )
+          .subscribe(),
+      },
       {
         option:      'DeleteRecipeButton',
         clickAction: () => this._dialog.open(DeleteConfirmationDialogComponent).afterClosed()
