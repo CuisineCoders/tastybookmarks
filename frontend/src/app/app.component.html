@@ -1,14 +1,22 @@
-<nav class="tasty-main-bar navbar">
+<nav class="tasty-header-bar navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
       <img src="/icon.jfif" type="image/x-icon" alt="App icon" class="tasty-icon"/>
       TastyBookmarks
     </a>
 
-    <tasty-fab-control></tasty-fab-control>
+    @if(!(_screenIsSmall | async)) {
+      <tasty-fab-control></tasty-fab-control>
+    }
   </div>
 </nav>
 
-<div class="container">
+<div class="container main-content">
   <router-outlet></router-outlet>
 </div>
+
+@if(_screenIsSmall | async){
+  <nav class="tasty-footer-bar container">
+      <tasty-fab-control></tasty-fab-control>
+  </nav>
+}

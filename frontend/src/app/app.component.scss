@@ -1,14 +1,38 @@
 @import 'tasty-variables';
 
-.tasty-main-bar {
+.tasty-header-bar {
   position: sticky;
   top: 0;
   z-index: $tasty-main-bar-z-index;
-  background: #d5ebef; // TODO: It's ment to be changed when we know how the app should look.
+  background: #d5ebef;
 
   .tasty-icon {
     width: 45px;
     margin-right: 12px;
     border-radius: 7px;
   }
+}
+
+.tasty-footer-bar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 58px;
+
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: $tasty-main-bar-z-index;
+  background: #d5ebef;
+
+  .tasty-fab-control {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+}
+
+.main-content {
+  padding-bottom: 58px;
 }
