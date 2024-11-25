@@ -1,9 +1,15 @@
 @if (_recipe$ | async; as recipe) {
 <div class="row mb-3">
   <div class="col">
-    <h1>{{ recipe.name }}</h1>
+    <h1>
+      {{ recipe.name }}
+      @if (recipe.url){
+      <a href="{{ recipe.url }}" target="_blank" alt="Link zum Originalrezept"
+        title="Zum Originalrezept"><mat-icon>open_in_new</mat-icon></a>
+      }
+    </h1>
     @if (recipe.description) {
-      <p class="lead">{{ recipe.description | firstSentence }}</p>
+    <p class="lead">{{ recipe.description }}</p>
     }
   </div>
 </div>
@@ -42,11 +48,6 @@
       </p>
       }
     </div>
-    @if (recipe.url) {
-      <div class="mt-4">
-        <a class="btn btn-secondary" href="{{ recipe.url }}" target="_blank" role="button">Zum Originalrezept</a>
-      </div>
-    }
   </div>
 </div>
 }
