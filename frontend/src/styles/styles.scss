@@ -19,3 +19,7 @@ body {
   background: $tasty-critical-button-color !important;
   color: black !important;
 }
+
+button.mat-mdc-icon-button {
+  display: flex;
+}
