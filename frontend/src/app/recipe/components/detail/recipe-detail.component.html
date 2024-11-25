@@ -1,32 +1,53 @@
 @if (_recipe$ | async; as recipe) {
-  <h1>{{ recipe.name }}</h1>
+<div class="row mb-3">
+  <div class="col">
+    <h1>
+      {{ recipe.name }}
+      @if (recipe.url){
+      <a href="{{ recipe.url }}" target="_blank" alt="Link zum Originalrezept"
+        title="Zum Originalrezept"><mat-icon>open_in_new</mat-icon></a>
+      }
+    </h1>
+    @if (recipe.description) {
+    <p class="lead">{{ recipe.description }}</p>
+    }
+  </div>
+</div>
 
-  @if (recipe.imageUrl) {
-    <img [src]="recipe.imageUrl">
-  } @else {
+<div class="row mb-5">
+  <div class="col-lg-10 col-xl-9 col-xxl-8">
+    @if (recipe.imageUrl) {
+    <img [src]="recipe.imageUrl" class="img-fluid rounded-2">
+    } @else {
     <img src="dummy-image-square-300x300.jpg">
-  }
+    }
+  </div>
+</div>
 
-  <div class="row">
-    <div class="col-md-4">
-      <h5>Zutaten:</h5>
-      <ul>
+<div class="row">
+  <div class="col-md-5 col-lg-4 mb-4 mb-md-0">
+    <h2 class="h4 mb-4">Zutaten</h2>
+    <table class="table table-striped">
+      <tbody>
         @for (ingredient of recipe.ingredients; track $index) {
-          <li>{{ ingredient }}</li>
+        <tr>
+          <td>{{ ingredient }}</td>
+        </tr>
         }
-      </ul>
-    </div>
-    <div class="col-md-8">
-      <h5>Zubereitung:</h5>
-      <ul>
-        @for (block of recipe.instructions; track $index) {
-          <p>
-            @for (line of block; track $index) {
-              <li>{{ line }}</li>
-            }
-          </p>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-7 col-lg-8">
+    <h2 class="h4 mb-4">Zubereitung</h2>
+    <div>
+      @for (block of recipe.instructions; track $index) {
+      <p>
+        @for (line of block; track $index) {
+        {{ line }}
         }
-      </ul>
+      </p>
+      }
     </div>
   </div>
+</div>
 }

@@ -3,6 +3,7 @@ import { Observable, switchMap } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { TastyFabControl } from '../../../core/fab-control/fab-control.service';
 import { MatDialog } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 import { DeleteConfirmationDialogComponent } from '../delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { filter, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -10,11 +11,11 @@ import { Recipe } from '../../model/recipe';
 import { RecipeApiService } from '../../services/recipe-api.service';
 
 @Component({
-  selector:        'tasty-recipe-detail',
-  standalone:      true,
-  imports:         [CommonModule],
-  templateUrl:     './recipe-detail.component.html',
-  styleUrl:        './recipe-detail.component.scss',
+  selector: 'tasty-recipe-detail',
+  standalone: true,
+  imports: [CommonModule, MatIconModule],
+  templateUrl: './recipe-detail.component.html',
+  styleUrl: './recipe-detail.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RecipeDetailComponent implements OnInit {
@@ -30,7 +31,7 @@ export class RecipeDetailComponent implements OnInit {
   public ngOnInit(): void {
     this._fabControl.displayButtons = [
       {
-        option:      'DeleteRecipeButton',
+        option: 'DeleteRecipeButton',
         clickAction: () => this._dialog.open(DeleteConfirmationDialogComponent).afterClosed()
           .pipe(
             filter(Boolean),
