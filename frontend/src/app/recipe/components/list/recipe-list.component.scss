@@ -8,7 +8,6 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding-top: 0.5rem;
     border-bottom: 1px solid $light-border-subtle;
     transition: background-color 0.3s ease;
 
@@ -52,8 +51,8 @@
   }
 
   .item-title {
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
 
     .item-title-link {
       text-decoration: none;

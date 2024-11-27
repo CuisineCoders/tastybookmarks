@@ -1,7 +1,7 @@
 @if (_recipe$ | async; as recipe) {
 <div class="row mb-3">
   <div class="col">
-    <h1>
+    <h1 class="tasty-detail-main-headline">
       {{ recipe.name }}
       @if (recipe.url){
       <a href="{{ recipe.url }}" target="_blank" alt="Link zum Originalrezept"
@@ -10,6 +10,18 @@
     </h1>
     @if (recipe.description) {
     <p class="lead">{{ recipe.description }}</p>
+    }
+    @if (recipe.category) {
+    <div class="tasty-detail-category mb-2">
+      <span class="badge rounded-pill">{{ recipe.category }}</span>
+    </div>
+    }
+    @if (recipe.keywords) {
+    <div class="tasty-detail-keywords mb-2">
+      @for (keyword of recipe.keywords; track $index) {
+      <span class="badge rounded-pill">{{ keyword }}</span>
+      }
+    </div>
     }
   </div>
 </div>
@@ -26,7 +38,12 @@
 
 <div class="row">
   <div class="col-md-5 col-lg-4 mb-4 mb-md-0">
-    <h2 class="h4 mb-4">Zutaten</h2>
+    <h2 class="h4 mb-4">
+      Zutaten
+      @if (recipe.servingSize){
+      für {{recipe.servingSize}} Portionen
+      }
+    </h2>
     <table class="table table-striped">
       <tbody>
         @for (ingredient of recipe.ingredients; track $index) {
@@ -37,7 +54,7 @@
       </tbody>
     </table>
   </div>
-  <div class="col-md-7 col-lg-8">
+  <div class="col-md-7 col-lg-8 mb-4 mb-md-0">
     <h2 class="h4 mb-4">Zubereitung</h2>
     <div>
       @for (block of recipe.instructions; track $index) {
@@ -46,6 +63,71 @@
         {{ line }}
         }
       </p>
+      }
+    </div>
+  </div>
+</div>
+<div class="row">
+  @if (recipe.nutrition) {
+  <div class="col-md-5 col-lg-4 mb-4 mb-md-0">
+    <div class="tasty-detail-nutrition">
+      <h2 class="h4 mb-4">
+        Nährstoffe
+        @if (recipe.nutrition.servingSize){
+        für {{recipe.nutrition.servingSize}} Portion
+        }
+      </h2>
+      <table class="table table-striped">
+        <tbody>
+          @if (recipe.nutrition.proteinContent) {
+          <tr>
+            <th scope="col">Eiweiß</th>
+            <td>{{ recipe.nutrition.proteinContent }}</td>
+          </tr>
+          }
+          @if (recipe.nutrition.fatContent) {
+          <tr>
+            <th scope="col">Fett</th>
+            <td>{{ recipe.nutrition.fatContent }}</td>
+          </tr>
+          }
+          @if (recipe.nutrition.carbohydrateContent) {
+          <tr>
+            <th scope="col">Kohlenhydrate</th>
+            <td>{{ recipe.nutrition.carbohydrateContent }}</td>
+          </tr>
+          }
+          @if (recipe.nutrition.calories) {
+          <tr>
+            <th scope="col">Kalorien</th>
+            <td>{{ recipe.nutrition.calories }}</td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+  }
+  <div class="col-md-7 col-lg-8 mb-4 mb-md-0">
+    <div class="tasty-detail-times">
+      <h2 class="h4 mb-4">Zubereitungszeiten</h2>
+      @if (recipe.prepTime) {
+      <div>
+        <mat-icon>restaurant</mat-icon><span class="tasty-duration">Vorbereitungszeit: {{ recipe.prepTime |
+          durationFormat }}</span>
+      </div>
+      }
+      @if (recipe.cookTime) {
+      <div>
+        <mat-icon>microwave</mat-icon><span class="tasty-duration">Kochzeit: {{ recipe.cookTime | durationFormat
+          }}</span>
+      </div>
+      }
+      @if (recipe.totalTime) {
+      <div>
+        <mat-icon>schedule</mat-icon><span class="tasty-duration">Gesamtzeit:{{ recipe.totalTime | durationFormat
+          }}</span>
+      </div>
       }
     </div>
   </div>
