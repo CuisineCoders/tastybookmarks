@@ -16,8 +16,8 @@ export class NavigationControlComponent {
   private readonly navControl = inject(TastyNavigationControl);
 
 
-  protected showAddButton = computed(
+  protected addButton = computed(
     () => this.navControl.displayButtons().find(({ option }) => option === 'AddRecipeButton'));
-  protected showDeleteButton = computed(
+  protected deleteButton = computed(
     () => this.navControl.displayButtons().find(({ option }) => option === 'DeleteRecipeButton'));
 }

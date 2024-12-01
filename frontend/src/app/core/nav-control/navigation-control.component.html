@@ -1,11 +1,11 @@
-@if (showDeleteButton()) {
-  <button mat-icon-button class="tasty-critical-action" (click)="showDeleteButton()?.clickAction()">
+@if (deleteButton()) {
+  <button mat-icon-button class="tasty-critical-action" (click)="deleteButton()?.clickAction()">
     <mat-icon>delete</mat-icon>
   </button>
 }
 
-@if (showAddButton()) {
-  <button mat-icon-button class="tasty-primary-action" (click)="showAddButton()?.clickAction()">
+@if (addButton()) {
+  <button mat-icon-button class="tasty-primary-action" (click)="addButton()?.clickAction()">
     <mat-icon>add</mat-icon>
   </button>
 }
