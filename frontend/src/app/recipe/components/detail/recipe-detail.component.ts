@@ -21,7 +21,7 @@ import { MatIcon } from '@angular/material/icon';
 })
 export class RecipeDetailComponent implements OnInit {
   private readonly _recipeApiService = inject(RecipeApiService);
-  private readonly _fabControl = inject(TastyNavigationControl);
+  private readonly _navControl = inject(TastyNavigationControl);
   private readonly _dialog = inject(MatDialog);
   private readonly _router = inject(Router);
 
@@ -30,7 +30,7 @@ export class RecipeDetailComponent implements OnInit {
   protected _recipe$!: Observable<Recipe>;
 
   public ngOnInit(): void {
-    this._fabControl.displayButtons = [
+    this._navControl.displayButtons = [
       {
         option:      'AddRecipeButton',
         clickAction: () => this._dialog.open<AddRecipeDialogComponent, null, string | undefined>(

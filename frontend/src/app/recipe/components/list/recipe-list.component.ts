@@ -30,7 +30,7 @@ import { AddRecipeDialogComponent } from '../add-dialog/add-recipe-dialog.compon
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RecipeListComponent implements OnInit {
-  private readonly fabControl = inject(TastyNavigationControl);
+  private readonly navControl = inject(TastyNavigationControl);
   private readonly recipeApiService = inject(RecipeApiService);
   private readonly dialog = inject(MatDialog);
 
@@ -43,7 +43,7 @@ export class RecipeListComponent implements OnInit {
     );
 
   public ngOnInit(): void {
-    this.fabControl.displayButtons = [
+    this.navControl.displayButtons = [
       {
         option:      'AddRecipeButton',
         clickAction: () => this.dialog.open<AddRecipeDialogComponent, null, string | undefined>(
