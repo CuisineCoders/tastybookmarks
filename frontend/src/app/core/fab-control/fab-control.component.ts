@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
   selector:        'tasty-fab-control',
   templateUrl:     'fab-control.component.html',
   styleUrl:        './fab-control.component.scss',
+  host: { 'class': 'tasty-fab-control' },
   imports:         [MatButtonModule, MatIconModule],
   standalone:      true,
   changeDetection: ChangeDetectionStrategy.OnPush,

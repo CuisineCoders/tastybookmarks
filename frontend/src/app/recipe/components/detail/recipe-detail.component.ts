@@ -9,13 +9,14 @@ import { Router } from '@angular/router';
 import { Recipe } from '../../model/recipe';
 import { RecipeApiService } from '../../services/recipe-api.service';
 import { AddRecipeDialogComponent } from '../add-dialog/add-recipe-dialog.component';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
-  selector:        'tasty-recipe-detail',
-  standalone:      true,
-  imports:         [CommonModule],
-  templateUrl:     './recipe-detail.component.html',
-  styleUrl:        './recipe-detail.component.scss',
+  selector: 'tasty-recipe-detail',
+  standalone: true,
+  imports: [CommonModule, MatIcon],
+  templateUrl: './recipe-detail.component.html',
+  styleUrl: './recipe-detail.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RecipeDetailComponent implements OnInit {
@@ -42,7 +43,7 @@ export class RecipeDetailComponent implements OnInit {
           .subscribe(),
       },
       {
-        option:      'DeleteRecipeButton',
+        option: 'DeleteRecipeButton',
         clickAction: () => this._dialog.open(DeleteConfirmationDialogComponent).afterClosed()
           .pipe(
             filter(Boolean),
