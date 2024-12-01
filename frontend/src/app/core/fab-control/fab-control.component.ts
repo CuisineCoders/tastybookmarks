@@ -7,7 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
   selector:        'tasty-fab-control',
   templateUrl:     'fab-control.component.html',
   styleUrl:        './fab-control.component.scss',
-  host: { 'class': 'tasty-fab-control' },
+  host:            { 'class': 'tasty-fab-control' },
   imports:         [MatButtonModule, MatIconModule],
   standalone:      true,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -16,8 +16,9 @@ export class FabControlComponent {
   private readonly fabControl = inject(TastyFabControl);
 
 
-  protected addFab = computed(
+  protected importButton = computed(
     () => this.fabControl.displayButtons().find(({ option }) => option === 'AddRecipeButton'));
   protected deleteFab = computed(
     () => this.fabControl.displayButtons().find(({ option }) => option === 'DeleteRecipeButton'));
+  protected createButton = computed(() => true);
 }

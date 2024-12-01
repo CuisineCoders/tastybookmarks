@@ -4,8 +4,14 @@
   </button>
 }
 
-@if (addFab()) {
-  <button mat-icon-button class="tasty-primary-action" (click)="addFab()?.clickAction()">
+@if (importButton()) {
+  <button mat-icon-button class="tasty-primary-action" (click)="importButton()?.clickAction()">
+    <mat-icon>download</mat-icon>
+  </button>
+}
+
+@if (createButton()){
+  <button mat-icon-button class="tasty-primary-action">
     <mat-icon>add</mat-icon>
   </button>
 }
