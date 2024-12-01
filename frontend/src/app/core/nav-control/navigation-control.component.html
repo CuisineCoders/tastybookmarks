@@ -1,0 +1,11 @@
+@if (showDeleteButton()) {
+  <button mat-icon-button class="tasty-critical-action" (click)="showDeleteButton()?.clickAction()">
+    <mat-icon>delete</mat-icon>
+  </button>
+}
+
+@if (showAddButton()) {
+  <button mat-icon-button class="tasty-primary-action" (click)="showAddButton()?.clickAction()">
+    <mat-icon>add</mat-icon>
+  </button>
+}

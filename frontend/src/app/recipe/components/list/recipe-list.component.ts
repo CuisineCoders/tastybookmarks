@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { filter, startWith, Subject, switchMap } from 'rxjs';
-import { TastyFabControl } from '../../../core/fab-control/fab-control.service';
+import { TastyNavigationControl } from '../../../core/nav-control/navigation-control.service';
 import { KebabCasePipe } from '../../../shared/pipes/kebab-case.pipe';
 import { RecipeApiService } from '../../services/recipe-api.service';
 import { MatIcon } from '@angular/material/icon';
@@ -30,7 +30,7 @@ import { AddRecipeDialogComponent } from '../add-dialog/add-recipe-dialog.compon
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RecipeListComponent implements OnInit {
-  private readonly fabControl = inject(TastyFabControl);
+  private readonly fabControl = inject(TastyNavigationControl);
   private readonly recipeApiService = inject(RecipeApiService);
   private readonly dialog = inject(MatDialog);
 
