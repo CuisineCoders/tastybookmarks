@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { filter, startWith, Subject, switchMap } from 'rxjs';
 import { TastyFabControl } from '../../../core/fab-control/fab-control.service';
 import { KebabCasePipe } from '../../../shared/pipes/kebab-case.pipe';
@@ -13,7 +13,7 @@ import {
 import { tap } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatIconButton } from '@angular/material/button';
-import { AddRecipeDialogComponent } from '../add-dialog/add-recipe-dialog.component';
+import { ImportRecipeDialogComponent } from '../import-dialog/import-recipe-dialog.component';
 
 @Component({
   selector:        'tasty-list',
@@ -33,6 +33,7 @@ export class RecipeListComponent implements OnInit {
   private readonly fabControl = inject(TastyFabControl);
   private readonly recipeApiService = inject(RecipeApiService);
   private readonly dialog = inject(MatDialog);
+  private router = inject(Router);
 
   private readonly fetchRecipes$ = new Subject<void>();
   protected readonly _recipes$ = this.fetchRecipes$.asObservable()
@@ -43,20 +44,27 @@ export class RecipeListComponent implements OnInit {
     );
 
   public ngOnInit(): void {
-    this.fabControl.displayButtons = [
+    this.fabControl.displayButtons([
       {
-        option:      'AddRecipeButton',
-        clickAction: () => this.dialog.open<AddRecipeDialogComponent, null, string | undefined>(
-          AddRecipeDialogComponent, { width: '450px' })
-          .afterClosed()
-          .pipe(
-            filter(event => event !== undefined),
-            switchMap(result => this.recipeApiService.addRecipe(result)),
-            tap(() => this.fetchRecipes$.next()),
-          )
-          .subscribe(),
+        option:      'ImportRecipeButton',
+        clickAction: () => this.importRecipe(),
+      }, {
+        option:      'CreateRecipeButton',
+        clickAction: () => this.createRecipe(),
       },
-    ];
+    ]);
+  }
+
+  private importRecipe() {
+    this.dialog.open<ImportRecipeDialogComponent, null, string | undefined>(
+      ImportRecipeDialogComponent, { width: '450px' })
+      .afterClosed()
+      .pipe(
+        filter(event => event !== undefined),
+        switchMap(result => this.recipeApiService.addRecipe(result)),
+        tap(() => this.fetchRecipes$.next()),
+      )
+      .subscribe();
   }
 
   protected delete(id: string): void {
@@ -65,5 +73,9 @@ export class RecipeListComponent implements OnInit {
       switchMap(() => this.recipeApiService.deleteRecipe(id)),
       tap(() => this.fetchRecipes$.next()),
     ).subscribe();
+  }
+
+  private createRecipe(): void {
+    this.router.navigate(['recipes/create']).then(() => console.log('navigate to create'));
   }
 }

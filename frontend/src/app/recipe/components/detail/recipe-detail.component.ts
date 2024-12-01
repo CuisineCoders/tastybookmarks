@@ -8,7 +8,7 @@ import { filter, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Recipe } from '../../model/recipe';
 import { RecipeApiService } from '../../services/recipe-api.service';
-import { AddRecipeDialogComponent } from '../add-dialog/add-recipe-dialog.component';
+import { ImportRecipeDialogComponent } from '../import-dialog/import-recipe-dialog.component';
 import { MatIcon } from '@angular/material/icon';
 
 @Component({
@@ -30,11 +30,11 @@ export class RecipeDetailComponent implements OnInit {
   protected _recipe$!: Observable<Recipe>;
 
   public ngOnInit(): void {
-    this._fabControl.displayButtons = [
+    this._fabControl.displayButtons([
       {
-        option:      'AddRecipeButton',
-        clickAction: () => this._dialog.open<AddRecipeDialogComponent, null, string | undefined>(
-          AddRecipeDialogComponent, { width: '450px' })
+        option:      'ImportRecipeButton',
+        clickAction: () => this._dialog.open<ImportRecipeDialogComponent, null, string | undefined>(
+          ImportRecipeDialogComponent, { width: '450px' })
           .afterClosed()
           .pipe(
             filter(event => event !== undefined),
@@ -51,7 +51,7 @@ export class RecipeDetailComponent implements OnInit {
             tap(() => this._router.navigate(['recipes'])),
           ).subscribe(),
       },
-    ];
+    ]);
 
     this._recipe$ = this._recipeApiService.getRecipe(this.recipeId());
   }

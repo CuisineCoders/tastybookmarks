@@ -1,20 +1,19 @@
-import {computed, Injectable, Signal, signal} from "@angular/core";
+import { Injectable, signal } from '@angular/core';
 
 export interface TastyButtonOption {
-  option: 'AddRecipeButton' | 'DeleteRecipeButton';
+  option: 'ImportRecipeButton' | 'DeleteRecipeButton' | 'CreateRecipeButton';
   clickAction: () => void;
 }
 
 @Injectable({providedIn: 'root'})
 export class TastyFabControl {
-  private readonly _showButtons = signal<Array<TastyButtonOption>>([]);
+  private readonly _availableButtons = signal<Array<TastyButtonOption>>([]);
 
-
-  public set displayButtons(buttons: Array<TastyButtonOption>) {
-    this._showButtons.set(buttons)
+  public displayButtons(buttons: Array<TastyButtonOption>) {
+    this._availableButtons.set(buttons)
   }
 
-  public get displayButtons(): Signal<Array<TastyButtonOption>> {
-    return computed(() => this._showButtons())
+  public buttonsToDisplay(): Array<TastyButtonOption> {
+    return this._availableButtons()
   }
 }

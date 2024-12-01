@@ -1,17 +1,29 @@
 @if (deleteFab()) {
-  <button mat-icon-button class="tasty-critical-action" (click)="deleteFab()?.clickAction()">
+  <button
+    mat-icon-button
+    class="tasty-critical-action"
+    matTooltip="Lösche dein Rezept"
+    (click)="deleteFab()?.clickAction()">
     <mat-icon>delete</mat-icon>
   </button>
 }
 
 @if (importButton()) {
-  <button mat-icon-button class="tasty-primary-action" (click)="importButton()?.clickAction()">
+  <button
+    mat-icon-button
+    class="tasty-primary-action"
+    matTooltip="Importiere ein Rezept via URL"
+    (click)="importButton()?.clickAction()">
     <mat-icon>download</mat-icon>
   </button>
 }
 
-@if (createButton()){
-  <button mat-icon-button class="tasty-primary-action">
+@if (createButton()) {
+  <button
+    mat-icon-button
+    class="tasty-primary-action"
+    matTooltip="Erstelle ein Rezept"
+  (click)="createButton()?.clickAction()">
     <mat-icon>add</mat-icon>
   </button>
 }
