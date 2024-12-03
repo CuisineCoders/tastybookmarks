@@ -32,6 +32,10 @@ export class RecipeDetailComponent implements OnInit {
   public ngOnInit(): void {
     this._fabControl.displayButtons([
       {
+        option:      'CreateRecipeButton',
+        clickAction: () => this.createRecipe(),
+      },
+      {
         option:      'ImportRecipeButton',
         clickAction: () => this._dialog.open<ImportRecipeDialogComponent, null, string | undefined>(
           ImportRecipeDialogComponent, { width: '450px' })
@@ -54,5 +58,9 @@ export class RecipeDetailComponent implements OnInit {
     ]);
 
     this._recipe$ = this._recipeApiService.getRecipe(this.recipeId());
+  }
+
+  private createRecipe(): void {
+    this._router.navigate(['recipes/create']).then(() => console.log('navigate to create'));
   }
 }
