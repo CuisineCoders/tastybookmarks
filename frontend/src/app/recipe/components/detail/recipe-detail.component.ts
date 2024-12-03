@@ -10,11 +10,12 @@ import { Recipe } from '../../model/recipe';
 import { RecipeApiService } from '../../services/recipe-api.service';
 import { AddRecipeDialogComponent } from '../add-dialog/add-recipe-dialog.component';
 import { MatIcon } from '@angular/material/icon';
+import { DurationFormatPipe } from '../../../shared/pipes/duration-format.pipe';
 
 @Component({
   selector: 'tasty-recipe-detail',
   standalone: true,
-  imports: [CommonModule, MatIcon],
+  imports: [CommonModule, MatIcon, DurationFormatPipe],
   templateUrl: './recipe-detail.component.html',
   styleUrl: './recipe-detail.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
