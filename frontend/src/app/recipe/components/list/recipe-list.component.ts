@@ -48,7 +48,8 @@ export class RecipeListComponent implements OnInit {
       {
         option:      'ImportRecipeButton',
         clickAction: () => this.importRecipe(),
-      }, {
+      },
+      {
         option:      'CreateRecipeButton',
         clickAction: () => this.createRecipe(),
       },
