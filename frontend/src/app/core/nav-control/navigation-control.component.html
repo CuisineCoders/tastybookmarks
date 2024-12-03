@@ -1,9 +1,9 @@
-@if (deleteFab()) {
+@if (deleteButton()) {
   <button
     mat-icon-button
     class="tasty-critical-action"
     matTooltip="Lösche dein Rezept"
-    (click)="deleteFab()?.clickAction()">
+    (click)="deleteButton()?.clickAction()">
     <mat-icon>delete</mat-icon>
   </button>
 }

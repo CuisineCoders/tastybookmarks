@@ -1,4 +1,46 @@
 :host {
     display: flex;
     flex-direction: column;
+    padding-top: 1rem;
+}
+
+.tasty-detail-main-headline {
+    .mat-icon {
+        color: initial;
+    }
+}
+
+.tasty-detail-category {
+    margin-bottom: .5rem;
+
+    .badge {
+        font-size: 1.25rem;
+    }
+}
+
+.tasty-detail-keywords {
+    .badge {
+        margin-right: .2rem;
+    }
+}
+
+.badge {
+    font-weight: normal;
+    border: 1px solid darkgray;
+    color: dimgray;
+}
+
+.tasty-detail-nutrition {
+    th[scope="col"] {
+        font-weight: normal;
+    }
+}
+
+.tasty-detail-times {
+    .mat-icon {
+        margin-right: .5rem;
+    }
+    .tasty-duration {
+        vertical-align: top;
+    }
 }

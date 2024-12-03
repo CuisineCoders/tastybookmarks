@@ -6,17 +6,17 @@
     </a>
 
     @if(!(_screenIsSmall | async)) {
-      <tasty-fab-control></tasty-fab-control>
+      <tasty-nav-control></tasty-nav-control>
     }
   </div>
 </nav>
 
-<div class="container main-content py-4">
+<div class="container main-content">
   <router-outlet></router-outlet>
 </div>
 
 @if(_screenIsSmall | async){
   <nav class="tasty-footer-bar container">
-      <tasty-fab-control></tasty-fab-control>
+      <tasty-nav-control></tasty-nav-control>
   </nav>
 }

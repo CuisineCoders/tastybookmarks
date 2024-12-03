@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, input, OnInit } from '@angular/core';
 import { Observable, switchMap } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { TastyFabControl } from '../../../core/fab-control/fab-control.service';
+import { TastyNavigationControl } from '../../../core/nav-control/navigation-control.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteConfirmationDialogComponent } from '../delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { filter, tap } from 'rxjs/operators';
@@ -10,18 +10,19 @@ import { Recipe } from '../../model/recipe';
 import { RecipeApiService } from '../../services/recipe-api.service';
 import { ImportRecipeDialogComponent } from '../import-dialog/import-recipe-dialog.component';
 import { MatIcon } from '@angular/material/icon';
+import { DurationFormatPipe } from '../../../shared/pipes/duration-format.pipe';
 
 @Component({
   selector: 'tasty-recipe-detail',
   standalone: true,
-  imports: [CommonModule, MatIcon],
+  imports: [CommonModule, MatIcon, DurationFormatPipe],
   templateUrl: './recipe-detail.component.html',
   styleUrl: './recipe-detail.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RecipeDetailComponent implements OnInit {
   private readonly _recipeApiService = inject(RecipeApiService);
-  private readonly _fabControl = inject(TastyFabControl);
+  private readonly _navControl = inject(TastyNavigationControl);
   private readonly _dialog = inject(MatDialog);
   private readonly _router = inject(Router);
 
@@ -30,7 +31,7 @@ export class RecipeDetailComponent implements OnInit {
   protected _recipe$!: Observable<Recipe>;
 
   public ngOnInit(): void {
-    this._fabControl.displayButtons([
+    this._navControl.displayButtons([
       {
         option:      'CreateRecipeButton',
         clickAction: () => this.createRecipe(),
