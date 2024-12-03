@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { TastyFabControl } from './fab-control.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector:        'tasty-fab-control',
@@ -15,7 +16,6 @@ import { MatTooltip } from '@angular/material/tooltip';
 })
 export class FabControlComponent {
   private readonly fabControl = inject(TastyFabControl);
-
 
   protected importButton = computed(
     () => this.fabControl.buttonsToDisplay().find(({ option }) => option === 'ImportRecipeButton'));
