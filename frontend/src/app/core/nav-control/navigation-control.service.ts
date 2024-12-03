@@ -2,7 +2,7 @@ import { Injectable, signal } from '@angular/core';
 
 export interface TastyNavigationButtonOption {
   option: 'CreateRecipeButton' | 'DeleteRecipeButton' | 'ImportRecipeButton';
-  clickAction: () => void;
+  clickAction?: () => void ;
 }
 
 @Injectable({ providedIn: 'root' })

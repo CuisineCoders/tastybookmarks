@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/c
 import { TastyNavigationControl } from './navigation-control.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { Router } from '@angular/router';
 
 @Component({
   selector:        'tasty-nav-control',
@@ -14,6 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class NavigationControlComponent {
   private readonly navControl = inject(TastyNavigationControl);
+  private readonly router = inject(Router);
 
 
   protected importButton = computed(
@@ -23,4 +25,9 @@ export class NavigationControlComponent {
   protected createButton = computed(
     () => this.navControl.buttonsToDisplay().find(({ option }) => option === 'CreateRecipeButton'),
   );
+
+
+  protected createRecipe(): void {
+    this.router.navigate(['recipes/create']).then(() => console.log('navigate to create'));
+  }
 }

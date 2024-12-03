@@ -34,7 +34,6 @@ export class RecipeDetailComponent implements OnInit {
     this._navControl.displayButtons([
       {
         option:      'CreateRecipeButton',
-        clickAction: () => this.createRecipe(),
       },
       {
         option:      'ImportRecipeButton',
@@ -59,9 +58,5 @@ export class RecipeDetailComponent implements OnInit {
     ]);
 
     this._recipe$ = this._recipeApiService.getRecipe(this.recipeId());
-  }
-
-  private createRecipe(): void {
-    this._router.navigate(['recipes/create']).then(() => console.log('navigate to create'));
   }
 }

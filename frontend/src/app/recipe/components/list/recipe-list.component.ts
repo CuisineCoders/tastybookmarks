@@ -50,8 +50,7 @@ export class RecipeListComponent implements OnInit {
         clickAction: () => this.importRecipe(),
       },
       {
-        option:      'CreateRecipeButton',
-        clickAction: () => this.createRecipe(),
+        option: 'CreateRecipeButton',
       },
     ]);
   }
@@ -74,9 +73,5 @@ export class RecipeListComponent implements OnInit {
       switchMap(() => this.recipeApiService.deleteRecipe(id)),
       tap(() => this.fetchRecipes$.next()),
     ).subscribe();
-  }
-
-  private createRecipe(): void {
-    this.router.navigate(['recipes/create']).then(() => console.log('navigate to create'));
   }
 }
