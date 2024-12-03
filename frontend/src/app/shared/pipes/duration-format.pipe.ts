@@ -15,7 +15,7 @@ export class DurationFormatPipe implements PipeTransform {
     const matches = value.match(regexToExtractDuration);
 
     if (!matches) {
-      return value; // Rückgabe der Originalzeichenkette bei Fehler
+      return value;
     }
 
     const units = [
