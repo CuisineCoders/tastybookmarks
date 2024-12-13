@@ -2,10 +2,33 @@ import { Routes } from '@angular/router';
 import { RecipeTesterComponent } from './recipe/components/tester/recipe-tester.component';
 import { RecipeListComponent } from './recipe/components/list/recipe-list.component';
 import { RecipeDetailComponent } from './recipe/components/detail/recipe-detail.component';
+import { LoginComponent } from './core/login/login.component';
+import { AuthGuard } from './core/services/auth.guard';
+import { SplashLayoutComponent } from './layout/splash/splash-layout.component';
+import { MainLayoutComponent } from './layout/main/main-layout.component';
 
 export const routes: Routes = [
-    { path: 'recipes', component: RecipeListComponent },
-    { path: 'recipe-tester', component: RecipeTesterComponent },
-    { path: 'recipes/:recipeId/:recipeName', component: RecipeDetailComponent },
-    { path: '', redirectTo: '/recipes', pathMatch: 'full'},
+  {
+    path: '',
+    component: SplashLayoutComponent,
+    children: [
+      { path: '', component: LoginComponent },  // Login auf dem leeren Pfad
+      { path: 'login', component: LoginComponent }, // Optional, falls du explizit '/login' haben willst
+    ],
+  },
+
+  {
+    path: '',
+    component: MainLayoutComponent,
+    canActivate: [AuthGuard],
+    children: [
+      { path: 'recipes', component: RecipeListComponent },
+      { path: 'recipes/:recipeId/:recipeName', component: RecipeDetailComponent },
+      { path: 'recipe-tester', component: RecipeTesterComponent },
+      { path: '', redirectTo: 'recipes', pathMatch: 'full' },
+    ],
+  },
+
+  { path: '**', redirectTo: '/login' },
 ];
+
