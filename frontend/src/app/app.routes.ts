@@ -12,11 +12,10 @@ export const routes: Routes = [
     path: '',
     component: SplashLayoutComponent,
     children: [
-      { path: '', component: LoginComponent },  // Login auf dem leeren Pfad
-      { path: 'login', component: LoginComponent }, // Optional, falls du explizit '/login' haben willst
+      { path: '', component: LoginComponent },
+      { path: 'login', component: LoginComponent },
     ],
   },
-
   {
     path: '',
     component: MainLayoutComponent,
