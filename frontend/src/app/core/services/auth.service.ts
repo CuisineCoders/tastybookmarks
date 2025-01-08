@@ -7,7 +7,6 @@ import netlifyIdentity, { User } from 'netlify-identity-widget';
 })
 export class AuthService {
   private readonly router = inject(Router);
-
   private isLoggedIn = false;
 
   constructor() {
@@ -17,9 +16,13 @@ export class AuthService {
   }
 
   public isAuthenticated(): boolean {
-    return !!(
-      JSON.parse(localStorage.getItem('gotrue.user')!) as User
-    )?.token ?? false;
+    const user = this.getUser();
+    return !!user?.token?.access_token;
+  }
+
+  public getToken(): string | null {
+    const user = this.getUser();
+    return user?.token?.access_token || null;
   }
 
   public open(): void {
@@ -35,5 +38,9 @@ export class AuthService {
   private login(): void {
     this.isLoggedIn = true;
     this.router.navigate(['/recipes']).then(() => netlifyIdentity.close());
+  }
+
+  private getUser(): User | null {
+    return JSON.parse(localStorage.getItem('gotrue.user')!) as User;
   }
 }

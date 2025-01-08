@@ -46,6 +46,8 @@ export async function addRecipe(req: Request, res: Response): Promise<void> {
 
 export async function getAllRecipes(_req: Request, res: Response): Promise<void> {
     console.log('Received request to fetch all recipes');
+    console.log(_req.rawHeaders);
+    
 
     try {
         const recipes = await recipeRepository.getAllRecipes();
