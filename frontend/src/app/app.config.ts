@@ -5,6 +5,8 @@ import { provideRouter, withComponentInputBinding } from '@angular/router';
 
 import { routes } from './app.routes';
 import { authInterceptor } from './core/services/auth.interceptor';
+import { authConfig } from './auth/auth.config';
+import { provideAuth } from 'angular-auth-oidc-client';
 
 
 export const appConfig: ApplicationConfig = {
@@ -12,6 +14,7 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes, withComponentInputBinding()),
     provideAnimations(),
-    provideHttpClient(withInterceptors([authInterceptor]))
+    provideHttpClient(withInterceptors([authInterceptor])),
+    provideAuth(authConfig)
   ]
 };

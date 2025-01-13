@@ -1,46 +1,43 @@
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import netlifyIdentity, { User } from 'netlify-identity-widget';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { switchMap, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private readonly router = inject(Router);
+  private readonly oidcSecurityService = inject(OidcSecurityService);
+
   private isLoggedIn = false;
 
   constructor() {
-    netlifyIdentity.init();
-    netlifyIdentity.on('login', () => this.login());
-    netlifyIdentity.on('logout', () => (this.isLoggedIn = false));
+    this.oidcSecurityService.checkAuth().subscribe((token) => console.log(token));
   }
 
   public isAuthenticated(): boolean {
-    const user = this.getUser();
-    return !!user?.token?.access_token;
+    return false;
   }
 
   public getToken(): string | null {
-    const user = this.getUser();
-    return user?.token?.access_token || null;
+    return null
   }
 
   public open(): void {
-    netlifyIdentity.open();
   }
 
   public logout(): void {
-    this.isLoggedIn = false;
-    netlifyIdentity.logout();
-    this.router.navigate(['/login']);
+    this.oidcSecurityService
+      .logoff()
+      .pipe(
+        tap((result) => console.log(result)),
+        switchMap(() => this.router.navigate(['/login']))
+      )
+      .subscribe();
   }
 
   private login(): void {
-    this.isLoggedIn = true;
-    this.router.navigate(['/recipes']).then(() => netlifyIdentity.close());
-  }
-
-  private getUser(): User | null {
-    return JSON.parse(localStorage.getItem('gotrue.user')!) as User;
+    this.oidcSecurityService.authorize();
   }
 }
