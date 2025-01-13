@@ -10,8 +10,6 @@ export class AuthService {
   private readonly router = inject(Router);
   private readonly oidcSecurityService = inject(OidcSecurityService);
 
-  private isLoggedIn = false;
-
   constructor() {
     this.oidcSecurityService.checkAuth().subscribe((token) => console.log(token));
   }
@@ -37,7 +35,7 @@ export class AuthService {
       .subscribe();
   }
 
-  private login(): void {
+  public login(): void {
     this.oidcSecurityService.authorize();
   }
 }

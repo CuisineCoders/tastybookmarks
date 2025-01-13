@@ -14,6 +14,6 @@ export class LoginComponent {
   private readonly authService = inject(AuthService);
 
   onLogin(): void {
-    this.authService.open()
+    this.authService.login();
   }
 }
