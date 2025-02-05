@@ -36,6 +36,7 @@
               "includePaths": ["src/styles"]
             },
             "styles": [
+              "node_modules/@aws-amplify/ui-angular/theme.css",
               "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles/styles.scss"
             ],
@@ -102,6 +103,7 @@
               }
             ],
             "styles": [
+              "node_modules/@aws-amplify/ui-angular/theme.css",
               "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.scss"
             ],

@@ -20,8 +20,8 @@
     "@angular/platform-browser": "^18.2.6",
     "@angular/platform-browser-dynamic": "^18.2.6",
     "@angular/router": "^18.2.6",
+    "@aws-amplify/ui-angular": "^5.0.36",
     "bootstrap": "^5.3.3",
-    "netlify-identity-widget": "^1.9.2",
     "rxjs": "~7.8.1",
     "tslib": "^2.7.0",
     "zone.js": "^0.14.10"

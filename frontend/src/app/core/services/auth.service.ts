@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import netlifyIdentity, { User } from 'netlify-identity-widget';
+// import netlifyIdentity, { User } from 'netlify-identity-widget';
 
 @Injectable({
   providedIn: 'root',
@@ -10,37 +10,39 @@ export class AuthService {
   private isLoggedIn = false;
 
   constructor() {
-    netlifyIdentity.init();
-    netlifyIdentity.on('login', () => this.login());
-    netlifyIdentity.on('logout', () => (this.isLoggedIn = false));
+    // netlifyIdentity.init();
+    // netlifyIdentity.on('login', () => this.login());
+    // netlifyIdentity.on('logout', () => (this.isLoggedIn = false));
   }
 
   public isAuthenticated(): boolean {
-    const user = this.getUser();
-    return !!user?.token?.access_token;
+    // const user = this.getUser();
+    // return !!user?.token?.access_token;
+    return false;
   }
 
   public getToken(): string | null {
-    const user = this.getUser();
-    return user?.token?.access_token || null;
+    // const user = this.getUser();
+    // return user?.token?.access_token || null;
+    return null;
   }
 
   public open(): void {
-    netlifyIdentity.open();
+    // netlifyIdentity.open();
   }
 
   public logout(): void {
-    this.isLoggedIn = false;
-    netlifyIdentity.logout();
-    this.router.navigate(['/login']);
+    // this.isLoggedIn = false;
+    // netlifyIdentity.logout();
+    // this.router.navigate(['/login']);
   }
 
   private login(): void {
-    this.isLoggedIn = true;
-    this.router.navigate(['/recipes']).then(() => netlifyIdentity.close());
+    // this.isLoggedIn = true;
+    // this.router.navigate(['/recipes']).then(() => netlifyIdentity.close());
   }
 
-  private getUser(): User | null {
-    return JSON.parse(localStorage.getItem('gotrue.user')!) as User;
-  }
+  // private getUser(): User | null {
+  //   return JSON.parse(localStorage.getItem('gotrue.user')!) as User;
+  // }
 }
