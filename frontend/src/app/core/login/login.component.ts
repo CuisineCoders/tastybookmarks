@@ -4,6 +4,23 @@ import { MatButtonModule } from '@angular/material/button';
 import { Amplify } from 'aws-amplify';
 import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
 
+import { I18n } from 'aws-amplify/utils';
+import { translations } from '@aws-amplify/ui-angular';
+I18n.putVocabularies(translations);
+I18n.setLanguage('de');
+
+I18n.putVocabularies({
+  de: {
+    'Please confirm your Password': 'Bitte bestätige dein Passwort',
+    'Enter your code': 'Gib deinen Code ein',
+    'Enter your Confirmation Code': 'Gib deinen Bestätigungs-Code ein',
+    'Enter your Email': 'Gib deine E-Mail ein',
+    'Enter your email': 'Gib deine E-Mail ein',
+    'Enter your Password': 'Gib dein Passwort ein',
+    'Reset Password': 'Passwort zurücksetzen',
+  }
+});
+
 Amplify.configure({
   Auth: {
     Cognito: {
@@ -14,11 +31,11 @@ Amplify.configure({
 });
 
 @Component({
-  selector:        'tasty-login',
-  standalone:      true,
-  imports:         [MatButtonModule, AmplifyAuthenticatorModule],
-  templateUrl:     './login.component.html',
-  styleUrl:        './login.component.scss',
+  selector: 'tasty-login',
+  standalone: true,
+  imports: [MatButtonModule, AmplifyAuthenticatorModule],
+  templateUrl: './login.component.html',
+  styleUrl: './login.component.scss',
   // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent {

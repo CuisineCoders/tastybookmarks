@@ -1,9 +1,9 @@
-<div class="d-flex flex-column justify-content-center align-items-center vh-100 login-page">
+<div class="d-flex flex-column align-items-center pt-5 login-page">
     <div class="d-flex flex-row align-items-center pb-5">
         <img src="/icon.jfif" alt="Logo" class="logo rounded" />
         <h1 class="fw-bold text-secondary mb-0">TastyBookmarks</h1>
     </div>
-    <amplify-authenticator>
+    <amplify-authenticator [loginMechanisms]="['email']">
         <ng-template amplifySlot="authenticated" let-user="user" let-signOut="signOut">
             <h1>Welcome {{ user.username }}!</h1>
             <button (click)="signOut()">Sign Out</button>
