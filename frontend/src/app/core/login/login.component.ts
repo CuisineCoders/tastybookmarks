@@ -18,6 +18,8 @@ I18n.putVocabularies({
     'Enter your email': 'Gib deine E-Mail ein',
     'Enter your Password': 'Gib dein Passwort ein',
     'Reset Password': 'Passwort zurücksetzen',
+    'Your code is on the way. To log in, enter the code we emailed to':
+      'Dein Bestätigungscode ist unterwegs. Um dich einzuloggen gib den Code ein, der gerade per E-Mail rausging an ',
   }
 });
 
