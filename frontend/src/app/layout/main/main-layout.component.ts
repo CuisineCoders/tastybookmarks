@@ -7,7 +7,7 @@ import { map } from 'rxjs';
 import { MatDivider } from '@angular/material/divider';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { AuthService } from '../../core/services/auth.service';
+// import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector:        'tasty-main-layout',
@@ -18,12 +18,12 @@ import { AuthService } from '../../core/services/auth.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MainLayoutComponent {
-  protected readonly authService = inject(AuthService);
+  // protected readonly authService = inject(AuthService);
 
   protected readonly _screenIsSmall = inject(BreakpointObserver).observe('(max-width: 575px)')
     .pipe(map((event) => event.matches));
 
   protected logout(): void {
-    this.authService.logout();
+    // this.authService.logout();
   }
 }
