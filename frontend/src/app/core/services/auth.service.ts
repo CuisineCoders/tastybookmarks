@@ -1,48 +1,46 @@
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-// import netlifyIdentity, { User } from 'netlify-identity-widget';
+import { AuthenticatorService } from '@aws-amplify/ui-angular';
+import { fetchAuthSession } from 'aws-amplify/auth';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  private readonly authenticatorService = inject(AuthenticatorService);
   private readonly router = inject(Router);
-  private isLoggedIn = false;
 
   constructor() {
-    // netlifyIdentity.init();
-    // netlifyIdentity.on('login', () => this.login());
-    // netlifyIdentity.on('logout', () => (this.isLoggedIn = false));
+    this.authenticatorService.subscribe((data: any) => {
+      if (data.authStatus === "authenticated") {
+        this.router.navigate(['/recipes']);
+      };
+    })
   }
 
   public isAuthenticated(): boolean {
-    // const user = this.getUser();
-    // return !!user?.token?.access_token;
-    return false;
+    return this.authenticatorService.authStatus === 'authenticated' ? true : false;
   }
 
-  public getToken(): string | null {
-    // const user = this.getUser();
-    // return user?.token?.access_token || null;
-    return null;
+  public async getAccessTokenFromLocalStorage() {
+    let cognitoToken = await fetchAuthSession();
+    const clientId = cognitoToken.tokens?.accessToken.payload['client_id'];
+    const userId = cognitoToken.tokens?.accessToken.payload['username'];
+
+    const key = `CognitoIdentityServiceProvider.${clientId}.${userId}.accessToken`;
+    const accessToken = localStorage.getItem(key);
+
+    if (!accessToken) {
+      console.error("Kein Access Token gefunden!");
+      return null;
+    }
+
+    return accessToken;
   }
 
-  public open(): void {
-    // netlifyIdentity.open();
-  }
 
   public logout(): void {
-    // this.isLoggedIn = false;
-    // netlifyIdentity.logout();
-    // this.router.navigate(['/login']);
+    this.authenticatorService.signOut();
+    this.router.navigate(['/login']);
   }
-
-  private login(): void {
-    // this.isLoggedIn = true;
-    // this.router.navigate(['/recipes']).then(() => netlifyIdentity.close());
-  }
-
-  // private getUser(): User | null {
-  //   return JSON.parse(localStorage.getItem('gotrue.user')!) as User;
-  // }
 }

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-// import { AuthService } from '../services/auth.service';
+import { AuthService } from '../services/auth.service';
 import { Amplify } from 'aws-amplify';
 import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
 
@@ -41,9 +41,5 @@ Amplify.configure({
   // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent {
-  // private readonly authService = inject(AuthService);
-
-  onLogin(): void {
-    // this.authService.open()
-  }
+  private readonly authService = inject(AuthService);
 }
