@@ -6,11 +6,11 @@ export class RecipeRepository {
     private recipe = mongoose.model<Recipe>('Recipe', RecipeSchema);
 
     async addRecipe(recipeData: Partial<Recipe>): Promise<Recipe> {
-  return (await this.recipe.create(recipeData)).save();
+        return (await this.recipe.create(recipeData)).save();
     }
 
-    async getAllRecipes(): Promise<Recipe[]> {
-        return await this.recipe.find().sort({ createdAt: -1 }).exec();
+    async getAllRecipes(userId: string): Promise<Recipe[]> {
+        return await this.recipe.find({ owner: userId }).sort({ createdAt: -1 }).exec();
     }
 
     async getRecipeById(id: string): Promise<Recipe | null> {

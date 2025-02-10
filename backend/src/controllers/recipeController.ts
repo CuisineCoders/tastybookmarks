@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
-import { validate, fetchHTMLContent, extractRecipeFromHTML, getKey } from './helpers';
+import { AuthenticatedRequest } from '../routes/authMiddleware';
+import { validate, fetchHTMLContent, extractRecipeFromHTML } from './helpers';
 import { parseRecipe } from '../parser';
 import { RecipeRepository } from '../model/recipeRepository';
-import jwt from 'jsonwebtoken';
 
 const recipeRepository = new RecipeRepository()
 
-export async function addRecipe(req: Request, res: Response): Promise<void> {
+export async function addRecipe(req: AuthenticatedRequest, res: Response): Promise<void> {
     const { url } = req.body;
 
     console.log(`\n\nReceived request to add recipe from URL: ${url}`);
@@ -33,6 +33,8 @@ export async function addRecipe(req: Request, res: Response): Promise<void> {
 
         console.log(`Parsing and saving recipe for URL: ${url}`);
         const newRecipeData = parseRecipe(recipeData, url);
+        newRecipeData.owner = req.userId;
+
         const savedRecipe = await recipeRepository.addRecipe(newRecipeData);
 
         console.log(`Recipe successfully saved for URL: ${url}`);
@@ -45,39 +47,18 @@ export async function addRecipe(req: Request, res: Response): Promise<void> {
 }
 
 
-export async function getAllRecipes(req: Request, res: Response): Promise<void> {
-    console.log('Received request to fetch all recipes');
 
-    const authHeader = req.headers['authorization'];
-    if (!authHeader) {
-        res.status(401).json({ message: 'Authorization header missing' });
-        return;
+export async function getAllRecipes(req: AuthenticatedRequest, res: Response): Promise<void> {
+    console.log(`Received request to fetch all recipes from user ${req.userId}`);
+
+    try {
+        const recipes = await recipeRepository.getAllRecipes(req.userId!);
+        console.log(`Successfully retrieved ${recipes.length} recipes`);
+        res.status(200).json(recipes);
+    } catch (error) {
+        console.error('Error occurred while fetching recipes:', (error as Error).message);
+        res.status(500).json({ message: 'Failed to fetch recipes', error: (error as Error).message });
     }
-
-    const token = authHeader.split(' ')[1];
-    if (!token) {
-        res.status(401).json({ message: 'Token missing' });
-        return;
-    }
-
-    jwt.verify(token, getKey, { algorithms: ['RS256'] }, async (err, decoded) => {
-        if (err) {
-            console.error('Error verifying JWT:', err);
-            res.status(401).json({ message: 'Invalid token' });
-            return;
-        }
-
-        console.log('Decoded JWT:', decoded);
-
-        try {
-            const recipes = await recipeRepository.getAllRecipes();
-            console.log(`Successfully retrieved ${recipes.length} recipes`);
-            res.status(200).json(recipes);
-        } catch (error) {
-            console.error('Error occurred while fetching recipes:', (error as Error).message);
-            res.status(500).json({ message: 'Failed to fetch recipes', error: (error as Error).message });
-        }
-    });
 }
 
 

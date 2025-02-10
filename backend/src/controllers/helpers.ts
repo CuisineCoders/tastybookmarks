@@ -1,6 +1,5 @@
 import { HTMLElement, parse } from 'node-html-parser';
-import jwksClient from 'jwks-rsa';
-import jwt from 'jsonwebtoken';
+
 
 
 export function validate(url: string): string | null {
@@ -33,22 +32,3 @@ export function extractRecipeFromHTML(html: string): any {
 
     return jsonDataArray.shift();
 };
-
-const client = jwksClient({
-    jwksUri: `https://cognito-idp.${process.env.AWS_REGION}.amazonaws.com/${process.env.COGNITO_USER_POOL_ID}/.well-known/jwks.json`,
-});
-
-export function getKey(header: jwt.JwtHeader, callback: jwt.SigningKeyCallback) {
-    client.getSigningKey(header.kid, (err, key) => {
-        if (err) {
-            callback(err);
-        } else {
-            if (key) {
-                const signingKey = key.getPublicKey();
-                callback(null, signingKey);
-            } else {
-                callback(new Error('Signing key not found'));
-            }
-        }
-    });
-}
