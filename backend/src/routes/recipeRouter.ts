@@ -5,12 +5,13 @@ import { verifyJWT } from './authMiddleware';
 export const recipeRouter = Router();
 
 recipeRouter.use(json());
+recipeRouter.use(verifyJWT);
 
 recipeRouter.route('/')
-    .post(verifyJWT, addRecipe)
-    .get(verifyJWT, getAllRecipes)
-    .delete(verifyJWT, deleteAllRecipes);
+    .post(addRecipe)
+    .get(getAllRecipes)
+    .delete(deleteAllRecipes);
 
 recipeRouter.route('/:id')
-    .get(verifyJWT, getRecipeById)
-    .delete(verifyJWT, deleteRecipe);
+    .get(getRecipeById)
+    .delete(deleteRecipe);
