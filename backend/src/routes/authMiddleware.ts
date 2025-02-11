@@ -25,7 +25,7 @@ export function getKey(header: jwt.JwtHeader, callback: jwt.SigningKeyCallback) 
     });
 }
 
-export function verifyJWT(req: AuthenticatedRequest, res: Response, next: NextFunction) {
+export function verifyJWT(req: AuthenticatedRequest, res: Response, next: NextFunction) { // TODO: Muss Request sein
     const authHeader = req.headers['authorization'];
     if (!authHeader) {
         return res.status(401).json({ message: 'Authorization header missing' });
@@ -43,7 +43,11 @@ export function verifyJWT(req: AuthenticatedRequest, res: Response, next: NextFu
         }
 
         console.log('Decoded JWT:', decoded);
-        req.userId = decoded.sub; // `sub` ist die User-ID aus dem JWT
+        if (!decoded.sub) {
+            res.status(400).json({ message: 'User ID is required' });
+            return;
+        }
+        req.userId = decoded.sub;
         next();
     });
 }

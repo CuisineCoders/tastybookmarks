@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../services/auth.service';
 import { Amplify } from 'aws-amplify';
@@ -38,8 +38,15 @@ Amplify.configure({
   imports: [MatButtonModule, AmplifyAuthenticatorModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
-  // changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent {
   private readonly authService = inject(AuthService);
+  private readonly changeDetectorRef = inject(ChangeDetectorRef);
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.changeDetectorRef.detectChanges(); // Erzwingt die Aktualisierung
+    }, 0);
+  }
 }
