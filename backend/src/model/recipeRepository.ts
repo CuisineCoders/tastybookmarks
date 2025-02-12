@@ -21,7 +21,7 @@ export class RecipeRepository {
         return await this.recipe.findByIdAndDelete(id).exec();
     }
 
-    async deleteAllRecipes(): Promise<void> {
-        await this.recipe.deleteMany({}).exec();
+    async deleteAllRecipes(userId: string): Promise<void> {
+        await this.recipe.deleteMany({ owner: userId }).exec();
     }
 }
