@@ -28,6 +28,17 @@ Amplify.configure({
     Cognito: {
       userPoolId:       'eu-north-1_btB1jIcvb',
       userPoolClientId: '21576l0d4q7bfgnc4b8jpd0v3v',
+      loginWith:        { 
+        email: true,
+        oauth: {
+          domain: 'eu-north-1btb1jicvb.auth.eu-north-1.amazoncognito.com',
+          scopes: ['openid', 'email'],
+          redirectSignIn: ['http://localhost:4200/recipes','https://tastybookmarks.netlify.app/recipes'],
+          redirectSignOut: ['http://localhost:4200/login','https://tastybookmarks.netlify.app/login'],
+          responseType: 'code',
+          providers: ['Google'],
+        }
+      },
     },
   },
 });
@@ -38,13 +49,13 @@ Amplify.configure({
   imports:         [MatButtonModule, AmplifyAuthenticatorModule],
   templateUrl:     './login.component.html',
   styleUrl:        './login.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent {
   private readonly authService = inject(AuthService);
   private readonly changeDetectorRef = inject(ChangeDetectorRef);
 
-  constructor() {
-    setTimeout(() => this.changeDetectorRef.detectChanges());
-  }
+  // constructor() {
+  //   setTimeout(() => this.changeDetectorRef.detectChanges());
+  // }
 }

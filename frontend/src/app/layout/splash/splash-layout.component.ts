@@ -5,7 +5,7 @@ import { RouterOutlet } from '@angular/router';
     selector: 'tasty-splash-layout',
     standalone: true,
     imports: [RouterOutlet],
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    // changeDetection: ChangeDetectionStrategy.OnPush,
     template: `<router-outlet></router-outlet>`,
 })
 export class SplashLayoutComponent { }

@@ -6,7 +6,7 @@ import { RouterOutlet } from '@angular/router';
   selector: 'tasty-root',
   standalone: true,
   imports: [CommonModule, RouterOutlet],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
   template: `<router-outlet></router-outlet>`,
 })
 export class AppComponent { }
