@@ -32,7 +32,7 @@ export function verifyJWT(req: AuthenticatedRequest, res: Response, next: NextFu
         return res.status(401).json({ message: 'Token missing' });
     }
 
-    jwt.verify(token, getKey, { algorithms: ['RS256'] }, (err, decoded: any) => {
+    jwt.verify(token, getKey, { algorithms: ['RS256'] }, (err: any, decoded: any) => {
         if (err) {
             console.error('JWT Verification Error:', err);
             return res.status(401).json({ message: 'Invalid token' });
