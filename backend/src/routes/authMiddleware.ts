@@ -11,17 +11,13 @@ const client = jwksClient({
 });
 
 export function getKey(header: jwt.JwtHeader, callback: jwt.SigningKeyCallback) {
-    client.getSigningKey(header.kid, (err, key) => {
-        if (err) {
-            callback(err);
-        } else {
-            if (key) {
-                const signingKey = key.getPublicKey();
-                callback(null, signingKey);
-            } else {
-                callback(new Error('Signing key not found'));
-            }
+    client.getSigningKey(header.kid, (err: any, key: any) => {
+        if (key) {
+            callback(null, key.getPublicKey());
+            return
         }
+        
+        callback(err ? err : new Error('Signing key not found'));
     });
 }
 
