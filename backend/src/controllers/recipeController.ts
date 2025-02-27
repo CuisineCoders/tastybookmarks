@@ -74,7 +74,7 @@ export async function getRecipeById(req: AuthenticatedRequest, res: Response): P
         const recipe = await recipeRepository.getRecipeById(id);
 
         if (!recipe) {
-            console.warn(`Recipe with ID ${id} not found`);
+            console.error(`Recipe with ID ${id} not found`);
             res.status(404).json({ message: 'Recipe not found' });
             return;
         }
