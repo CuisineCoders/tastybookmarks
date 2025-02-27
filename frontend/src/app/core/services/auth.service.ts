@@ -19,7 +19,7 @@ export class AuthService {
   }
 
   public isAuthenticated(): boolean {
-    return this.authenticatorService.authStatus === 'authenticated' ? true : false;
+  return this.authenticatorService.authStatus === 'authenticated';
   }
 
   public async getAccessTokenFromLocalStorage() {
