@@ -1,7 +1,6 @@
 import { HTMLElement, parse } from 'node-html-parser';
 
 
-
 export function validate(url: string): string | null {
     if (!url) {
         return 'URL is required';
