@@ -2,6 +2,7 @@ import { HttpEvent, HttpHandlerFn, HttpInterceptorFn, HttpRequest } from '@angul
 import { inject } from '@angular/core';
 import { from, Observable, switchMap } from 'rxjs';
 import { AuthService } from './auth.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 export const authInterceptor: HttpInterceptorFn = (
     req: HttpRequest<any>,
