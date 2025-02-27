@@ -110,7 +110,7 @@ export async function deleteRecipe(req: AuthenticatedRequest, res: Response): Pr
         }
 
         if (recipe.owner !== req.userId) {
-            console.warn(`User ${req.userId} is not authorized to delete recipe with ID ${id}`);
+            console.error(`User ${req.userId} is not authorized to delete recipe with ID ${id}`);
             res.status(403).json({ message: 'You are not authorized to delete this recipe' });
             return;
         }
