@@ -82,7 +82,7 @@ export async function getRecipeById(req: AuthenticatedRequest, res: Response): P
         console.log(`Recipe with ID ${id} found, checking ownership...`);
 
         if (recipe.owner !== req.userId) {
-            console.warn(`Unauthorized access attempt by user ${req.userId} for recipe ${id}`);
+            console.error(`Unauthorized access attempt by user ${req.userId} for recipe ${id}`);
             res.status(403).json({ message: 'You are not authorized to view this recipe' });
             return;
         }
