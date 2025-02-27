@@ -54,7 +54,7 @@ export async function getAllRecipes(req: AuthenticatedRequest, res: Response): P
 
         if (recipes.length === 0) {
             console.log(`No recipes found for user ${req.userId}`);
-            res.status(204).send(); // 204 No Content
+            res.status(204).send();
             return;
         }
 
