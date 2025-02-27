@@ -10,14 +10,7 @@ export const authInterceptor: HttpInterceptorFn = (
     const authService = inject(AuthService);
 
     return from(authService.getAccessTokenFromLocalStorage()).pipe(
-        switchMap(token => {
-            if (token) {
-                const clonedReq = req.clone({
-                    setHeaders: { Authorization: `Bearer ${token}` },
-                });
-                return next(clonedReq);
-            }
-            return next(req);
-        })
+    switchMap(token => token ? next(req.clone({ setHeaders: { Authorization: `Bearer ${token}` } })) : next(req)),
+    takeUntilDestroyed()
     );
 };
