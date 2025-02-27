@@ -31,7 +31,6 @@ export class AuthService {
     const accessToken = localStorage.getItem(key);
 
     if (!accessToken) {
-      console.error("Kein Access Token gefunden!");
       return null;
     }
 
