@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import jwksClient from 'jwks-rsa';
 
 export interface AuthenticatedRequest extends Request {
-    userId?: string;
+    userId: string;
 }
 
 const client = jwksClient({
@@ -16,12 +16,12 @@ export function getKey(header: jwt.JwtHeader, callback: jwt.SigningKeyCallback) 
             callback(null, key.getPublicKey());
             return
         }
-        
+
         callback(err ? err : new Error('Signing key not found'));
     });
 }
 
-export function verifyJWT(req: AuthenticatedRequest, res: Response, next: NextFunction) { // TODO: Muss Request sein
+export function verifyJWT(req: Request, res: Response, next: NextFunction) {
     const authHeader = req.headers['authorization'];
     if (!authHeader) {
         return res.status(401).json({ message: 'Authorization header missing' });
@@ -43,7 +43,7 @@ export function verifyJWT(req: AuthenticatedRequest, res: Response, next: NextFu
             res.status(400).json({ message: 'User ID is required' });
             return;
         }
-        req.userId = decoded.sub;
+        (req as AuthenticatedRequest).userId = decoded.sub;
         next();
     });
 }
