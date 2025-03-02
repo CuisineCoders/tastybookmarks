@@ -6,6 +6,13 @@
   z-index: $tasty-main-bar-z-index;
   background: #d5ebef;
 
+
+  .tasty-header-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+  }
+
   .tasty-icon {
     width: 45px;
     margin-right: 12px;

@@ -20,6 +20,7 @@ const VideoObjectSchema: Schema = new Schema<VideoObject>({
 });
 
 export const RecipeSchema: Schema = new Schema<Recipe>({
+    owner:        { type: String, required: true, index: true },
     url:          { type: String, required: true },
     name:         { type: String, required: true },
     ingredients:  { type: [String], required: true },

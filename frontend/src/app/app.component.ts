@@ -1,19 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
-import { NavigationControlComponent } from './core/nav-control/navigation-control.component';
-import { BreakpointObserver } from '@angular/cdk/layout';
-import { map } from 'rxjs';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
-  selector:        'tasty-root',
-  templateUrl:     './app.component.html',
-  styleUrl:        './app.component.scss',
-  imports:         [CommonModule, RouterOutlet, RouterLink, NavigationControlComponent],
-  standalone:      true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'tasty-root',
+  standalone: true,
+  imports: [CommonModule, RouterOutlet],
+  // changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `<router-outlet></router-outlet>`,
 })
-export class AppComponent {
-  protected readonly _screenIsSmall = inject(BreakpointObserver).observe('(max-width: 575px)')
-    .pipe(map((event) => event.matches));
-}
+export class AppComponent { }

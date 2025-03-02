@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { AuthenticatedRequest } from '../routes/authMiddleware';
 import { validate, fetchHTMLContent, extractRecipeFromHTML } from './helpers';
 import { parseRecipe } from '../parser';
 import { RecipeRepository } from '../model/recipeRepository';
@@ -6,9 +7,10 @@ import { RecipeRepository } from '../model/recipeRepository';
 const recipeRepository = new RecipeRepository()
 
 export async function addRecipe(req: Request, res: Response): Promise<void> {
+    const { userId } = req as AuthenticatedRequest;
     const { url } = req.body;
 
-    console.log(`\n\nReceived request to add recipe from URL: ${url}`);
+    console.log(`\nReceived request to add recipe from URL: ${url}`);
 
     const validationError = validate(url);
     if (validationError) {
@@ -32,6 +34,8 @@ export async function addRecipe(req: Request, res: Response): Promise<void> {
 
         console.log(`Parsing and saving recipe for URL: ${url}`);
         const newRecipeData = parseRecipe(recipeData, url);
+        newRecipeData.owner = userId;
+
         const savedRecipe = await recipeRepository.addRecipe(newRecipeData);
 
         console.log(`Recipe successfully saved for URL: ${url}`);
@@ -43,12 +47,19 @@ export async function addRecipe(req: Request, res: Response): Promise<void> {
     }
 }
 
-
-export async function getAllRecipes(_req: Request, res: Response): Promise<void> {
-    console.log('Received request to fetch all recipes');
+export async function getAllRecipes(req: Request, res: Response): Promise<void> {
+    const { userId } = req as AuthenticatedRequest;
+    console.log(`\nReceived request to fetch all recipes from user ${userId}`);
 
     try {
-        const recipes = await recipeRepository.getAllRecipes();
+        const recipes = await recipeRepository.getAllRecipes(userId);
+
+        if (recipes.length === 0) {
+            console.log(`No recipes found for user ${userId}`);
+            res.status(204).send();
+            return;
+        }
+
         console.log(`Successfully retrieved ${recipes.length} recipes`);
         res.status(200).json(recipes);
     } catch (error) {
@@ -57,33 +68,73 @@ export async function getAllRecipes(_req: Request, res: Response): Promise<void>
     }
 }
 
-
 export async function getRecipeById(req: Request, res: Response): Promise<void> {
+    const { userId } = req as AuthenticatedRequest;
     const { id } = req.params;
+    console.log(`\nReceived request to fetch recipe with ID: ${id} from user ${userId}`);
 
     try {
         const recipe = await recipeRepository.getRecipeById(id);
+
+        if (!recipe) {
+            console.error(`Recipe with ID ${id} not found`);
+            res.status(404).json({ message: 'Recipe not found' });
+            return;
+        }
+
+        console.log(`Recipe with ID ${id} found, checking ownership...`);
+
+        if (recipe.owner !== userId) {
+            console.error(`Unauthorized access attempt by user ${userId} for recipe ${id}`);
+            res.status(403).json({ message: 'You are not authorized to view this recipe' });
+            return;
+        }
+
+        console.log(`User ${userId} successfully retrieved recipe with ID ${id}`);
         res.status(200).json(recipe);
     } catch (error) {
+        console.error(`Error fetching recipe with ID ${id}:`, (error as Error).message);
         res.status(500).json({ message: 'Failed to fetch recipe', error: (error as Error).message });
     }
 }
 
 export async function deleteRecipe(req: Request, res: Response): Promise<void> {
+    const { userId } = req as AuthenticatedRequest;
     const { id } = req.params;
 
+    console.log(`\nReceived request to delete recipe with ID: ${id} from user ${userId}`);
+
     try {
+        const recipe = await recipeRepository.getRecipeById(id);
+
+        if (!recipe) {
+            console.error(`Recipe with ID ${id} not found`);
+            res.status(404).json({ message: 'Recipe not found' });
+            return;
+        }
+
+        if (recipe.owner !== userId) {
+            console.error(`User ${userId} is not authorized to delete recipe with ID ${id}`);
+            res.status(403).json({ message: 'You are not authorized to delete this recipe' });
+            return;
+        }
+
+        console.log(`Deleting recipe with ID: ${id}`);
         const deletedRecipe = await recipeRepository.deleteRecipe(id);
+        console.log(`Successfully deleted recipe with ID: ${id}`);
+
         res.status(200).json(deletedRecipe);
     } catch (error) {
+        console.error(`Error occurred while deleting recipe with ID ${id}:`, (error as Error).message);
         res.status(500).json({ message: 'Failed to delete recipe', error: (error as Error).message });
     }
 }
 
-export async function deleteAllRecipes(_req: Request, res: Response): Promise<void> {
+export async function deleteAllRecipes(req: Request, res: Response): Promise<void> {
+    const { userId } = req as AuthenticatedRequest;
     try {
-        await recipeRepository.deleteAllRecipes();
-        res.status(200).json({ message: 'All recipes deleted' });
+        await recipeRepository.deleteAllRecipes(userId);
+        res.status(200).json({ message: 'All your recipes deleted' });
     } catch (error) {
         res.status(500).json({ message: 'Failed to delete all recipes', error: (error as Error).message });
     }
