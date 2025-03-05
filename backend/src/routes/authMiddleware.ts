@@ -7,7 +7,7 @@ export interface AuthenticatedRequest extends Request {
 }
 
 const client = jwksClient({
-    jwksUri: `https://cognito-idp.${process.env.AWS_REGION}.amazonaws.com/${process.env.COGNITO_USER_POOL_ID}/.well-known/jwks.json`,
+    jwksUri: `https://cognito-idp.${process.env.REGION_AWS}.amazonaws.com/${process.env.COGNITO_USER_POOL_ID}/.well-known/jwks.json`,
 });
 
 export function getKey(header: jwt.JwtHeader, callback: jwt.SigningKeyCallback) {
