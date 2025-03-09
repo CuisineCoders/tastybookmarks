@@ -38,7 +38,6 @@ export function verifyJWT(req: Request, res: Response, next: NextFunction) {
             return res.status(401).json({ message: 'Invalid token' });
         }
 
-        // console.log('Decoded JWT:', decoded);
         if (!decoded.sub) {
             res.status(400).json({ message: 'User ID is required' });
             return;
