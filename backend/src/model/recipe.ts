@@ -17,7 +17,6 @@ export interface VideoObject {
 
 export interface Recipe {
     _id: string;
-    owner: string;
     url: string;
     name: string;
     ingredients: Array<string>;

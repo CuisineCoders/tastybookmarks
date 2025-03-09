@@ -5,7 +5,7 @@ import { verifyJWT } from './authMiddleware';
 export const recipeRouter = Router();
 
 recipeRouter.use(json());
-recipeRouter.use(verifyJWT);
+// recipeRouter.use(verifyJWT);
 
 recipeRouter.route('/')
     .post(addRecipe)
