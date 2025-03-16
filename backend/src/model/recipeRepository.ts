@@ -1,16 +1,34 @@
-import mongoose from "mongoose";
+import mongoose, { type Model } from "mongoose";
 import { Recipe } from "./recipe";
 import { RecipeSchema } from "./recipeSchema";
 
-export class RecipeRepository {
-    private recipe = mongoose.model<Recipe>('Recipe', RecipeSchema);
+const repositories = new Map<string, RecipeRepository>()
+
+export function getRecipeRepository(userId: string): RecipeRepository {
+    const existingRepository = repositories.get(userId);
+
+    if (!existingRepository){
+        const newRepository = new RecipeRepository(userId);
+        repositories.set(userId, newRepository);
+        return newRepository;
+    }
+
+    return existingRepository;
+}
+
+class RecipeRepository {
+    private recipe: Model<Recipe>;
+
+    constructor(userId: string) {
+        this.recipe = mongoose.model<Recipe>(`recipes-${userId}`, RecipeSchema);
+    }
 
     async addRecipe(recipeData: Partial<Recipe>): Promise<Recipe> {
         return (await this.recipe.create(recipeData)).save();
     }
 
-    async getAllRecipes(userId: string): Promise<Recipe[]> {
-        return await this.recipe.find({ owner: userId }).sort({ createdAt: -1 }).exec();
+    async getAllRecipes(): Promise<Recipe[]> {
+        return await this.recipe.find().sort({ createdAt: -1 }).exec();
     }
 
     async getRecipeById(id: string): Promise<Recipe | null> {
@@ -21,7 +39,7 @@ export class RecipeRepository {
         return await this.recipe.findByIdAndDelete(id).exec();
     }
 
-    async deleteAllRecipes(userId: string): Promise<void> {
-        await this.recipe.deleteMany({ owner: userId }).exec();
+    async deleteAllRecipes(): Promise<void> {
+        await this.recipe.deleteMany().exec();
     }
 }
