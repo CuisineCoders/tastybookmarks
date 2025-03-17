@@ -22,7 +22,7 @@ export async function addRecipe(req: Request, res: Response): Promise<void> {
         console.log(`Fetching HTML content for URL: ${url}`);
         const html = await fetchHTMLContent(url);
 
-        const recipeManager = new RecipeParserManager([new ChefkochParser()])
+        const recipeManager = new RecipeParserManager()
         const newRecipeData = recipeManager.parse(url, html);
 
         const savedRecipe = await getRecipeRepository(userId).addRecipe(newRecipeData);

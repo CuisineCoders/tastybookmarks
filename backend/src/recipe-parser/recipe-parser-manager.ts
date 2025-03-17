@@ -1,8 +1,16 @@
 import { RecipeParser } from "./parsers/recipe-parser";
 import { Recipe } from "../model/recipe";
+import { ChefkochParser } from "./parsers/chefkoch-parser";
+import { EinfachbackenParser } from "./parsers/einfachbacken-parser";
 
 export class RecipeParserManager {
-    constructor(private parsers: Array<RecipeParser>) {
+    private parsers: Array<RecipeParser>
+
+    constructor() {
+        this.parsers = [
+            new ChefkochParser(),
+            new EinfachbackenParser(),
+        ];
     }
 
     parse(url: string, html: string): Recipe {
@@ -11,6 +19,6 @@ export class RecipeParserManager {
                 return parser.parse(url, html);
             }
         }
-        throw new Error('Url not supported')
+        throw new Error('Url not supported');
     }
 }
