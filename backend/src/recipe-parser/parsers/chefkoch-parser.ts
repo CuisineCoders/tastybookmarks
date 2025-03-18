@@ -2,12 +2,12 @@ import { RecipeParser } from "./recipe-parser";
 import { HTMLElement, parse } from "node-html-parser";
 import { Recipe } from "../../model/recipe";
 
-export class ChefkochParser implements RecipeParser {
-    canHandle(url: string): boolean {
+export class ChefkochParser extends RecipeParser {
+    public canHandle(url: string): boolean {
         return url.includes('chefkoch.de');
     }
 
-    parse(url: string, html: string): Recipe {
+    public parse(url: string, html: string): Recipe {
         const recipeData = this.extractRecipeFromHTML(html);
 
         if (!recipeData) {
@@ -35,14 +35,7 @@ export class ChefkochParser implements RecipeParser {
     };
 
     private parseRecipe(recipeData: any, url: string): Partial<Recipe> {
-
-        const requiredFields = ['name', 'recipeIngredient', 'recipeInstructions'];
-
-        requiredFields.forEach((field) => {
-            if (!recipeData[field]) {
-                throw new Error(`Recipe data incomplete: ${field} missing`);
-            }
-        })
+        this.requireFieldsValidation(recipeData);
 
         const nutritionObject = recipeData.nutrition
                                 ? {
@@ -73,7 +66,7 @@ export class ChefkochParser implements RecipeParser {
                                        .map((paragraph: string) => paragraph.split('\n')
                                                                             .map((line: string) => line.trim()));
 
-        const newRecipe: Partial<Recipe> = {
+        return  {
             url:          url,
             name:         recipeData.name,
             ingredients:  ingredients,
@@ -89,8 +82,6 @@ export class ChefkochParser implements RecipeParser {
             nutrition:    nutritionObject,
             video:        videoObject,
         }
-
-        return newRecipe;
     }
 }
 

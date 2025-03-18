@@ -4,16 +4,12 @@ import { ChefkochParser } from "./parsers/chefkoch-parser";
 import { EinfachbackenParser } from "./parsers/einfachbacken-parser";
 
 export class RecipeParserManager {
-    private parsers: Array<RecipeParser>
+    private parsers: Array<RecipeParser> = [
+        new ChefkochParser(),
+        new EinfachbackenParser(),
+    ];
 
-    constructor() {
-        this.parsers = [
-            new ChefkochParser(),
-            new EinfachbackenParser(),
-        ];
-    }
-
-    parse(url: string, html: string): Recipe {
+    public parse(url: string, html: string): Recipe {
         for (const parser of this.parsers) {
             if (parser.canHandle(url)) {
                 return parser.parse(url, html);

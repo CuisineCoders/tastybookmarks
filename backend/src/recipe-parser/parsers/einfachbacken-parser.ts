@@ -2,7 +2,7 @@ import { RecipeParser } from "./recipe-parser";
 import { HTMLElement, parse } from "node-html-parser";
 import { Recipe } from "../../model/recipe";
 
-export class EinfachbackenParser implements RecipeParser {
+export class EinfachbackenParser extends RecipeParser {
     canHandle(url: string): boolean {
         return url.includes('einfachbacken.de');
     }
@@ -38,25 +38,19 @@ export class EinfachbackenParser implements RecipeParser {
     };
 
     private parseRecipe(recipeData: any, url: string): Partial<Recipe> {
-        const requiredFields = ['name', 'recipeIngredient', 'recipeInstructions'];
-    
-        requiredFields.forEach((field) => {
-            if (!recipeData[field]) {
-                throw new Error(`Recipe data incomplete: ${field} missing`);
-            }
-        });
-    
+        this.requireFieldsValidation(recipeData);
+
         // const nutritionObject = recipeData.nutrition
         //     ? {
         //         servingSize: recipeData.nutrition.servingSize ?? undefined,
         //     }
         //     : undefined;
-    
+
         const ingredients = recipeData.recipeIngredient.map((ingredient: string) => ingredient.trim());
-    
+
         const instructions = recipeData.recipeInstructions.map((step: string) => step.trim().split('\n'));
-    
-        const newRecipe: Partial<Recipe> = {
+
+        return {
             url: url,
             name: recipeData.name,
             ingredients: ingredients,
@@ -71,10 +65,8 @@ export class EinfachbackenParser implements RecipeParser {
             // servingSize: Number(recipeData.recipeYield[0]) ?? undefined,
             // nutrition: nutritionObject,
         };
-    
-        return newRecipe;
     }
-    
+
 }
 
 // {
