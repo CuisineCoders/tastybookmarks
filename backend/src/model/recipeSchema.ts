@@ -31,6 +31,7 @@ export const RecipeSchema: Schema = new Schema<Recipe>({
     cookTime:     String,
     totalTime:    String,
     category:     String,
+    cuisine:      String,
     servingSize:  {type: Number},
     nutrition:    {type: NutritionInformationSchema},
     video:        {type: VideoObjectSchema}
