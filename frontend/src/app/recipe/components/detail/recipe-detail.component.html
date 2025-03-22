@@ -11,9 +11,14 @@
     @if (recipe.description) {
     <p class="lead">{{ recipe.description }}</p>
     }
-    @if (recipe.category) {
+    @if (recipe.category || recipe.cuisine) {
     <div class="tasty-detail-category mb-2">
-      <span class="badge rounded-pill">{{ recipe.category }}</span>
+      @if (recipe.category) {
+      <span class="badge rounded-pill me-2">{{ recipe.category }}</span>
+      }
+      @if (recipe.cuisine) {
+      <span class="badge rounded-pill border-primary-subtle">{{ recipe.cuisine }}</span>
+      }
     </div>
     }
     @if (recipe.keywords) {
@@ -41,7 +46,7 @@
     <h2 class="h4 mb-4">
       Zutaten
       @if (recipe.servingSize){
-      für {{recipe.servingSize}} Portionen
+      für {{recipe.servingSize}} {{ recipe.servingSize > 1 ? 'Portionen' : 'Portion' }}
       }
     </h2>
     <table class="table table-striped">
@@ -60,7 +65,7 @@
       @for (block of recipe.instructions; track $index) {
       <p>
         @for (line of block; track $index) {
-        {{ line }}
+        {{ line }}<br />
         }
       </p>
       }
