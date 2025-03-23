@@ -7,7 +7,7 @@ export class EinfachbackenParser extends RecipeParser {
         return url.includes('einfachbacken.de');
     }
 
-    parse(url: string, html: string): Recipe {
+    public parse(url: string, html: string): Recipe {
         const recipeData = this.extractRecipeFromHTML(html);
 
         if (!recipeData) {
