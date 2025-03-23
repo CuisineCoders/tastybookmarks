@@ -1,9 +1,8 @@
 import { Request, Response } from 'express';
 import { AuthenticatedRequest } from '../routes/authMiddleware';
-import { extractRecipeFromHTML, fetchHTMLContent, validate } from './helpers';
+import { validate, fetchHTMLContent } from './helpers';
+import { RecipeParserManager } from "../recipe-parser/recipe-parser-manager";
 import { getRecipeRepository } from '../model/recipeRepository';
-import { parseRecipe } from "../parser/parser";
-
 
 export async function addRecipe(req: Request, res: Response): Promise<void> {
     const { userId } = req as AuthenticatedRequest;
@@ -22,17 +21,8 @@ export async function addRecipe(req: Request, res: Response): Promise<void> {
         console.log(`Fetching HTML content for URL: ${url}`);
         const html = await fetchHTMLContent(url);
 
-        console.log(`Extracting recipe data from HTML for URL: ${url}`);
-        const recipeData = extractRecipeFromHTML(html);
-
-        if (!recipeData) {
-            console.warn(`No valid recipe data found for URL: ${url}`);
-            res.status(404).json({ error: 'No valid JSON+LD Recipe found' });
-            return;
-        }
-
-        console.log(`Parsing and saving recipe for URL: ${url}`);
-        const newRecipeData = parseRecipe(recipeData, url);
+        const recipeManager = new RecipeParserManager()
+        const newRecipeData = recipeManager.parse(url, html);
 
         const savedRecipe = await getRecipeRepository(userId).addRecipe(newRecipeData);
 
