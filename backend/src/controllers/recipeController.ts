@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import { AuthenticatedRequest } from '../routes/authMiddleware';
 import { validate, fetchHTMLContent } from './helpers';
 import { RecipeParserManager } from "../recipe-parser/recipe-parser-manager";
-import { ChefkochParser } from "../recipe-parser/parsers/chefkoch-parser";
 import { getRecipeRepository } from '../model/recipeRepository';
 
 export async function addRecipe(req: Request, res: Response): Promise<void> {
