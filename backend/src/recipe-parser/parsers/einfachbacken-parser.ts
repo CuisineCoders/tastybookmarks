@@ -3,7 +3,7 @@ import { HTMLElement, parse } from "node-html-parser";
 import { Recipe } from "../../model/recipe";
 
 export class EinfachbackenParser extends RecipeParser {
-    canHandle(url: string): boolean {
+    public canHandle(url: string): boolean {
         return url.includes('einfachbacken.de');
     }
 
