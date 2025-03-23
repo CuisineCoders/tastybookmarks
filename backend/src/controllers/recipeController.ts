@@ -1,9 +1,8 @@
 import { Request, Response } from 'express';
 import { AuthenticatedRequest } from '../routes/authMiddleware';
-import { fetchHTMLContent, validate } from './helpers';
-import { getRecipeRepository } from '../model/recipeRepository';
+import { validate, fetchHTMLContent } from './helpers';
 import { RecipeParserManager } from "../recipe-parser/recipe-parser-manager";
-
+import { getRecipeRepository } from '../model/recipeRepository';
 
 export async function addRecipe(req: Request, res: Response): Promise<void> {
     const { userId } = req as AuthenticatedRequest;
@@ -22,9 +21,8 @@ export async function addRecipe(req: Request, res: Response): Promise<void> {
         console.log(`Fetching HTML content for URL: ${url}`);
         const html = await fetchHTMLContent(url);
 
-        console.log(`Parsing and saving recipe for URL: ${url}`);
-        const recipeParser = new RecipeParserManager();
-        const newRecipeData = recipeParser.parse(url, html);
+        const recipeManager = new RecipeParserManager()
+        const newRecipeData = recipeManager.parse(url, html);
 
         const savedRecipe = await getRecipeRepository(userId).addRecipe(newRecipeData);
 

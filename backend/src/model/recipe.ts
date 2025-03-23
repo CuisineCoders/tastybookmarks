@@ -28,6 +28,7 @@ export interface Recipe {
     cookTime?: string;
     totalTime?: string;
     category?: string;
+    cuisine?: string;
     servingSize?: number;
     nutrition?: NutritionInformation;
     video?: VideoObject;

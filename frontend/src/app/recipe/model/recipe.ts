@@ -26,6 +26,7 @@ export interface Recipe {
   cookTime?: string;
   totalTime?: string;
   category?: string;
+  cuisine?: string;
   ingredients: Array<string>;
   instructions: Array<Array<string>>;
   servingSize: number

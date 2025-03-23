@@ -1,10 +1,12 @@
+import { RecipeParser } from "./parsers/recipe-parser";
 import { Recipe } from "../model/recipe";
-import { ChefkochParser } from "./parser/chefkoch-parser";
-import { RecipeParser } from "./parser/recipe-parser";
+import { ChefkochParser } from "./parsers/chefkoch-parser";
+import { EinfachbackenParser } from "./parsers/einfachbacken-parser";
 
 export class RecipeParserManager {
     private parsers: Array<RecipeParser> = [
-        new ChefkochParser()
+        new ChefkochParser(),
+        new EinfachbackenParser(),
     ];
 
     public parse(url: string, html: string): Recipe {
