@@ -1,0 +1,21 @@
+:host {
+  display: flex;
+  flex-direction: column;
+
+  .recipe-metadata {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .recipe-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    .recipe-row {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: baseline;
+    }
+  }
+}

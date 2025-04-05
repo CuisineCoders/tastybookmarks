@@ -1,0 +1,96 @@
+<h1>Rezept erstellen</h1>
+
+<form [formGroup]="createRecipeForm">
+  <section class="recipe-metadata">
+    <mat-form-field>
+      <mat-label>Rezept Name</mat-label>
+      <input type="text" matInput>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Kurze Rezeptbeschreibung (optional)</mat-label>
+      <textarea type="text" matInput></textarea>
+    </mat-form-field>
+  </section>
+
+  <section class="recipe-content">
+    <mat-form-field>
+      <mat-label>Portionen</mat-label>
+      <input type="number" matInput>
+    </mat-form-field>
+
+    <h2>Zutaten</h2>
+    <!--  Variation 1 -->
+    <!-- parsing happens on blur -->
+    <!-- parsed data will be shown in a table with edit option per entry -->
+    <mat-form-field>
+      <mat-label>Zutaten V1</mat-label>
+      <textarea type="text" matInput></textarea>
+    </mat-form-field>
+
+    <!-- Variation 2 -->
+    <!-- parsing happens on enter or add button -->
+    <!-- parsed data will be shown in a table with edite option per entry -->
+    <div class="recipe-row">
+      <mat-form-field>
+        <mat-label>Zutaten V2</mat-label>
+        <input type="text" matInput>
+      </mat-form-field>
+      <button mat-icon-button>
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+
+    <h2>Zubereitung</h2>
+    <div class="recipe-row">
+      <mat-form-field>
+        <mat-label>Schritt 1</mat-label>
+        <textarea type="text" matInput></textarea>
+      </mat-form-field>
+      <button mat-icon-button>
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  </section>
+
+  <section class="recipe-stats">
+    <mat-form-field>
+      <mat-label>Zubereitungszeit</mat-label>
+      <input type="number" matInput>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Kochzeit</mat-label>
+      <input type="number" matInput>
+    </mat-form-field>
+
+    <section class="recipe-nutrition">
+      <h2>Nährwerte</h2>
+      <mat-form-field>
+        <mat-label>Protein</mat-label>
+        <input type="text" matInput>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Kohlenhydrate</mat-label>
+        <input type="text" matInput>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Fet</mat-label>
+        <input type="text" matInput>
+      </mat-form-field>
+    </section>
+
+    <mat-form-field>
+      <mat-label>Tags</mat-label>
+      <input type="text" matInput>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Kategorien</mat-label>
+      <input type="text" matInput>
+    </mat-form-field>
+  </section>
+
+</form>
