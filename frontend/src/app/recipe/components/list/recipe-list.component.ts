@@ -7,13 +7,11 @@ import { KebabCasePipe } from '../../../shared/pipes/kebab-case.pipe';
 import { RecipeApiService } from '../../services/recipe-api.service';
 import { MatIcon } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
-import {
-  DeleteConfirmationDialogComponent,
-} from '../../../shared/components/delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { tap } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatIconButton } from '@angular/material/button';
 import { AddRecipeDialogComponent } from '../add-dialog/add-recipe-dialog.component';
+import { DeleteConfirmationDialogComponent } from '../delete-confirmation-dialog/delete-confirmation-dialog.component';
 
 @Component({
   selector:        'tasty-list',
