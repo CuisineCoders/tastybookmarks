@@ -19,53 +19,46 @@
       <input type="number" matInput>
     </mat-form-field>
 
-    <h2>Zutaten</h2>
-    <!--  Variation 1 -->
-    <!-- parsing happens on blur -->
-    <!-- parsed data will be shown in a table with edit option per entry -->
-    <mat-form-field>
-      <mat-label>Zutaten V1</mat-label>
-      <textarea type="text" matInput></textarea>
-    </mat-form-field>
+    <section class="recipe-row">
+      <section class="recipe-column">
+        <h2>Zutaten</h2>
+        <mat-form-field>
+          <mat-label>Zutat</mat-label>
+          <input type="text" matInput>
+          <button mat-icon-button matSuffix>
+            <mat-icon>add</mat-icon>
+          </button>
+        </mat-form-field>
+      </section>
 
-    <!-- Variation 2 -->
-    <!-- parsing happens on enter or add button -->
-    <!-- parsed data will be shown in a table with edite option per entry -->
-    <div class="recipe-row">
-      <mat-form-field>
-        <mat-label>Zutaten V2</mat-label>
-        <input type="text" matInput>
-      </mat-form-field>
-      <button mat-icon-button>
-        <mat-icon>add</mat-icon>
-      </button>
-    </div>
-
-    <h2>Zubereitung</h2>
-    <div class="recipe-row">
-      <mat-form-field>
-        <mat-label>Schritt 1</mat-label>
-        <textarea type="text" matInput></textarea>
-      </mat-form-field>
-      <button mat-icon-button>
-        <mat-icon>add</mat-icon>
-      </button>
-    </div>
+      <section class="recipe-column">
+        <h2>Zubereitung</h2>
+        <mat-form-field>
+          <mat-label>Anleitungs Schritt</mat-label>
+          <textarea type="text" matInput></textarea>
+          <button mat-icon-button matSuffix>
+            <mat-icon>add</mat-icon>
+          </button>
+        </mat-form-field>
+      </section>
+    </section>
   </section>
 
   <section class="recipe-stats">
-    <mat-form-field>
-      <mat-label>Zubereitungszeit</mat-label>
-      <input type="number" matInput>
-    </mat-form-field>
+    <section class="recipe-time">
+      <mat-form-field>
+        <mat-label>Zubereitungszeit</mat-label>
+        <input type="number" matInput>
+      </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Kochzeit</mat-label>
-      <input type="number" matInput>
-    </mat-form-field>
+      <mat-form-field>
+        <mat-label>Kochzeit</mat-label>
+        <input type="number" matInput>
+      </mat-form-field>
+    </section>
 
+    <h2>Nährwerte</h2>
     <section class="recipe-nutrition">
-      <h2>Nährwerte</h2>
       <mat-form-field>
         <mat-label>Protein</mat-label>
         <input type="text" matInput>
@@ -77,20 +70,22 @@
       </mat-form-field>
 
       <mat-form-field>
-        <mat-label>Fet</mat-label>
+        <mat-label>Fett</mat-label>
         <input type="text" matInput>
       </mat-form-field>
     </section>
 
-    <mat-form-field>
-      <mat-label>Tags</mat-label>
-      <input type="text" matInput>
-    </mat-form-field>
+    <h2>Tags</h2>
+    <section class="recipe-tags">
+      <mat-form-field>
+        <mat-label>Tags</mat-label>
+        <input type="text" matInput>
+      </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Kategorien</mat-label>
-      <input type="text" matInput>
-    </mat-form-field>
+      <mat-form-field>
+        <mat-label>Kategorien</mat-label>
+        <input type="text" matInput>
+      </mat-form-field>
+    </section>
   </section>
-
 </form>
