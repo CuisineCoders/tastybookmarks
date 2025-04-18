@@ -1,0 +1,93 @@
+<h1>Rezept erstellen</h1>
+
+<form [formGroup]="createRecipeForm">
+  <section class="recipe-metadata">
+    <mat-form-field>
+      <mat-label>Rezept Name</mat-label>
+      <input type="text" matInput>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Kurze Rezeptbeschreibung (optional)</mat-label>
+      <textarea type="text" matInput></textarea>
+    </mat-form-field>
+  </section>
+
+  <section class="recipe-content">
+    <mat-form-field>
+      <mat-label>Portionen</mat-label>
+      <input type="number" matInput>
+    </mat-form-field>
+
+    <section class="recipe-row">
+      <section class="recipe-column">
+        <h2>Zutaten</h2>
+        <mat-form-field>
+          <mat-label>Zutat</mat-label>
+          <input type="text" matInput>
+          <button mat-icon-button matSuffix>
+            <mat-icon>add</mat-icon>
+          </button>
+        </mat-form-field>
+      </section>
+
+      <section class="recipe-column">
+        <h2>Zubereitung</h2>
+        <mat-form-field>
+          <mat-label>Anleitungs Schritt</mat-label>
+          <textarea type="text" matInput></textarea>
+          <button mat-icon-button matSuffix>
+            <mat-icon>add</mat-icon>
+          </button>
+        </mat-form-field>
+      </section>
+    </section>
+  </section>
+
+  <section class="recipe-stats">
+    <section class="recipe-time">
+      <mat-form-field>
+        <mat-label>Zubereitungszeit</mat-label>
+        <input type="number" matInput>
+        <span matSuffix class="recipe-text-suffix">min</span>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Kochzeit</mat-label>
+        <input type="number" matInput>
+        <span matSuffix class="recipe-text-suffix">min</span>
+      </mat-form-field>
+    </section>
+
+    <h2>Nährwerte</h2>
+    <section class="recipe-nutrition">
+      <mat-form-field>
+        <mat-label>Protein (optional)</mat-label>
+        <input type="text" matInput>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Kohlenhydrate (optional)</mat-label>
+        <input type="text" matInput>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Fett (optional)</mat-label>
+        <input type="text" matInput>
+      </mat-form-field>
+    </section>
+
+    <h2>Tags</h2>
+    <section class="recipe-tags">
+      <mat-form-field>
+        <mat-label>Tags</mat-label>
+        <input type="text" matInput placeholder="Will be changed to chip input in a later step">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Kategorien</mat-label>
+        <input type="text" matInput placeholder="Will be changed to chip input in a later step">
+      </mat-form-field>
+    </section>
+  </section>
+</form>

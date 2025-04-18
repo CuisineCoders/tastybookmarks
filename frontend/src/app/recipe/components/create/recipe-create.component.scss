@@ -1,0 +1,81 @@
+@import 'bootstrap-config';
+
+:host {
+  display: flex;
+  flex-direction: column;
+
+  .recipe-metadata {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .recipe-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .recipe-row {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: baseline;
+      gap: 1rem;
+
+      .recipe-column {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .mat-mdc-form-field {
+        width: 100%;
+      }
+    }
+
+    @include media-breakpoint-down(sm) {
+      .recipe-row {
+        flex-direction: column;
+      }
+    }
+  }
+
+  .recipe-stats {
+
+    .recipe-time {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+
+      .mat-mdc-form-field {
+        width: 100%;
+
+        .recipe-text-suffix {
+          margin: 0 0.5rem;
+        }
+      }
+    }
+
+    .recipe-nutrition {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+
+      .mat-mdc-form-field {
+        width: 100%;
+      }
+    }
+
+    .recipe-tags {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+
+      .mat-mdc-form-field {
+        width: 100%;
+      }
+    }
+  }
+}
