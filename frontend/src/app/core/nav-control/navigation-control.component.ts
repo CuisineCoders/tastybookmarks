@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, isDevMode } from '@angular/core';
 import { TastyNavigationControl } from './navigation-control.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -17,7 +17,6 @@ export class NavigationControlComponent {
   private readonly navControl = inject(TastyNavigationControl);
   private readonly router = inject(Router);
 
-
   protected importButton = computed(
     () => this.navControl.buttonsToDisplay().find(({ option }) => option === 'ImportRecipeButton'));
   protected deleteButton = computed(
@@ -30,4 +29,6 @@ export class NavigationControlComponent {
   protected createRecipe(): void {
     this.router.navigate(['recipes/create']).then(() => console.log('navigate to create'));
   }
+
+  protected readonly isDevMode = isDevMode;
 }
