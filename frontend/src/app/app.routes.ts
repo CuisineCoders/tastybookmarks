@@ -4,13 +4,11 @@ import { RecipeListComponent } from './recipe/components/list/recipe-list.compon
 import { RecipeDetailComponent } from './recipe/components/detail/recipe-detail.component';
 import { LoginComponent } from './core/login/login.component';
 import { AuthGuard } from './core/services/auth.guard';
-import { SplashLayoutComponent } from './layout/splash/splash-layout.component';
 import { MainLayoutComponent } from './layout/main/main-layout.component';
 
 export const routes: Routes = [
   {
     path: '',
-    component: SplashLayoutComponent,
     children: [
       { path: '', component: LoginComponent },
       { path: 'login', component: LoginComponent },
