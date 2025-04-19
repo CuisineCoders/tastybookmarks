@@ -12,14 +12,14 @@ export class AuthService {
 
   constructor() {
     this.authenticatorService.subscribe((data: any) => {
-      if (data.authStatus === "authenticated") {
+      if (data.authStatus === 'authenticated') {
         this.router.navigate(['/recipes']);
-      };
-    })
+      }
+    });
   }
 
   public isAuthenticated(): boolean {
-  return this.authenticatorService.authStatus === 'authenticated';
+    return this.authenticatorService.authStatus === 'authenticated';
   }
 
   public async getAccessTokenFromLocalStorage() {
