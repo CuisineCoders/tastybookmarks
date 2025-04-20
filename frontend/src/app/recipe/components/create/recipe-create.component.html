@@ -4,42 +4,52 @@
   <section class="recipe-metadata">
     <mat-form-field>
       <mat-label>Rezept Name</mat-label>
-      <input type="text" matInput>
+      <input type="text" matInput formControlName="name">
+      @if(isNameInvalid){
+        <mat-error>WOW</mat-error>
+      }
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Kurze Rezeptbeschreibung (optional)</mat-label>
-      <textarea type="text" matInput></textarea>
+      <textarea type="text" matInput formControlName="description"></textarea>
     </mat-form-field>
   </section>
 
   <section class="recipe-content">
     <mat-form-field>
       <mat-label>Portionen</mat-label>
-      <input type="number" matInput>
+      <input type="number" matInput formControlName="servingSize">
+      @if(createRecipeForm.get('servingSize')?.invalid){
+        <mat-error></mat-error>
+      }
     </mat-form-field>
 
     <section class="recipe-row">
-      <section class="recipe-column">
+      <section class="recipe-column" formArrayName="ingredients">
         <h2>Zutaten</h2>
-        <mat-form-field>
-          <mat-label>Zutat</mat-label>
-          <input type="text" matInput>
-          <button mat-icon-button matSuffix>
-            <mat-icon>add</mat-icon>
-          </button>
-        </mat-form-field>
+        @for (ingredient of ingredients.controls; track ingredient) {
+          <mat-form-field>
+            <mat-label>Zutat</mat-label>
+            <input type="text" matInput [formControl]="ingredient">
+            <button mat-icon-button matSuffix>
+              <mat-icon>add</mat-icon>
+            </button>
+          </mat-form-field>
+        }
       </section>
 
-      <section class="recipe-column">
+      <section class="recipe-column" formArrayName="steps">
         <h2>Zubereitung</h2>
-        <mat-form-field>
-          <mat-label>Anleitungs Schritt</mat-label>
-          <textarea type="text" matInput></textarea>
-          <button mat-icon-button matSuffix>
-            <mat-icon>add</mat-icon>
-          </button>
-        </mat-form-field>
+        @for (step of steps.controls; track step) {
+          <mat-form-field>
+            <mat-label>Anleitungs Schritt</mat-label>
+            <textarea type="text" matInput [formControl]="step"></textarea>
+            <button mat-icon-button matSuffix>
+              <mat-icon>add</mat-icon>
+            </button>
+          </mat-form-field>
+        }
       </section>
     </section>
   </section>
@@ -47,15 +57,21 @@
   <section class="recipe-stats">
     <section class="recipe-time">
       <mat-form-field>
-        <mat-label>Zubereitungszeit</mat-label>
-        <input type="number" matInput>
+        <mat-label>Vorbereitungszeit</mat-label>
+        <input type="number" matInput formControlName="prepTime">
         <span matSuffix class="recipe-text-suffix">min</span>
+        @if(true){
+          <mat-error>Dein Rezept braucht einen Namen!</mat-error>
+        }
       </mat-form-field>
 
       <mat-form-field>
         <mat-label>Kochzeit</mat-label>
-        <input type="number" matInput>
+        <input type="number" matInput formControlName="cookTime">
         <span matSuffix class="recipe-text-suffix">min</span>
+        @if(createRecipeForm.get('cookTime')?.invalid){
+          <mat-error></mat-error>
+        }
       </mat-form-field>
     </section>
 
@@ -63,17 +79,17 @@
     <section class="recipe-nutrition">
       <mat-form-field>
         <mat-label>Protein (optional)</mat-label>
-        <input type="text" matInput>
+        <input type="text" matInput formControlName="protein">
       </mat-form-field>
 
       <mat-form-field>
         <mat-label>Kohlenhydrate (optional)</mat-label>
-        <input type="text" matInput>
+        <input type="text" matInput formControlName="carbs">
       </mat-form-field>
 
       <mat-form-field>
         <mat-label>Fett (optional)</mat-label>
-        <input type="text" matInput>
+        <input type="text" matInput formControlName="fat">
       </mat-form-field>
     </section>
 
@@ -81,13 +97,15 @@
     <section class="recipe-tags">
       <mat-form-field>
         <mat-label>Tags</mat-label>
-        <input type="text" matInput placeholder="Will be changed to chip input in a later step">
+        <input type="text" matInput formControlName="tags" placeholder="Will be changed to chip input in a later step">
       </mat-form-field>
 
       <mat-form-field>
         <mat-label>Kategorien</mat-label>
-        <input type="text" matInput placeholder="Will be changed to chip input in a later step">
+        <input type="text" matInput formControlName="categories" placeholder="Will be changed to chip input in a later step">
       </mat-form-field>
     </section>
   </section>
 </form>
+
+<button mat-button (click)="save()">Speichern</button>
