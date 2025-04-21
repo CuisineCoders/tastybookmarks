@@ -18,14 +18,19 @@ export class AuthService {
     });
   }
 
-  public isAuthenticated(): boolean {
-    return this.authenticatorService.authStatus === 'authenticated';
-  }
+  public async isAuthenticated(): Promise<boolean> {
+    try {
+      const session = await fetchAuthSession();
+      return !!session.tokens?.accessToken;
+    } catch {
+      return false;
+    }
+  }  
 
   public async getAccessTokenFromLocalStorage() {
-    let cognitoToken = await fetchAuthSession();
-    const clientId = cognitoToken.tokens?.accessToken.payload['client_id'];
-    const userId = cognitoToken.tokens?.accessToken.payload['username'];
+    let session = await fetchAuthSession();
+    const clientId = session.tokens?.accessToken.payload['client_id'];
+    const userId = session.tokens?.accessToken.payload['username'];
 
     const key = `CognitoIdentityServiceProvider.${clientId}.${userId}.accessToken`;
     const accessToken = localStorage.getItem(key);
@@ -36,7 +41,6 @@ export class AuthService {
 
     return accessToken;
   }
-
 
   public logout(): void {
     this.authenticatorService.signOut();
