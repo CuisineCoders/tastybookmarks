@@ -5,8 +5,8 @@
     <mat-form-field>
       <mat-label>Rezept Name</mat-label>
       <input type="text" matInput formControlName="name">
-      @if(isNameInvalid){
-        <mat-error>WOW</mat-error>
+      @if (isNameInvalid$ | async) {
+        <mat-error>Dein Rezept braucht einen Namen!</mat-error>
       }
     </mat-form-field>
 
@@ -20,8 +20,8 @@
     <mat-form-field>
       <mat-label>Portionen</mat-label>
       <input type="number" matInput formControlName="servingSize">
-      @if(createRecipeForm.get('servingSize')?.invalid){
-        <mat-error></mat-error>
+      @if (servingSizeError$ | async) {
+        <mat-error>{{ servingSizeError$ | async }}</mat-error>
       }
     </mat-form-field>
 
@@ -60,8 +60,8 @@
         <mat-label>Vorbereitungszeit</mat-label>
         <input type="number" matInput formControlName="prepTime">
         <span matSuffix class="recipe-text-suffix">min</span>
-        @if(true){
-          <mat-error>Dein Rezept braucht einen Namen!</mat-error>
+        @if (prepTimeError$ | async) {
+          <mat-error>{{ prepTimeError$ | async }}</mat-error>
         }
       </mat-form-field>
 
@@ -69,8 +69,8 @@
         <mat-label>Kochzeit</mat-label>
         <input type="number" matInput formControlName="cookTime">
         <span matSuffix class="recipe-text-suffix">min</span>
-        @if(createRecipeForm.get('cookTime')?.invalid){
-          <mat-error></mat-error>
+        @if (cockTimeError$ | async) {
+          <mat-error>{{ cockTimeError$ | async }}</mat-error>
         }
       </mat-form-field>
     </section>
@@ -102,7 +102,8 @@
 
       <mat-form-field>
         <mat-label>Kategorien</mat-label>
-        <input type="text" matInput formControlName="categories" placeholder="Will be changed to chip input in a later step">
+        <input type="text" matInput formControlName="categories"
+               placeholder="Will be changed to chip input in a later step">
       </mat-form-field>
     </section>
   </section>
