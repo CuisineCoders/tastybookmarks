@@ -27,7 +27,7 @@ export class NavigationControlComponent {
 
 
   protected createRecipe(): void {
-    this.router.navigate(['recipes/create']).then(() => console.log('navigate to create'));
+    this.router.navigate(['recipes/create']);
   }
 
   protected readonly isDevMode = isDevMode;
