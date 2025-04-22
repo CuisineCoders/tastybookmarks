@@ -20,12 +20,12 @@ export interface Recipe {
   url: string;
   name: string;
   description?: string;
-  imageUrl?: string;
   keywords?: Array<string>;
+  category?: string;
+  imageUrl?: string;
   prepTime?: string;
   cookTime?: string;
   totalTime?: string;
-  category?: string;
   cuisine?: string;
   ingredients: Array<string>;
   instructions: Array<Array<string>>;
