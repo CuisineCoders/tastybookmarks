@@ -29,26 +29,47 @@
       <section class="recipe-column" formArrayName="ingredients">
         <h2>Zutaten</h2>
         @for (ingredient of ingredients.controls; track ingredient) {
-          <mat-form-field>
-            <mat-label>Zutat</mat-label>
-            <input type="text" matInput [formControl]="ingredient">
-            <button mat-icon-button matSuffix>
-              <mat-icon>add</mat-icon>
-            </button>
-          </mat-form-field>
+          @if ($last) {
+            <mat-form-field>
+              <mat-label>Zutat</mat-label>
+              <input type="text" matInput [formControl]="ingredient" [tastyAutoFocus]="focusInput.ingredients">
+              <button type="button" mat-icon-button matSuffix (click)="addIngredient()" [disabled]="ingredient.invalid">
+                <mat-icon>add</mat-icon>
+              </button>
+            </mat-form-field>
+          } @else {
+            <mat-form-field>
+              <mat-label>Zutat</mat-label>
+              <input type="text" matInput [formControl]="ingredient">
+              <button type="button" mat-icon-button matSuffix (click)="deleteIngredient($index)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </mat-form-field>
+          }
         }
       </section>
 
       <section class="recipe-column" formArrayName="steps">
         <h2>Zubereitung</h2>
-        @for (step of steps.controls; track step) {
-          <mat-form-field>
-            <mat-label>Anleitungs Schritt</mat-label>
-            <textarea type="text" matInput [formControl]="step"></textarea>
-            <button mat-icon-button matSuffix>
-              <mat-icon>add</mat-icon>
-            </button>
-          </mat-form-field>
+        @for (step of instructions.controls; track step) {
+          @if ($last) {
+            <mat-form-field>
+              <mat-label>Anleitungs Schritt</mat-label>
+              <textarea type="text" matInput [formControl]="step" [tastyAutoFocus]="focusInput.instructions"></textarea>
+              <button type="button" mat-icon-button matSuffix (click)="addInstruction()" [disabled]="step.invalid">
+                <mat-icon>add</mat-icon>
+              </button>
+            </mat-form-field>
+          } @else {
+            <mat-form-field>
+              <mat-label>Anleitungs Schritt</mat-label>
+              <textarea #instructionInput type="text" matInput [formControl]="step"></textarea>
+              <button type="button" mat-icon-button matSuffix (click)="deleteInstruction($index)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </mat-form-field>
+          }
+
         }
       </section>
     </section>
