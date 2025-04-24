@@ -32,10 +32,14 @@
           @if ($last) {
             <mat-form-field>
               <mat-label>Zutat</mat-label>
-              <input type="text" matInput [formControl]="ingredient" [tastyAutoFocus]="focusInput.ingredients">
+              <input type="text" matInput [formControl]="ingredient" [tastyAutoFocus]="focusInput.ingredients"
+                     [required]="$first">
               <button type="button" mat-icon-button matSuffix (click)="addIngredient()" [disabled]="ingredient.invalid">
                 <mat-icon>add</mat-icon>
               </button>
+              @if (ingredient.invalid){
+                <mat-error>Dein Rezept braucht mindestens eine Zutat!</mat-error>
+              }
             </mat-form-field>
           } @else {
             <mat-form-field>
@@ -55,15 +59,19 @@
           @if ($last) {
             <mat-form-field>
               <mat-label>Anleitungs Schritt</mat-label>
-              <textarea type="text" matInput [formControl]="step" [tastyAutoFocus]="focusInput.instructions"></textarea>
+              <textarea type="text" matInput [formControl]="step" [tastyAutoFocus]="focusInput.instructions"
+                        [required]="$first"></textarea>
               <button type="button" mat-icon-button matSuffix (click)="addInstruction()" [disabled]="step.invalid">
                 <mat-icon>add</mat-icon>
               </button>
+              @if (step.invalid){
+                <mat-error>Dein Rezept braucht mindestens einen Zubereitungsschritt!</mat-error>
+              }
             </mat-form-field>
           } @else {
             <mat-form-field>
               <mat-label>Anleitungs Schritt</mat-label>
-              <textarea #instructionInput type="text" matInput [formControl]="step"></textarea>
+              <textarea type="text" matInput [formControl]="step"></textarea>
               <button type="button" mat-icon-button matSuffix (click)="deleteInstruction($index)">
                 <mat-icon>delete</mat-icon>
               </button>

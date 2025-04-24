@@ -1,7 +1,7 @@
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import {
-  AfterViewChecked, ChangeDetectionStrategy, Component, ElementRef, QueryList, ViewChildren,
-} from '@angular/core';
-import { AbstractControl, FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+  AbstractControl, FormArray, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, Validators,
+} from '@angular/forms';
 import { MatError, MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatButton, MatIconButton } from '@angular/material/button';
@@ -33,11 +33,11 @@ import { AutoFocusDirective } from '../../../shared/directives/auto-focus';
 })
 export class RecipeCreateComponent {
   protected readonly ingredients = new FormArray([
-    new FormControl<string>('', Validators.required),
+    new FormControl<string>(''),
   ]);
 
   protected readonly instructions = new FormArray([
-    new FormControl<string>('', Validators.required),
+    new FormControl<string>(''),
   ]);
 
 
@@ -76,7 +76,7 @@ export class RecipeCreateComponent {
   }
 
   protected addIngredient(): void {
-    this.ingredients.push(new FormControl<string>('', Validators.required));
+    this.ingredients.push(new FormControl<string>(''));
     this.focusInput = {ingredients: true, instructions: false}
   }
 
@@ -86,7 +86,7 @@ export class RecipeCreateComponent {
   }
 
   protected addInstruction(): void {
-    this.instructions.push(new FormControl('', Validators.required));
+    this.instructions.push(new FormControl(''));
     this.focusInput = {ingredients: false, instructions: true}
   }
 
@@ -104,3 +104,9 @@ const checkForNumberMinRequiredError = (source: AbstractControl, entity: string)
 const numberValidator = Validators.pattern(/^\d+$/);
 const optionalNumberValidator = (control: AbstractControl) => isNullOrUndefined(control.value) ? null : numberValidator(
   control);
+
+const arrayRequiredValidator = (control: AbstractControl) => {
+  let tmp = control.value.join().length > 1 ? null : { error: 'required' };
+  console.log(tmp)
+  return tmp;
+};
