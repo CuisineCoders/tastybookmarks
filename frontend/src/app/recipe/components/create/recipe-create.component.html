@@ -37,7 +37,7 @@
               <button type="button" mat-icon-button matSuffix (click)="addIngredient()" [disabled]="ingredient.invalid">
                 <mat-icon>add</mat-icon>
               </button>
-              @if (ingredient.invalid){
+              @if (ingredient.invalid) {
                 <mat-error>Dein Rezept braucht mindestens eine Zutat!</mat-error>
               }
             </mat-form-field>
@@ -64,7 +64,7 @@
               <button type="button" mat-icon-button matSuffix (click)="addInstruction()" [disabled]="step.invalid">
                 <mat-icon>add</mat-icon>
               </button>
-              @if (step.invalid){
+              @if (step.invalid) {
                 <mat-error>Dein Rezept braucht mindestens einen Zubereitungsschritt!</mat-error>
               }
             </mat-form-field>
@@ -126,14 +126,24 @@
     <section class="recipe-tags">
       <mat-form-field>
         <mat-label>Tags</mat-label>
-        <input type="text" matInput formControlName="tags" placeholder="Will be changed to chip input in a later step">
+        <mat-chip-grid #tagChipGrid formControlName="tags">
+          @for (tag of tags; track tag) {
+            <mat-chip-row (removed)="removeTag(tag)">
+              {{ tag }}
+              <button matChipRemove>
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip-row>
+          }
+        </mat-chip-grid>
+        <input placeholder="New tag..." [matChipInputFor]="tagChipGrid" (matChipInputTokenEnd)="addTag($event)" />
       </mat-form-field>
 
-      <mat-form-field>
-        <mat-label>Kategorien</mat-label>
-        <input type="text" matInput formControlName="categories"
-               placeholder="Will be changed to chip input in a later step">
-      </mat-form-field>
+      <!--      <mat-form-field>-->
+      <!--        <mat-label>Kategorien</mat-label>-->
+      <!--        <input type="text" matInput formControlName="categories"-->
+      <!--               placeholder="Will be changed to chip input in a later step">-->
+      <!--      </mat-form-field>-->
     </section>
   </section>
 </form>
