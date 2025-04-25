@@ -48,31 +48,31 @@ import {
 })
 export class RecipeCreateComponent {
   protected readonly ingredients = new FormArray([
-    new FormControl<string>(''),
+    new FormControl<string>('', {nonNullable: true}),
   ]);
 
   protected readonly instructions = new FormArray([
-    new FormControl<string>(''),
+    new FormControl<string>('', {nonNullable: true})
   ]);
 
 
   protected readonly createRecipeForm = new FormGroup({
-    name:        new FormControl<string>('', Validators.required),
+    name:        new FormControl<string>('', { validators: Validators.required, nonNullable: true }),
     description: new FormControl<string | undefined>(undefined),
 
-    servingSize: new FormControl<number>(1, [Validators.min(1), numberValidator, Validators.required]),
+    servingSize: new FormControl<number>(1, {validators: [Validators.min(1), numberValidator, Validators.required], nonNullable: true}),
     ingredients: this.ingredients,
     steps:       this.instructions,
 
-    prepTime: new FormControl<number>(1, [Validators.min(1), numberValidator, Validators.required]),
-    cookTime: new FormControl<number>(1, [Validators.min(1), numberValidator, Validators.required]),
+    prepTime: new FormControl<number>(1, {validators: [Validators.min(1), numberValidator, Validators.required], nonNullable: true}),
+    cookTime: new FormControl<number>(1, {validators: [Validators.min(1), numberValidator, Validators.required], nonNullable: true}),
 
     protein: new FormControl<number | undefined>(undefined, optionalNumberValidator),
     carbs:   new FormControl<number | undefined>(undefined, optionalNumberValidator),
     fat:     new FormControl<number | undefined>(undefined, optionalNumberValidator),
 
-    tags:       new FormControl<Array<string>>([], Validators.required),
-    categories: new FormControl('', Validators.required),
+    tags:       new FormControl<Array<string>>([], { validators: Validators.required, nonNullable: true }),
+    categories: new FormControl<Array<string>>([], { validators: Validators.required, nonNullable: true }),
   });
 
   protected isNameInvalid$ = this.createRecipeForm.get('name')!.events.pipe(
