@@ -100,7 +100,7 @@ export class RecipeCreateComponent {
   }
 
   protected addIngredient(): void {
-    this.ingredients.push(new FormControl<string>(''));
+    this.ingredients.push(new FormControl<string>('', {nonNullable: true}));
     this.focusInput = { ingredients: true, instructions: false };
   }
 
@@ -110,7 +110,7 @@ export class RecipeCreateComponent {
   }
 
   protected addInstruction(): void {
-    this.instructions.push(new FormControl(''));
+    this.instructions.push(new FormControl('', {nonNullable: true}));
     this.focusInput = { ingredients: false, instructions: true };
   }
 
