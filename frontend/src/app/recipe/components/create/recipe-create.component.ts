@@ -1,20 +1,27 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { AbstractControl, FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import {
+  AbstractControl, FormArray, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators,
+} from '@angular/forms';
 import { MatError, MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { isNullOrUndefined } from '../../../utils/type-checks';
-import { map } from 'rxjs';
+import { map, startWith } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { AutoFocusDirective } from '../../../shared/directives/auto-focus';
-import { MatChipEditedEvent, MatChipGrid, MatChipInput, MatChipInputEvent, MatChipRow } from '@angular/material/chips';
+import {
+  MatChipEditedEvent, MatChipGrid, MatChipInput, MatChipInputEvent, MatChipRemove, MatChipRow,
+} from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import {
+  MatAutocomplete, MatAutocompleteSelectedEvent, MatAutocompleteTrigger, MatOption,
+} from '@angular/material/autocomplete';
 
 @Component({
   selector:        'tasty-recipe-create',
   standalone:      true,
-  imports: [
+  imports:         [
     ReactiveFormsModule,
     MatFormField,
     MatLabel,
@@ -29,6 +36,11 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
     MatChipGrid,
     MatChipRow,
     MatChipInput,
+    MatChipRemove,
+    MatAutocomplete,
+    MatOption,
+    MatAutocompleteTrigger,
+    FormsModule,
   ],
   templateUrl:     './recipe-create.component.html',
   styleUrl:        './recipe-create.component.scss',
@@ -59,7 +71,7 @@ export class RecipeCreateComponent {
     carbs:   new FormControl<number | undefined>(undefined, optionalNumberValidator),
     fat:     new FormControl<number | undefined>(undefined, optionalNumberValidator),
 
-    tags:       new FormControl('', Validators.required),
+    tags:       new FormControl<Array<string>>([], Validators.required),
     categories: new FormControl('', Validators.required),
   });
 
@@ -73,8 +85,15 @@ export class RecipeCreateComponent {
     ?.pipe(map(({ source }) => checkForNumberMinRequiredError(source, 'Kochzeit')));
 
   protected focusInput = { ingredients: false, instructions: false };
-  protected tags: Array<string> = ['Frühstück', 'Mittagessen', 'Abendessen', 'Snack'];
-  protected separatorKeysCodes = [ENTER, COMMA] as const
+  protected separatorKeysCodes = [ENTER, COMMA] as const;
+  private allAvailableTags = ['Frühstück', 'Mittagessen', 'Snack', 'Abendessen'];
+  protected tags = signal<Array<string>>(this.createRecipeForm.get('tags')?.value ?? []);
+  protected currentTag = new FormControl<string>('', { nonNullable: true });
+  protected filteredTags$ = this.currentTag.valueChanges.pipe(
+    map((currentTag) => this.allAvailableTags.filter((tag) => tag.includes(currentTag))),
+    startWith(this.allAvailableTags),
+  );
+
 
   protected save(): void {
     console.log(`Save recipe: ${JSON.stringify(this.createRecipeForm.value)}`);
@@ -100,16 +119,38 @@ export class RecipeCreateComponent {
     this.focusInput = { ingredients: false, instructions: true };
   }
 
-  protected removeTag(tag: string): void {
-    this.tags.splice(this.tags.findIndex((t) => t === tag), 1);
-  }
-
-  protected editTag(tag: string, event: MatChipEditedEvent): void {
-    console.log(tag, event);
-  }
-
   protected addTag(event: MatChipInputEvent): void {
+    const value = (
+      event.value || ''
+    ).trim();
 
+    if (value) {
+      this.tags.update((existingTags) => existingTags.concat(value));
+    }
+
+    event.chipInput!.clear();
+  }
+
+  protected removeTag(tagToRemove: string): void {
+    this.tags.update((existingTags) => existingTags.filter((tag) => tag !== tagToRemove));
+  }
+
+
+  protected editTag(editTag: string, event: MatChipEditedEvent): void {
+    const newTag = event.value.trim();
+
+    if (!newTag) {
+      this.removeTag(editTag);
+      return;
+    }
+
+    this.tags.update((existingTags) => existingTags.map((tag) => tag === editTag ? newTag : tag));
+  }
+
+  protected selectedTag(event: MatAutocompleteSelectedEvent) {
+    this.tags.update((existingTags) => existingTags.concat(event.option.viewValue));
+    this.currentTag.setValue('');
+    event.option.deselect();
   }
 }
 
@@ -121,9 +162,3 @@ const checkForNumberMinRequiredError = (source: AbstractControl, entity: string)
 const numberValidator = Validators.pattern(/^\d+$/);
 const optionalNumberValidator = (control: AbstractControl) => isNullOrUndefined(control.value) ? null : numberValidator(
   control);
-
-const arrayRequiredValidator = (control: AbstractControl) => {
-  let tmp = control.value.join().length > 1 ? null : { error: 'required' };
-  console.log(tmp);
-  return tmp;
-};

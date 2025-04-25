@@ -126,17 +126,34 @@
     <section class="recipe-tags">
       <mat-form-field>
         <mat-label>Tags</mat-label>
-        <mat-chip-grid #tagChipGrid formControlName="tags">
-          @for (tag of tags; track tag) {
-            <mat-chip-row (removed)="removeTag(tag)">
-              {{ tag }}
+        <mat-chip-grid #chipGrid formControlName="tags">
+          @for(tag of tags(); track tag){
+            <mat-chip-row
+              (removed)="removeTag(tag)"
+              [editable]="true"
+              (edited)="editTag(tag,$event)"
+            >
+              {{tag}}
               <button matChipRemove>
                 <mat-icon>cancel</mat-icon>
               </button>
             </mat-chip-row>
           }
+          <input
+            placeholder="New fruit..."
+            matChipInputAddOnBlur
+            [formControl]="currentTag"
+            [matAutocomplete]="tagAutocomplete"
+            [matChipInputFor]="chipGrid"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            (matChipInputTokenEnd)="addTag($event)"
+          />
+          <mat-autocomplete #tagAutocomplete="matAutocomplete" (optionSelected)="selectedTag($event)">
+            @for (tag of (filteredTags$ | async); track tag) {
+              <mat-option [value]="tag">{{tag}}</mat-option>
+            }
+          </mat-autocomplete>
         </mat-chip-grid>
-        <input placeholder="New tag..." [matChipInputFor]="tagChipGrid" (matChipInputTokenEnd)="addTag($event)" />
       </mat-form-field>
 
       <!--      <mat-form-field>-->
