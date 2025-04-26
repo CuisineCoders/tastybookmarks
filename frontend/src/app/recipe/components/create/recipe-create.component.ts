@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, signal, ViewChild } from '@angular/core';
 import {
   AbstractControl, FormArray, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators,
 } from '@angular/forms';
@@ -17,11 +17,13 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import {
   MatAutocomplete, MatAutocompleteSelectedEvent, MatAutocompleteTrigger, MatOption,
 } from '@angular/material/autocomplete';
+import { moveItem } from '../../../utils/array';
+import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
   selector:        'tasty-recipe-create',
   standalone:      true,
-  imports:         [
+  imports: [
     ReactiveFormsModule,
     MatFormField,
     MatLabel,
@@ -41,18 +43,21 @@ import {
     MatOption,
     MatAutocompleteTrigger,
     FormsModule,
+    MatTooltip,
   ],
   templateUrl:     './recipe-create.component.html',
   styleUrl:        './recipe-create.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RecipeCreateComponent {
+export class RecipeCreateComponent implements AfterViewInit{
+  @ViewChild('tagAutocomplete') tagAutocomplete: MatAutocomplete | undefined;
+
   protected readonly ingredients = new FormArray([
-    new FormControl<string>('', {nonNullable: true}),
+    new FormControl<string>('', { nonNullable: true }),
   ]);
 
   protected readonly instructions = new FormArray([
-    new FormControl<string>('', {nonNullable: true})
+    new FormControl<string>('', { nonNullable: true }),
   ]);
 
 
@@ -60,19 +65,22 @@ export class RecipeCreateComponent {
     name:        new FormControl<string>('', { validators: Validators.required, nonNullable: true }),
     description: new FormControl<string | undefined>(undefined),
 
-    servingSize: new FormControl<number>(1, {validators: [Validators.min(1), numberValidator, Validators.required], nonNullable: true}),
+    servingSize: new FormControl<number>(
+      1, { validators: [Validators.min(1), numberValidator, Validators.required], nonNullable: true }),
     ingredients: this.ingredients,
     steps:       this.instructions,
 
-    prepTime: new FormControl<number>(1, {validators: [Validators.min(1), numberValidator, Validators.required], nonNullable: true}),
-    cookTime: new FormControl<number>(1, {validators: [Validators.min(1), numberValidator, Validators.required], nonNullable: true}),
+    prepTime: new FormControl<number>(
+      1, { validators: [Validators.min(1), numberValidator, Validators.required], nonNullable: true }),
+    cookTime: new FormControl<number>(
+      1, { validators: [Validators.min(1), numberValidator, Validators.required], nonNullable: true }),
 
     protein: new FormControl<number | undefined>(undefined, optionalNumberValidator),
     carbs:   new FormControl<number | undefined>(undefined, optionalNumberValidator),
     fat:     new FormControl<number | undefined>(undefined, optionalNumberValidator),
 
-    tags:       new FormControl<Array<string>>([], { validators: Validators.required, nonNullable: true }),
-    categories: new FormControl<Array<string>>([], { validators: Validators.required, nonNullable: true }),
+    tags: new FormControl<Array<string>>([], { validators: Validators.required, nonNullable: true }),
+    // categories: new FormControl<Array<string>>([], { validators: Validators.required, nonNullable: true }),
   });
 
   protected isNameInvalid$ = this.createRecipeForm.get('name')!.events.pipe(
@@ -90,17 +98,28 @@ export class RecipeCreateComponent {
   protected tags = signal<Array<string>>(this.createRecipeForm.get('tags')?.value ?? []);
   protected currentTag = new FormControl<string>('', { nonNullable: true });
   protected filteredTags$ = this.currentTag.valueChanges.pipe(
-    map((currentTag) => this.allAvailableTags.filter((tag) => tag.includes(currentTag))),
+    map((currentTag) => this.allAvailableTags.filter((tag) => tag.toLowerCase().includes(currentTag.toLowerCase()))),
     startWith(this.allAvailableTags),
   );
 
+  public ngAfterViewInit(): void {
+    this.tagAutocomplete?.optionSelected?.subscribe(()=> {
+      let partialTag = this.tags().at(-2)!;
+      if (this.tags().length > 1){
+        this.removeTag(partialTag)
+      }
+    });
+  }
 
   protected save(): void {
+    if (this.createRecipeForm.invalid){
+      return;
+    }
     console.log(`Save recipe: ${JSON.stringify(this.createRecipeForm.value)}`);
   }
 
   protected addIngredient(): void {
-    this.ingredients.push(new FormControl<string>('', {nonNullable: true}));
+    this.ingredients.push(new FormControl<string>('', { nonNullable: true }));
     this.focusInput = { ingredients: true, instructions: false };
   }
 
@@ -110,7 +129,7 @@ export class RecipeCreateComponent {
   }
 
   protected addInstruction(): void {
-    this.instructions.push(new FormControl('', {nonNullable: true}));
+    this.instructions.push(new FormControl('', { nonNullable: true }));
     this.focusInput = { ingredients: false, instructions: true };
   }
 
@@ -120,12 +139,12 @@ export class RecipeCreateComponent {
   }
 
   protected addTag(event: MatChipInputEvent): void {
-    const value = (
+    const newTag = (
       event.value || ''
     ).trim();
 
-    if (value) {
-      this.tags.update((existingTags) => existingTags.concat(value));
+    if (newTag) {
+      this.tags.update((existingTags) => existingTags.concat(newTag));
     }
 
     event.chipInput!.clear();
@@ -134,7 +153,6 @@ export class RecipeCreateComponent {
   protected removeTag(tagToRemove: string): void {
     this.tags.update((existingTags) => existingTags.filter((tag) => tag !== tagToRemove));
   }
-
 
   protected editTag(editTag: string, event: MatChipEditedEvent): void {
     const newTag = event.value.trim();
@@ -148,7 +166,14 @@ export class RecipeCreateComponent {
   }
 
   protected selectedTag(event: MatAutocompleteSelectedEvent) {
-    this.tags.update((existingTags) => existingTags.concat(event.option.viewValue));
+    this.tags.update((existingTags) => {
+      const idx = existingTags.findIndex((tag) => tag === event.option.viewValue);
+      if (idx > -1) {
+        return moveItem(existingTags, idx, existingTags.length - 1);
+      }
+      return existingTags.concat(event.option.viewValue);
+    });
+
     this.currentTag.setValue('');
     event.option.deselect();
   }
