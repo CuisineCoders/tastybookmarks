@@ -24,10 +24,10 @@ export interface Recipe {
     description?: string;
     imageUrl?: string;
     keywords?: Array<string>;
+    category?: string;
     prepTime?: string;
     cookTime?: string;
     totalTime?: string;
-    category?: string;
     cuisine?: string;
     servingSize?: number;
     nutrition?: NutritionInformation;
