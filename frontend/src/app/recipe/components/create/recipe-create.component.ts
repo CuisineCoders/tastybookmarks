@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, signal, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal, ViewChild } from '@angular/core';
 import {
   AbstractControl, FormArray, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators,
 } from '@angular/forms';
@@ -19,11 +19,12 @@ import {
 } from '@angular/material/autocomplete';
 import { moveItem } from '../../../utils/array';
 import { MatTooltip } from '@angular/material/tooltip';
+import { MatSelect } from '@angular/material/select';
 
 @Component({
   selector:        'tasty-recipe-create',
   standalone:      true,
-  imports: [
+  imports:         [
     ReactiveFormsModule,
     MatFormField,
     MatLabel,
@@ -44,12 +45,13 @@ import { MatTooltip } from '@angular/material/tooltip';
     MatAutocompleteTrigger,
     FormsModule,
     MatTooltip,
+    MatSelect,
   ],
   templateUrl:     './recipe-create.component.html',
   styleUrl:        './recipe-create.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RecipeCreateComponent implements AfterViewInit{
+export class RecipeCreateComponent {
   @ViewChild('tagAutocomplete') tagAutocomplete: MatAutocomplete | undefined;
 
   protected readonly ingredients = new FormArray([
@@ -59,7 +61,6 @@ export class RecipeCreateComponent implements AfterViewInit{
   protected readonly instructions = new FormArray([
     new FormControl<string>('', { nonNullable: true }),
   ]);
-
 
   protected readonly createRecipeForm = new FormGroup({
     name:        new FormControl<string>('', { validators: Validators.required, nonNullable: true }),
@@ -79,8 +80,8 @@ export class RecipeCreateComponent implements AfterViewInit{
     carbs:   new FormControl<number | undefined>(undefined, optionalNumberValidator),
     fat:     new FormControl<number | undefined>(undefined, optionalNumberValidator),
 
-    tags: new FormControl<Array<string>>([], { validators: Validators.required, nonNullable: true }),
-    // categories: new FormControl<Array<string>>([], { validators: Validators.required, nonNullable: true }),
+    tags:     new FormControl<Array<string>>([], { validators: Validators.required, nonNullable: true }),
+    category: new FormControl<string>('', { validators: Validators.required, nonNullable: true }),
   });
 
   protected isNameInvalid$ = this.createRecipeForm.get('name')!.events.pipe(
@@ -102,19 +103,7 @@ export class RecipeCreateComponent implements AfterViewInit{
     startWith(this.allAvailableTags),
   );
 
-  public ngAfterViewInit(): void {
-    this.tagAutocomplete?.optionSelected?.subscribe(()=> {
-      let partialTag = this.tags().at(-2)!;
-      if (this.tags().length > 1){
-        this.removeTag(partialTag)
-      }
-    });
-  }
-
   protected save(): void {
-    if (this.createRecipeForm.invalid){
-      return;
-    }
     console.log(`Save recipe: ${JSON.stringify(this.createRecipeForm.value)}`);
   }
 
@@ -139,6 +128,11 @@ export class RecipeCreateComponent implements AfterViewInit{
   }
 
   protected addTag(event: MatChipInputEvent): void {
+    if (this.tagAutocomplete?.isOpen){
+      event.chipInput!.clear();
+      return;
+    }
+
     const newTag = (
       event.value || ''
     ).trim();
@@ -173,8 +167,6 @@ export class RecipeCreateComponent implements AfterViewInit{
       }
       return existingTags.concat(event.option.viewValue);
     });
-
-    this.currentTag.setValue('');
     event.option.deselect();
   }
 }

@@ -127,13 +127,13 @@
       <mat-form-field>
         <mat-label>Tags</mat-label>
         <mat-chip-grid #chipGrid formControlName="tags">
-          @for(tag of tags(); track tag){
+          @for (tag of tags(); track tag) {
             <mat-chip-row
               (removed)="removeTag(tag)"
               [editable]="true"
               (edited)="editTag(tag,$event)"
             >
-              {{tag}}
+              {{ tag }}
               <button matChipRemove>
                 <mat-icon>cancel</mat-icon>
               </button>
@@ -150,23 +150,26 @@
           />
           <mat-autocomplete #tagAutocomplete="matAutocomplete" (optionSelected)="selectedTag($event)">
             @for (tag of (filteredTags$ | async); track tag) {
-              <mat-option [value]="tag">{{tag}}</mat-option>
+              <mat-option [value]="tag">{{ tag }}</mat-option>
             }
           </mat-autocomplete>
         </mat-chip-grid>
       </mat-form-field>
 
-      <!--      <mat-form-field>-->
-      <!--        <mat-label>Kategorien</mat-label>-->
-      <!--        <input type="text" matInput formControlName="categories"-->
-      <!--               placeholder="Will be changed to chip input in a later step">-->
-      <!--      </mat-form-field>-->
+      <mat-form-field>
+        <mat-label>Kategorie</mat-label>
+        <mat-select formControlName="category">
+          @for (tag of tags(); track tag) {
+            <mat-option [value]="tag">{{ tag }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
     </section>
   </section>
 </form>
 
-@if (this.createRecipeForm.invalid){
+@if (this.createRecipeForm.invalid) {
   <button mat-button disabled disabledInteractive matTooltip="Gib erst alle benötigten Daten ein!">Speichern</button>
 } @else {
-  <button mat-button (click)="save()" >Speichern</button>
+  <button mat-button (click)="save()">Speichern</button>
 }
