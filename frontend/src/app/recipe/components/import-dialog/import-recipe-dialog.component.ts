@@ -7,14 +7,16 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector:        'tasty-add-recipe-dialog',
+  selector:        'tasty-import-recipe-dialog',
   standalone:      true,
-  imports:         [MatButtonModule, MatFormFieldModule, MatInputModule, MatDialogModule, MatIconModule, ReactiveFormsModule],
-  templateUrl:     './add-recipe-dialog.component.html',
-  styleUrls:       ['./add-recipe-dialog.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  imports:         [
+    MatButtonModule, MatFormFieldModule, MatInputModule, MatDialogModule, MatIconModule, ReactiveFormsModule,
+  ],
+  templateUrl:     './import-recipe-dialog.component.html',
+  styleUrls:       ['./import-recipe-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AddRecipeDialogComponent {
+export class ImportRecipeDialogComponent {
   private regexUrlDetection = /^(?:http(s)?:\/\/)?[a-zA-ZäöüÄÖÜß0-9.-]+(?:\.[a-zA-ZäöüÄÖÜß0-9\.-]+)+[a-zA-ZäöüÄÖÜß0-9\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
   protected urlFormControl = new FormControl('', [Validators.required, Validators.pattern(this.regexUrlDetection)]);
 }
